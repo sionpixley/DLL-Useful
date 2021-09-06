@@ -8,10 +8,11 @@
     <Company>PTC</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryType>GitHub</RepositoryType>
-    <RepositoryUrl>https://github.com/sionpixley/DLL-Useful</RepositoryUrl>
+    <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageReleaseNotes>Added Sion.Useful.DecimalMethods.Truncate().</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Sion.DateTimeMethods class.</PackageReleaseNotes>
     <Description>NuGet package of useful methods.</Description>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
