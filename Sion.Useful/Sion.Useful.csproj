@@ -3,23 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile></PackageLicenseFile>
     <RepositoryType>GitHub</RepositoryType>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReleaseNotes>Added Sion.DateTimeMethods class.</PackageReleaseNotes>
     <Description>NuGet package of useful methods.</Description>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>
