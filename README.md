@@ -8,4 +8,4 @@ public static long GetUnixMillisecondsNow(); <br>
 public static long GetUnixSecondsNow();
 
 ## Sion.Useful.DecimalMethods
-public static decimal Truncate(decimal d, int precision = 4);
+public static decimal Truncate(decimal d, int precision);

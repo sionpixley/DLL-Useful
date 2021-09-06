@@ -3,7 +3,7 @@
 namespace Sion.Useful {
 	public static class DecimalMethods {
 		// Drops decimal points without rounding.
-		public static decimal Truncate(decimal d, int precision = 4) {
+		public static decimal Truncate(decimal d, int precision) {
 			string strD = d.ToString();
 			int index = strD.IndexOf('.');
 
