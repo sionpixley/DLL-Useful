@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sion.Useful.Tests {
 	[TestClass]
@@ -17,7 +15,7 @@ namespace Sion.Useful.Tests {
 				graph.AddNodes(node1, node2);
 				graph.AddEdge(node1, node2, 3);
 				bool wasSuccessful = (
-					node1.Neighbors.Contains(node2) && node1.Weights.Count > 0 
+					node1.Neighbors.Contains(node2) && node1.Weights.Count > 0
 					&& node2.Neighbors.Contains(node1) && node2.Weights.Count > 0
 				);
 				Assert.IsTrue(wasSuccessful);
@@ -129,7 +127,7 @@ namespace Sion.Useful.Tests {
 				graph.AddEdge(node1, node2, 7);
 				graph.RemoveEdge(node1, node2);
 				bool wasSuccessful = (
-					!node1.Neighbors.Contains(node2) && node1.Weights.Count == 0 
+					!node1.Neighbors.Contains(node2) && node1.Weights.Count == 0
 					&& !node2.Neighbors.Contains(node1) && node2.Weights.Count == 0
 				);
 				Assert.IsTrue(wasSuccessful);

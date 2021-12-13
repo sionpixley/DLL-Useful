@@ -1,9 +1,5 @@
 ﻿using Sion.Useful.Classes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sion.Useful.Interfaces {
 	public interface IGraph<T> {

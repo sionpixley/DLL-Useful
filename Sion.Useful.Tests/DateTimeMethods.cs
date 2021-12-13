@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sion.Useful.Tests {
 	[TestClass]
@@ -13,7 +9,7 @@ namespace Sion.Useful.Tests {
 			try {
 				DateTime date = Convert.ToDateTime("2000-01-01T00:00:00.000Z").ToUniversalTime();
 				long actual = 946684800000;
-				long result = Methods.DateTimeMethods.ConvertToUnixMilliseconds(date);
+				long result = Sion.Useful.DateTimeMethods.ConvertToUnixMilliseconds(date);
 				Assert.AreEqual(actual, result);
 			}
 			catch(Exception e) {
@@ -26,7 +22,7 @@ namespace Sion.Useful.Tests {
 			try {
 				DateTime date = Convert.ToDateTime("2000-01-01T00:00:00.000Z").ToUniversalTime();
 				long actual = 946684800;
-				long result = Methods.DateTimeMethods.ConvertToUnixSeconds(date);
+				long result = Sion.Useful.DateTimeMethods.ConvertToUnixSeconds(date);
 				Assert.AreEqual(actual, result);
 			}
 			catch(Exception e) {
