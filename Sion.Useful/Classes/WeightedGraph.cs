@@ -1,9 +1,6 @@
 ﻿using Sion.Useful.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sion.Useful.Classes {
 	public class WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight> {

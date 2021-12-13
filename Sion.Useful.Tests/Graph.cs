@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sion.Useful.Tests {
 	[TestClass]
@@ -130,7 +128,7 @@ namespace Sion.Useful.Tests {
 				List<Classes.Node<int>> expected = new() { node1, node2, node3, node4 };
 				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
 			}
-			catch(Exception e) { 
+			catch(Exception e) {
 				Assert.Fail(e.Message);
 			}
 		}
@@ -180,7 +178,7 @@ namespace Sion.Useful.Tests {
 				List<Classes.Node<int>> expected = new() { node2, node1, node3, node4 };
 				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
 			}
-			catch(Exception e) { 
+			catch(Exception e) {
 				Assert.Fail(e.Message);
 			}
 		}

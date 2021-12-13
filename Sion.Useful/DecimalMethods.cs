@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sion.Useful.Methods {
+namespace Sion.Useful {
 	public static class DecimalMethods {
 		// Drops decimal points without rounding.
 		public static decimal Truncate(decimal d, int precision) {
