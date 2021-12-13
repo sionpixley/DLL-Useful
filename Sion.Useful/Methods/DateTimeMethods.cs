@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sion.Useful {
+namespace Sion.Useful.Methods {
 	public static class DateTimeMethods {
 		public static long ConvertToUnixMilliseconds(DateTime date) {
 			DateTimeOffset offset = new(date);
