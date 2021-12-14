@@ -126,7 +126,7 @@ namespace Sion.Useful.Tests {
 				graph.AddEdge(node1, node2);
 				graph.AddEdge(node1, node3);
 				graph.AddEdge(node2, node4);
-				Queue<Classes.Node<int>> dfs = graph.DepthFirstSearch();
+				IEnumerable<Classes.Node<int>> dfs = graph.DepthFirstSearch();
 				List<Classes.Node<int>> expected = new() { node1, node2, node4, node3 };
 				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
 			}
@@ -139,8 +139,8 @@ namespace Sion.Useful.Tests {
 		public void Test_DepthFirstSearch_Empty() {
 			try {
 				Classes.DirectedGraph<int> graph = new();
-				Queue<Classes.Node<int>> dfs = graph.DepthFirstSearch();
-				Assert.AreEqual(dfs.Count, 0);
+				IEnumerable<Classes.Node<int>> dfs = graph.DepthFirstSearch();
+				Assert.AreEqual(dfs.Count(), 0);
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);
@@ -176,7 +176,7 @@ namespace Sion.Useful.Tests {
 				graph.AddEdge(node3, node2);
 				graph.AddEdge(node2, node1);
 				graph.AddEdge(node2, node4);
-				Queue<Classes.Node<int>> dfs = graph.DepthFirstSearch(node3);
+				IEnumerable<Classes.Node<int>> dfs = graph.DepthFirstSearch(node3);
 				List<Classes.Node<int>> expected = new() { node3, node2, node1, node4 };
 				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
 			}

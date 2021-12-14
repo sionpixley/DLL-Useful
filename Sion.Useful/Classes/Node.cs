@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sion.Useful.Classes {
-	public class Node<T> {
+	public class Node<T> where T : IEquatable<T>, IComparable<T> {
 		public T Value { get; set; }
 		public bool HasBeenVisited { get; set; }
 		public List<Node<T>> Neighbors { get; set; }

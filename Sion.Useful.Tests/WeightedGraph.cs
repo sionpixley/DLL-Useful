@@ -118,6 +118,77 @@ namespace Sion.Useful.Tests {
 		}
 
 		[TestMethod]
+		public void Test_DepthFirstSearch_Default() {
+			try {
+				Classes.WeightedGraph<int, int> graph = new();
+				Classes.WeightedNode<int, int> node1 = new(1);
+				Classes.WeightedNode<int, int> node2 = new(2);
+				Classes.WeightedNode<int, int> node3 = new(3);
+				Classes.WeightedNode<int, int> node4 = new(4);
+				graph.AddNodes(node1, node2, node3, node4);
+				graph.AddEdge(node1, node2, 3);
+				graph.AddEdge(node1, node3, 4);
+				graph.AddEdge(node1, node4, 6);
+				graph.AddEdge(node3, node4, 1);
+				IEnumerable<Classes.WeightedNode<int, int>> dfs = graph.DepthFirstSearch();
+				List<Classes.WeightedNode<int, int>> expected = new() { node1, node2, node3, node4 };
+				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void Test_DepthFirstSearch_Empty() {
+			try {
+				Classes.WeightedGraph<int, int> graph = new();
+				IEnumerable<Classes.WeightedNode<int, int>> dfs = graph.DepthFirstSearch();
+				Assert.AreEqual(dfs.Count(), 0);
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void Test_DepthFirstSearch_NotExisting() {
+			try {
+				Classes.WeightedGraph<int, int> graph = new();
+				Classes.WeightedNode<int, int> node = new();
+				graph.DepthFirstSearch(node);
+			}
+			catch(BehindScenes.Exception ge) {
+				Assert.AreEqual(ge.Code, Enums.ExceptionCode.RootProvidedDoesNotExist);
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void Test_DepthFirstSearch_RootProvided() {
+			try {
+				Classes.WeightedGraph<int, int> graph = new();
+				Classes.WeightedNode<int, int> node1 = new(1);
+				Classes.WeightedNode<int, int> node2 = new(2);
+				Classes.WeightedNode<int, int> node3 = new(3);
+				Classes.WeightedNode<int, int> node4 = new(4);
+				graph.AddNodes(node1, node2, node3, node4);
+				graph.AddEdge(node1, node2, 3);
+				graph.AddEdge(node1, node3, 4);
+				graph.AddEdge(node1, node4, 6);
+				graph.AddEdge(node3, node4, 1);
+				IEnumerable<Classes.WeightedNode<int, int>> dfs = graph.DepthFirstSearch(node3);
+				List<Classes.WeightedNode<int, int>> expected = new() { node3, node4, node1, node2 };
+				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
 		public void Test_RemoveEdge() {
 			try {
 				Classes.WeightedGraph<int, int> graph = new();

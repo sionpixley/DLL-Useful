@@ -124,7 +124,7 @@ namespace Sion.Useful.Tests {
 				graph.AddEdge(node1, node2);
 				graph.AddEdge(node1, node3);
 				graph.AddEdge(node3, node4);
-				Queue<Classes.Node<int>> dfs = graph.DepthFirstSearch();
+				IEnumerable<Classes.Node<int>> dfs = graph.DepthFirstSearch();
 				List<Classes.Node<int>> expected = new() { node1, node2, node3, node4 };
 				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
 			}
@@ -137,8 +137,8 @@ namespace Sion.Useful.Tests {
 		public void Test_DepthFirstSearch_Empty() {
 			try {
 				Classes.Graph<int> graph = new();
-				Queue<Classes.Node<int>> dfs = graph.DepthFirstSearch();
-				Assert.AreEqual(dfs.Count, 0);
+				IEnumerable<Classes.Node<int>> dfs = graph.DepthFirstSearch();
+				Assert.AreEqual(dfs.Count(), 0);
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);
@@ -152,13 +152,11 @@ namespace Sion.Useful.Tests {
 				Classes.Node<int> node = new();
 				graph.DepthFirstSearch(node);
 			}
+			catch(BehindScenes.Exception ge) {
+				Assert.AreEqual(ge.Code, Enums.ExceptionCode.RootProvidedDoesNotExist);
+			}
 			catch(Exception e) {
-				if(e.Message == "Root provided does not exist in the graph.") {
-					Assert.IsTrue(true);
-				}
-				else {
-					Assert.Fail(e.Message);
-				}
+				Assert.Fail(e.Message);
 			}
 		}
 
@@ -174,7 +172,7 @@ namespace Sion.Useful.Tests {
 				graph.AddEdge(node1, node2);
 				graph.AddEdge(node1, node3);
 				graph.AddEdge(node3, node4);
-				Queue<Classes.Node<int>> dfs = graph.DepthFirstSearch(node2);
+				IEnumerable<Classes.Node<int>> dfs = graph.DepthFirstSearch(node2);
 				List<Classes.Node<int>> expected = new() { node2, node1, node3, node4 };
 				Assert.IsTrue(Enumerable.SequenceEqual(dfs, expected));
 			}

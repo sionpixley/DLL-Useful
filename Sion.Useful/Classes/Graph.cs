@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Sion.Useful.Classes {
-	public class Graph<T> : IGraph<T> {
+	public class Graph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
 		public Graph() {
@@ -55,23 +55,23 @@ namespace Sion.Useful.Classes {
 			NodeSet.Clear();
 		}
 
-		public Queue<Node<T>> DepthFirstSearch() {
+		public IEnumerable<Node<T>> DepthFirstSearch() {
 			if(NodeSet.Count == 0) {
-				return new Queue<Node<T>>();
+				return new List<Node<T>>();
 			}
 			else {
 				return DepthFirstSearch(NodeSet[0]);
 			}
 		}
 
-		public Queue<Node<T>> DepthFirstSearch(Node<T> root) {
+		public IEnumerable<Node<T>> DepthFirstSearch(Node<T> root) {
 			if(!NodeSet.Contains(root)) {
-				throw new Exception("Root provided does not exist in the graph.");
+				throw new BehindScenes.Exception(Enums.ExceptionCode.RootProvidedDoesNotExist, "Root provided does not exist in the graph.");
 			}
 
-			Queue<Node<T>> result = new();
+			List<Node<T>> result = new();
 			root.HasBeenVisited = true;
-			result.Enqueue(root);
+			result.Add(root);
 
 			Stack<Node<T>> order = new();
 			order.Push(root);
@@ -85,10 +85,9 @@ namespace Sion.Useful.Classes {
 					current = order.Pop();
 				}
 				else {
-					IEnumerable<Node<T>> notVisited = current.Neighbors.Where(n => !n.HasBeenVisited);
-					current = notVisited.First();
+					current = current.Neighbors.Where(n => !n.HasBeenVisited).First();
 					current.HasBeenVisited = true;
-					result.Enqueue(current);
+					result.Add(current);
 					order.Push(current);
 				}
 			}
