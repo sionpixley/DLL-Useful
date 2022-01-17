@@ -157,10 +157,8 @@ namespace Sion.Useful.Tests {
 			try {
 				Classes.WeightedDirectedGraph<int, int> graph = new();
 				Classes.WeightedNode<int, int> node = new();
-				graph.DepthFirstSearch(node);
-			}
-			catch(BehindScenes.Exception ge) {
-				Assert.AreEqual(ge.Code, Enums.ExceptionCode.RootProvidedDoesNotExist);
+				List<Classes.WeightedNode<int, int>> dfs = graph.DepthFirstSearch(node).ToList();
+				Assert.AreEqual(dfs.Count, 0);
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);

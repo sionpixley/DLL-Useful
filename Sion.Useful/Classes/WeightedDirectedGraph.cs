@@ -74,7 +74,7 @@ namespace Sion.Useful.Classes {
 
 			public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch(WeightedNode<TValue, TWeight> root) {
 				if(!NodeSet.Contains(root)) {
-					throw new BehindScenes.Exception(Enums.ExceptionCode.RootProvidedDoesNotExist, "Root provided does not exist in the graph.");
+					return new List<WeightedNode<TValue, TWeight>>();
 				}
 
 				List<WeightedNode<TValue, TWeight>> result = new();

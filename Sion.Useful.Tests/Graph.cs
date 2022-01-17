@@ -150,10 +150,8 @@ namespace Sion.Useful.Tests {
 			try {
 				Classes.Graph<int> graph = new();
 				Classes.Node<int> node = new();
-				graph.DepthFirstSearch(node);
-			}
-			catch(BehindScenes.Exception ge) {
-				Assert.AreEqual(ge.Code, Enums.ExceptionCode.RootProvidedDoesNotExist);
+				List<Classes.Node<int>> dfs = graph.DepthFirstSearch(node).ToList();
+				Assert.AreEqual(dfs.Count, 0);
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);

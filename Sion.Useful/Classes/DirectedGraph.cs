@@ -65,7 +65,7 @@ namespace Sion.Useful.Classes {
 
 		public IEnumerable<Node<T>> DepthFirstSearch(Node<T> root) {
 			if(!NodeSet.Contains(root)) {
-				throw new BehindScenes.Exception(Enums.ExceptionCode.RootProvidedDoesNotExist, "Root provided does not exist in the graph.");
+				return new List<Node<T>>();
 			}
 
 			List<Node<T>> result = new();
