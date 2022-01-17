@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Sion Pixley</Authors>
@@ -10,9 +10,9 @@
     <RepositoryType>GitHub</RepositoryType>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageReleaseNotes>Added Sion.DateTimeMethods class.</PackageReleaseNotes>
+    <PackageReleaseNotes>New structure to the project. Some (limited) graph abilities.</PackageReleaseNotes>
     <Description>NuGet package of useful methods.</Description>
-    <Version>1.1.2</Version>
+    <Version>2.0.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

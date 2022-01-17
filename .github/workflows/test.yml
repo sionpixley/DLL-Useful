@@ -1,11 +1,11 @@
-name: .NET
+name: Unit Tests
 
 on:
   push:
     branches: [ main, dev ]
 
 jobs:
-  build:
+  build-and-test:
 
     runs-on: windows-2022
 
