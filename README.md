@@ -2,7 +2,7 @@
 NuGet package of useful methods. 
 
 ## Sion.Useful.Classes
-DirectedGraph<T> : IGraph<T> <br>
+DirectedGraph\<T> : IGraph<T> <br>
 Graph<T> : IGraph<T> <br>
 Node<T> <br>
 WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight> <br>
