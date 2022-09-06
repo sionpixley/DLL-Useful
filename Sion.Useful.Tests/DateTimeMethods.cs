@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Sion.Useful.Tests {
+namespace Tests {
 	[TestClass]
 	public class DateTimeMethods {
 		[TestMethod]
