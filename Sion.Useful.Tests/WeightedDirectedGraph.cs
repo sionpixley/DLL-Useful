@@ -7,7 +7,7 @@ namespace Tests {
 	[TestClass]
 	public class WeightedDirectedGraph {
 		[TestMethod]
-		public void Test_AddEdge() {
+		public void AddEdge() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> fromNode = new();
@@ -23,7 +23,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_AddEdge_Existing() {
+		public void AddEdge_Existing() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> fromNode = new();
@@ -39,7 +39,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_AddNode() {
+		public void AddNode() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node = new();
@@ -53,7 +53,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_AddNode_Existing() {
+		public void AddNode_Existing() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node = new();
@@ -67,7 +67,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_AddNodes_IEnumerable() {
+		public void AddNodes_IEnumerable() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node1 = new();
@@ -83,7 +83,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_AddNodes_Params() {
+		public void AddNodes_Params() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node1 = new();
@@ -98,7 +98,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_Clear() {
+		public void Clear() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node1 = new();
@@ -115,7 +115,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_DepthFirstSearch_Default() {
+		public void DepthFirstSearch_Default() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node1 = new(1);
@@ -141,7 +141,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_DepthFirstSearch_Empty() {
+		public void DepthFirstSearch_Empty() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				IEnumerable<Sion.Useful.Classes.WeightedNode<int, int>> dfs = graph.DepthFirstSearch();
@@ -153,7 +153,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_DepthFirstSearch_NotExisting() {
+		public void DepthFirstSearch_NotExisting() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node = new();
@@ -166,7 +166,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_DepthFirstSearch_RootProvided() {
+		public void DepthFirstSearch_RootProvided() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node1 = new(1);
@@ -192,7 +192,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_RemoveEdge() {
+		public void RemoveEdge() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> fromNode = new();
@@ -209,7 +209,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_RemoveEdge_NotExisting() {
+		public void RemoveEdge_NotExisting() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> fromNode = new();
@@ -224,7 +224,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_RemoveNode() {
+		public void RemoveNode() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node = new();
@@ -239,7 +239,7 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Test_RemoveNode_NotExisting() {
+		public void RemoveNode_NotExisting() {
 			try {
 				Sion.Useful.Classes.WeightedDirectedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node = new();

@@ -5,7 +5,7 @@ namespace Tests {
 	[TestClass]
 	public class DecimalMethods {
 		[TestMethod]
-		public void Test_Truncate() {
+		public void Truncate() {
 			try {
 				decimal d = 10.9872m;
 				decimal trunc = Sion.Useful.DecimalMethods.Truncate(d, 2);
