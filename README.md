@@ -21,3 +21,6 @@ public static decimal Truncate(decimal d, int precision)
 ## Sion.Useful.Interfaces
 IGraph\<T> <br>
 IWeightedGraph\<TValue, TWeight>
+
+## Sion.Useful.StringMethods
+public static string Base64ToUtf8(string base64)
