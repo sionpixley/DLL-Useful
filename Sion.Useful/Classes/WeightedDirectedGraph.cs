@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Sion.Useful.Classes {
 	public class WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
@@ -75,32 +76,32 @@ namespace Sion.Useful.Classes {
 			public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch(WeightedNode<TValue, TWeight> root) {
 				if(!NodeSet.Contains(root)) {
 					return new List<WeightedNode<TValue, TWeight>>();
-				}
+				}	
 
-				List<WeightedNode<TValue, TWeight>> result = new();
-				root.HasBeenVisited = true;
-				result.Add(root);
-
-				Stack<WeightedNode<TValue, TWeight>> order = new();
-				order.Push(root);
+				List<WeightedNode<TValue, TWeight>> dfs = new();
+				Stack<WeightedNode<TValue, TWeight>> visit = new();
 
 				WeightedNode<TValue, TWeight> current = root;
-				while(NodeSet.Any(node => !node.HasBeenVisited)) {
-					if(current.Neighbors.All(n => n.HasBeenVisited) && order.Count == 0) {
+				current.HasBeenVisited = true;
+				dfs.Add(current);
+
+				while(true) {
+					if(current.Neighbors.All(n => n.HasBeenVisited) && current == root) {
 						break;
 					}
 					else if(current.Neighbors.All(n => n.HasBeenVisited)) {
-						current = order.Pop();
+						current = visit.Pop();
 					}
 					else {
+						visit.Push(current);
 						current = current.Neighbors.Where(n => !n.HasBeenVisited).First();
 						current.HasBeenVisited = true;
-						result.Add(current);
-						order.Push(current);
+						dfs.Add(current);
 					}
 				}
 
-				return result;
+				ResetVisited();
+				return dfs;
 			}
 
 			public bool RemoveEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode) {
@@ -132,6 +133,21 @@ namespace Sion.Useful.Classes {
 					NodeSet.Remove(node);
 					return true;
 				}
+			}
+
+			public void ResetVisited() {
+				foreach(var node in NodeSet) {
+					node.HasBeenVisited = false;
+				}
+			}
+
+			public override string ToString() {
+				StringBuilder sb = new();
+				foreach(var node in NodeSet) {
+					sb.Append($"[{node.ToString()}],");
+				}
+				sb.Remove(sb.Length - 1, 1);
+				return sb.ToString();
 			}
 	}
 }

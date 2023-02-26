@@ -118,7 +118,26 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void TDepthFirstSearch_Default() {
+		public void CustomToString() {
+			try {
+				Sion.Useful.Classes.WeightedGraph<int, int> graph = new();
+				Sion.Useful.Classes.WeightedNode<int, int> node1 = new(1);
+				Sion.Useful.Classes.WeightedNode<int, int> node2 = new(2);
+				graph.AddNodes(node1, node2);
+				graph.AddEdge(node1, node2, 5);
+
+				string expected = "[1],[2]";
+				string result = graph.ToString();
+
+				Assert.AreEqual(expected, result);
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void DepthFirstSearch_Default() {
 			try {
 				Sion.Useful.Classes.WeightedGraph<int, int> graph = new();
 				Sion.Useful.Classes.WeightedNode<int, int> node1 = new(1);

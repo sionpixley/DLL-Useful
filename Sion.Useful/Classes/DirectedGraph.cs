@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Sion.Useful.Classes {
 	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
@@ -68,30 +69,30 @@ namespace Sion.Useful.Classes {
 				return new List<Node<T>>();
 			}
 
-			List<Node<T>> result = new();
-			root.HasBeenVisited = true;
-			result.Add(root);
-
-			Stack<Node<T>> order = new();
-			order.Push(root);
+			List<Node<T>> dfs = new();
+			Stack<Node<T>> visit = new();
 
 			Node<T> current = root;
-			while(NodeSet.Any(node => !node.HasBeenVisited)) {
-				if(current.Neighbors.All(n => n.HasBeenVisited) && order.Count == 0) {
+			current.HasBeenVisited = true;
+			dfs.Add(current);
+
+			while(true) {
+				if(current.Neighbors.All(n => n.HasBeenVisited) && current == root) {
 					break;
 				}
 				else if(current.Neighbors.All(n => n.HasBeenVisited)) {
-					current = order.Pop();
+					current = visit.Pop();
 				}
 				else {
+					visit.Push(current);
 					current = current.Neighbors.Where(n => !n.HasBeenVisited).First();
 					current.HasBeenVisited = true;
-					result.Add(current);
-					order.Push(current);
+					dfs.Add(current);
 				}
 			}
 
-			return result;
+			ResetVisited();
+			return dfs;
 		}
 
 		public bool RemoveEdge(Node<T> fromNode, Node<T> toNode) {
@@ -120,6 +121,21 @@ namespace Sion.Useful.Classes {
 				NodeSet.Remove(node);
 				return true;
 			}
+		}
+
+		public void ResetVisited() {
+			foreach(var node in NodeSet) {
+				node.HasBeenVisited = false;
+			}
+		}
+
+		public override string ToString() {
+			StringBuilder sb = new();
+			foreach(var node in NodeSet) {
+				sb.Append($"[{node.ToString()}],");
+			}
+			sb.Remove(sb.Length - 1, 1);
+			return sb.ToString();
 		}
 	}
 }

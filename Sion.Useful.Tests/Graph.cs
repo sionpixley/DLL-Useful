@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sion.Useful.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +107,25 @@ namespace Tests {
 				graph.Clear();
 				bool wasSuccessful = graph.NodeSet.Count == 0;
 				Assert.IsTrue(wasSuccessful);
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void CustomToString() {
+			try {
+				Sion.Useful.Classes.Graph<int> graph = new();
+				Sion.Useful.Classes.Node<int> n1 = new(1);
+				Sion.Useful.Classes.Node<int> n2 = new(2);
+				graph.AddNodes(n1, n2);
+				graph.AddEdge(n1, n2);
+
+				string expected = "[1],[2]";
+				string result = graph.ToString();
+
+				Assert.AreEqual(expected, result);
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);

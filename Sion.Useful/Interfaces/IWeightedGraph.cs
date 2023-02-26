@@ -17,5 +17,6 @@ namespace Sion.Useful.Interfaces {
 			public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch(WeightedNode<TValue, TWeight> root);
 			public bool RemoveEdge(WeightedNode<TValue, TWeight> node1, WeightedNode<TValue, TWeight> node2);
 			public bool RemoveNode(WeightedNode<TValue, TWeight> node);
+			public void ResetVisited();
 	}
 }
