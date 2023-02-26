@@ -1,28 +1,26 @@
-﻿using Sion.Useful.Interfaces;
+﻿using Sion.Useful.Graphs.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.Graph instead. This will be removed in a future version.")]
-	public class Graph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
+namespace Sion.Useful.Graphs {
+	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
-		public Graph() {
+		public DirectedGraph() {
 			NodeSet = new();
 		}
 
-		public bool AddEdge(Node<T> node1, Node<T> node2) {
-			if(!NodeSet.Contains(node1) || !NodeSet.Contains(node2)) {
+		public bool AddEdge(Node<T> fromNode, Node<T> toNode) {
+			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
 			}
-			else if(node1.Neighbors.Contains(node2) || node2.Neighbors.Contains(node1)) {
+			else if(fromNode.Neighbors.Contains(toNode)) {
 				return false;
 			}
 			else {
-				node1.Neighbors.Add(node2);
-				node2.Neighbors.Add(node1);
+				fromNode.Neighbors.Add(toNode);
 				return true;
 			}
 		}
@@ -99,7 +97,7 @@ namespace Sion.Useful.Classes {
 
 		public IEnumerable<Node<T>> DepthFirstSearch() {
 			if(NodeSet.Count == 0) {
-				return NodeSet;
+				return new List<Node<T>>();
 			}
 			else {
 				return DepthFirstSearch(NodeSet[0]);
@@ -117,7 +115,7 @@ namespace Sion.Useful.Classes {
 			Node<T> current = root;
 			current.HasBeenVisited = true;
 			dfs.Add(current);
-			
+
 			while(true) {
 				if(current.Neighbors.All(n => n.HasBeenVisited) && current == root) {
 					break;
@@ -137,16 +135,15 @@ namespace Sion.Useful.Classes {
 			return dfs;
 		}
 
-		public bool RemoveEdge(Node<T> node1, Node<T> node2) {
-			if(!NodeSet.Contains(node1) || !NodeSet.Contains(node2)) {
+		public bool RemoveEdge(Node<T> fromNode, Node<T> toNode) {
+			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
 			}
-			else if(!node1.Neighbors.Contains(node2) || !node2.Neighbors.Contains(node1)) {
+			else if(!fromNode.Neighbors.Contains(toNode)) {
 				return false;
 			}
 			else {
-				node1.Neighbors.Remove(node2);
-				node2.Neighbors.Remove(node1);
+				fromNode.Neighbors.Remove(toNode);
 				return true;
 			}
 		}
@@ -156,9 +153,11 @@ namespace Sion.Useful.Classes {
 				return false;
 			}
 			else {
-				foreach(var neighbor in node.Neighbors) {
-					RemoveEdge(node, neighbor);
+				IEnumerable<Node<T>> referencingNodes = NodeSet.Where(n => n.Neighbors.Contains(node));
+				foreach(var referencingNode in referencingNodes) {
+					RemoveEdge(referencingNode, node);
 				}
+				node.Neighbors.Clear();
 				NodeSet.Remove(node);
 				return true;
 			}
@@ -170,7 +169,7 @@ namespace Sion.Useful.Classes {
 			}
 		}
 
-		public override string ToString() {
+		public override string? ToString() {
 			StringBuilder sb = new();
 			foreach(var node in NodeSet) {
 				sb.Append($"[{node.ToString()}],");

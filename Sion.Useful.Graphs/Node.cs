@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.Node instead. This will be removed in a future version.")]
+namespace Sion.Useful.Graphs {
 	public class Node<T> where T : IEquatable<T>, IComparable<T> {
-		public T Value { get; set; }
+		public T? Value { get; set; }
 		public bool HasBeenVisited { get; set; }
 		public List<Node<T>> Neighbors { get; set; }
 
@@ -20,6 +19,6 @@ namespace Sion.Useful.Classes {
 			Neighbors = new();
 		}
 
-		public override string ToString() => Value.ToString();
+		public override string? ToString() => Value?.ToString();
 	}
 }

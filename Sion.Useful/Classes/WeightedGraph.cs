@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Classes {
+	[Obsolete("Please use Sion.Useful.Graphs.WeightedGraph instead. This will be removed in a future version.")]
 	public class WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight> 
 		where TValue : IEquatable<TValue>, IComparable<TValue> 
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {

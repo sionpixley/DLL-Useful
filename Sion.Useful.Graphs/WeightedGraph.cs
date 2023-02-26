@@ -1,36 +1,45 @@
-﻿using Sion.Useful.Interfaces;
+﻿using Sion.Useful.Graphs.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.WeightedDirectedGraph instead. This will be removed in a future version.")]
-	public class WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
+namespace Sion.Useful.Graphs {
+	public class WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
 			public List<WeightedNode<TValue, TWeight>> NodeSet { get; set; }
 
-			public WeightedDirectedGraph() {
+			public WeightedGraph() {
 				NodeSet = new();
 			}
 
-			public bool AddEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode, TWeight weight) {
-				if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
+			public bool AddEdge(WeightedNode<TValue, TWeight> node1, WeightedNode<TValue, TWeight> node2, TWeight weight) {
+				if(!NodeSet.Contains(node1) || !NodeSet.Contains(node2)) {
 					return false;
 				}
-				else if(fromNode.Neighbors.Contains(toNode)) {
+				else if(node1.Neighbors.Contains(node2) || node2.Neighbors.Contains(node1)) {
 					return false;
 				}
 				else {
 					int i = 0;
-					for(; i < fromNode.Weights.Count; i += 1) {
-						if(weight.CompareTo(fromNode.Weights[0]) < 0) {
+					for(; i < node1.Weights.Count; i += 1) {
+						if(weight.CompareTo(node1.Weights[0]) < 0) {
 							break;
 						}
 					}
-					fromNode.Neighbors.Insert(i, toNode);
-					fromNode.Weights.Insert(i, weight);
+					node1.Neighbors.Insert(i, node2);
+					node1.Weights.Insert(i, weight);
+
+					i = 0;
+					for(; i < node2.Weights.Count; i += 1) {
+						if(weight.CompareTo(node2.Weights[i]) < 0) {
+							break;
+						}
+					}
+					node2.Neighbors.Insert(i, node1);
+					node2.Weights.Insert(i, weight);
+
 					return true;
 				}
 			}
@@ -117,7 +126,7 @@ namespace Sion.Useful.Classes {
 			public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch(WeightedNode<TValue, TWeight> root) {
 				if(!NodeSet.Contains(root)) {
 					return new List<WeightedNode<TValue, TWeight>>();
-				}	
+				}
 
 				List<WeightedNode<TValue, TWeight>> dfs = new();
 				Stack<WeightedNode<TValue, TWeight>> visit = new();
@@ -145,18 +154,21 @@ namespace Sion.Useful.Classes {
 				return dfs;
 			}
 
-			public bool RemoveEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode) {
-				int toNodeIndex = fromNode.Neighbors.IndexOf(toNode);
+			public bool RemoveEdge(WeightedNode<TValue, TWeight> node1, WeightedNode<TValue, TWeight> node2) {
+				int node1Index = node2.Neighbors.IndexOf(node1);
+				int node2Index = node1.Neighbors.IndexOf(node2);
 
-				if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
+				if(!NodeSet.Contains(node1) || !NodeSet.Contains(node2)) {
 					return false;
 				}
-				else if(toNodeIndex == -1) {
+				else if(node1Index == -1 || node2Index == -1) {
 					return false;
 				}
 				else {
-					fromNode.Neighbors.Remove(toNode);
-					fromNode.Weights = fromNode.Weights.Take(toNodeIndex).Skip(1).TakeWhile(w => true).ToList();
+					node1.Neighbors.Remove(node2);
+					node1.Weights = node1.Weights.Take(node2Index).Skip(1).TakeWhile(w => true).ToList();
+					node2.Neighbors.Remove(node1);
+					node2.Weights = node2.Weights.Take(node1Index).Skip(1).TakeWhile(w => true).ToList();
 					return true;
 				}
 			}
@@ -166,11 +178,9 @@ namespace Sion.Useful.Classes {
 					return false;
 				}
 				else {
-					IEnumerable<WeightedNode<TValue, TWeight>> referencingNodes = NodeSet.Where(n => n.Neighbors.Contains(node));
-					foreach(var referencingNode in referencingNodes) {
-						RemoveEdge(referencingNode, node);
+					foreach(var neighbor in node.Neighbors) {
+						RemoveEdge(node, neighbor);
 					}
-					node.Neighbors.Clear();
 					NodeSet.Remove(node);
 					return true;
 				}
@@ -182,7 +192,7 @@ namespace Sion.Useful.Classes {
 				}
 			}
 
-			public override string ToString() {
+			public override string? ToString() {
 				StringBuilder sb = new();
 				foreach(var node in NodeSet) {
 					sb.Append($"[{node.ToString()}],");

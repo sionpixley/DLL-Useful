@@ -1,11 +1,10 @@
-﻿using Sion.Useful.Interfaces;
+﻿using Sion.Useful.Graphs.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.Graph instead. This will be removed in a future version.")]
+namespace Sion.Useful.Graphs {
 	public class Graph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
@@ -117,7 +116,7 @@ namespace Sion.Useful.Classes {
 			Node<T> current = root;
 			current.HasBeenVisited = true;
 			dfs.Add(current);
-			
+
 			while(true) {
 				if(current.Neighbors.All(n => n.HasBeenVisited) && current == root) {
 					break;
@@ -170,7 +169,7 @@ namespace Sion.Useful.Classes {
 			}
 		}
 
-		public override string ToString() {
+		public override string? ToString() {
 			StringBuilder sb = new();
 			foreach(var node in NodeSet) {
 				sb.Append($"[{node.ToString()}],");

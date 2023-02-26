@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Classes {
+	[Obsolete("Please use Sion.Useful.Graphs.DirectedGraph instead. This will be removed in a future version.")]
 	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
