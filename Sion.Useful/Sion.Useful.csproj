@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReleaseNotes>Changing the project structure.</PackageReleaseNotes>
-    <Description>NuGet package of useful methods.</Description>
+    <Description>NuGet package that contains some useful base methods.</Description>
     <Version>3.0.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyName>Sion.Useful</AssemblyName>
@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
