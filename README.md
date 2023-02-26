@@ -1,6 +1,9 @@
 # DLL-Useful
 
-NuGet package of useful methods. 
+This is a collection of NuGet packages for various applications.
+The NuGet packages in this repo include:
+
+- Sion.Useful.Math
 
 ## Sion.Useful.Classes
 

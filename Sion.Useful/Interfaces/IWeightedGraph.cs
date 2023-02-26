@@ -12,6 +12,8 @@ namespace Sion.Useful.Interfaces {
 			public bool AddNode(WeightedNode<TValue, TWeight> node);
 			public IEnumerable<bool> AddNodes(params WeightedNode<TValue, TWeight>[] nodes);
 			public IEnumerable<bool> AddNodes(IEnumerable<WeightedNode<TValue, TWeight>> nodes);
+			public IEnumerable<WeightedNode<TValue, TWeight>> BreadthFirstSearch();
+			public IEnumerable<WeightedNode<TValue, TWeight>> BreadthFirstSearch(WeightedNode<TValue, TWeight> root);
 			public void Clear();
 			public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch();
 			public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch(WeightedNode<TValue, TWeight> root);

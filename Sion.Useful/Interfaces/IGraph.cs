@@ -10,6 +10,8 @@ namespace Sion.Useful.Interfaces {
 		public bool AddNode(Node<T> node);
 		public IEnumerable<bool> AddNodes(params Node<T>[] nodes);
 		public IEnumerable<bool> AddNodes(IEnumerable<Node<T>> nodes);
+		public IEnumerable<Node<T>> BreadthFirstSearch();
+		public IEnumerable<Node<T>> BreadthFirstSearch(Node<T> root);
 		public void Clear();
 		public IEnumerable<Node<T>> DepthFirstSearch();
 		public IEnumerable<Node<T>> DepthFirstSearch(Node<T> root);
