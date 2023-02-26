@@ -12,7 +12,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReleaseNotes>Changing the project structure.</PackageReleaseNotes>
     <Description>NuGet package that contains some useful base methods.</Description>
-    <Version>3.0.0</Version>
+    <Version>2.3.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyName>Sion.Useful</AssemblyName>
     <RootNamespace>Sion.Useful</RootNamespace>
