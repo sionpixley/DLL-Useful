@@ -1,4 +1,4 @@
-# DLL-Useful
+# Sion's Useful NuGet Packages
 
 This is a collection of NuGet packages for various applications.
 The NuGet packages in this repo include:
