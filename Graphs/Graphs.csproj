@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -11,13 +11,12 @@
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <Description>NuGet package of useful graph classes and methods.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>sion;useful;graphs;graph</PackageTags>
-    <PackageReleaseNotes>Introducing a new project structure.</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>

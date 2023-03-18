@@ -4,18 +4,17 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>Sion.Useful.Math</AssemblyName>
+    <RootNamespace>Sion.Useful.Math</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <Description>NuGet package of useful math methods.</Description>
-    <AssemblyName>Sion.Useful.Math</AssemblyName>
-    <RootNamespace>Sion.Useful.Math</RootNamespace>
-    <Version>1.0.0</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>sion;useful;math;truncate;float methods;double methods;decimal methods;number manipulation</PackageTags>
-    <PackageReleaseNotes>Introducing a new project structure.</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
