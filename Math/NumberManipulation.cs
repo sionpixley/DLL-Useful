@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Sion.Useful.Math {
 	public static class NumberManipulation {
 		public static float Truncate(float f, int precision) {
-			string strF = f.ToString();
+			string strF = f.ToString(CultureInfo.InvariantCulture);
 			int index = strF.IndexOf('.');
 
 			if(index == -1) {
@@ -22,7 +19,7 @@ namespace Sion.Useful.Math {
 		}
 
 		public static double Truncate(double d, int precision) {
-			string strD = d.ToString();
+			string strD = d.ToString(CultureInfo.InvariantCulture);
 			int index = strD.IndexOf('.');
 
 			if(index == -1) {
@@ -37,7 +34,7 @@ namespace Sion.Useful.Math {
 		}
 
 		public static decimal Truncate(decimal d, int precision) {
-			string strD = d.ToString();
+			string strD = d.ToString(CultureInfo.InvariantCulture);
 			int index = strD.IndexOf('.');
 
 			if(index == -1) {

@@ -117,7 +117,7 @@ namespace Sion.Useful.Classes {
 			Node<T> current = root;
 			current.HasBeenVisited = true;
 			dfs.Add(current);
-			
+
 			while(true) {
 				if(current.Neighbors.All(n => n.HasBeenVisited) && current == root) {
 					break;
