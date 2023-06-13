@@ -1,11 +1,10 @@
-﻿using Sion.Useful.Interfaces;
+﻿using Sion.Useful.Graphs.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.WeightedDirectedGraph instead. This will be removed in a future version.")]
+namespace Sion.Useful.Graphs {
 	public class WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
@@ -182,7 +181,7 @@ namespace Sion.Useful.Classes {
 			}
 		}
 
-		public override string ToString() {
+		public override string? ToString() {
 			StringBuilder sb = new();
 			foreach(var node in NodeSet) {
 				sb.Append($"[{node.ToString()}],");

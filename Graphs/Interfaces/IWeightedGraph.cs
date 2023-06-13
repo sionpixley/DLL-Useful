@@ -1,9 +1,7 @@
-﻿using Sion.Useful.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Sion.Useful.Interfaces {
-	[Obsolete("Please use Sion.Useful.Graphs.Interfaces.IWeightedGraph instead. This will be removed in a future version.")]
+namespace Sion.Useful.Graphs.Interfaces {
 	public interface IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {

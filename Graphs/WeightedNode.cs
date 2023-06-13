@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.WeightedNode instead. This will be removed in a future version.")]
+namespace Sion.Useful.Graphs {
 	public class WeightedNode<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
-		public TValue Value { get; set; }
+		public TValue? Value { get; set; }
 		public bool HasBeenVisited { get; set; }
 		public List<WeightedNode<TValue, TWeight>> Neighbors { get; set; }
 		public List<TWeight> Weights { get; set; }
@@ -25,6 +24,6 @@ namespace Sion.Useful.Classes {
 			Weights = new();
 		}
 
-		public override string ToString() => Value.ToString();
+		public override string? ToString() => Value?.ToString();
 	}
 }

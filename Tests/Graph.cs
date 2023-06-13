@@ -97,6 +97,81 @@ namespace Tests {
 		}
 
 		[TestMethod]
+		public void BreadthFirstSearch_Default() {
+			try {
+				Sion.Useful.Classes.Graph<char> graph = new();
+				Sion.Useful.Classes.Node<char> a = new('a');
+				Sion.Useful.Classes.Node<char> b = new('b');
+				Sion.Useful.Classes.Node<char> c = new('c');
+				Sion.Useful.Classes.Node<char> d = new('d');
+				Sion.Useful.Classes.Node<char> e = new('e');
+				Sion.Useful.Classes.Node<char> f = new('f');
+				graph.AddNodes(a, b, c, d, e, f);
+				graph.AddEdge(a, b);
+				graph.AddEdge(a, d);
+				graph.AddEdge(a, e);
+				graph.AddEdge(a, f);
+				graph.AddEdge(b, c);
+
+				IEnumerable<Node<char>> bfs = graph.BreadthFirstSearch();
+				Node<char>[] expected = { a, b, d, e, f, c };
+
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_Empty() {
+			try {
+				Sion.Useful.Classes.Graph<int> graph = new();
+				IEnumerable<Node<int>> expected = Enumerable.Empty<Node<int>>();
+				IEnumerable<Node<int>> bfs = graph.BreadthFirstSearch();
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_NotExisting() {
+			try {
+				Sion.Useful.Classes.Graph<int> graph = new();
+				Sion.Useful.Classes.Node<int> n1 = new(1);
+				Sion.Useful.Classes.Node<int> n2 = new(2);
+				graph.AddNode(n1);
+
+				IEnumerable<Node<int>> expected = Enumerable.Empty<Node<int>>();
+				IEnumerable<Node<int>> bfs = graph.BreadthFirstSearch(n2);
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_RootProvided() {
+			try {
+				Sion.Useful.Classes.Graph<int> graph = new();
+				Sion.Useful.Classes.Node<int> n1 = new(1);
+				Sion.Useful.Classes.Node<int> n2 = new(2);
+				graph.AddNodes(n1, n2);
+				graph.AddEdge(n1, n2);
+
+				Node<int>[] expected = { n2, n1 };
+				IEnumerable<Node<int>> bfs = graph.BreadthFirstSearch(n2);
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
 		public void Clear() {
 			try {
 				Sion.Useful.Classes.Graph<int> graph = new();

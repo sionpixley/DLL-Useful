@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sion.Useful.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,89 @@ namespace Tests {
 				Sion.Useful.Classes.Node<int> node2 = new();
 				bool wasSuccessful = graph.AddNodes(node1, node2).All(n => n);
 				Assert.IsTrue(wasSuccessful);
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_Default() {
+			try {
+				Sion.Useful.Classes.DirectedGraph<char> graph = new();
+				Sion.Useful.Classes.Node<char> a = new('a');
+				Sion.Useful.Classes.Node<char> b = new('b');
+				Sion.Useful.Classes.Node<char> c = new('c');
+				Sion.Useful.Classes.Node<char> d = new('d');
+				Sion.Useful.Classes.Node<char> e = new('e');
+				Sion.Useful.Classes.Node<char> f = new('f');
+				graph.AddNodes(a, b, c, d, e, f);
+				graph.AddEdge(a, b);
+				graph.AddEdge(a, c);
+				graph.AddEdge(f, a);
+				graph.AddEdge(b, e);
+				graph.AddEdge(b, d);
+
+				IEnumerable<Node<char>> bfs = graph.BreadthFirstSearch();
+				Node<char>[] expected = { a, b, c, e, d };
+
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_Empty() {
+			try {
+				Sion.Useful.Classes.DirectedGraph<int> graph = new();
+				IEnumerable<Node<int>> expected = Enumerable.Empty<Node<int>>();
+				IEnumerable<Node<int>> bfs = graph.BreadthFirstSearch();
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_NotExisting() {
+			try {
+				Sion.Useful.Classes.DirectedGraph<int> graph = new();
+				Sion.Useful.Classes.Node<int> n1 = new(1);
+				Sion.Useful.Classes.Node<int> n2 = new(2);
+				graph.AddNode(n1);
+
+				IEnumerable<Node<int>> expected = Enumerable.Empty<Node<int>>();
+				IEnumerable<Node<int>> bfs = graph.BreadthFirstSearch(n2);
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void BreadthFirstSearch_RootProvided() {
+			try {
+				Sion.Useful.Classes.DirectedGraph<char> graph = new();
+				Sion.Useful.Classes.Node<char> a = new('a');
+				Sion.Useful.Classes.Node<char> b = new('b');
+				Sion.Useful.Classes.Node<char> c = new('c');
+				Sion.Useful.Classes.Node<char> d = new('d');
+				Sion.Useful.Classes.Node<char> e = new('e');
+				Sion.Useful.Classes.Node<char> f = new('f');
+				graph.AddNodes(a, b, c, d, e, f);
+				graph.AddEdge(a, b);
+				graph.AddEdge(a, c);
+				graph.AddEdge(f, a);
+				graph.AddEdge(b, e);
+				graph.AddEdge(b, d);
+
+				Node<char>[] expected = { f, a, b, c, e, d };
+				IEnumerable<Node<char>> bfs = graph.BreadthFirstSearch(f);
+				Assert.IsTrue(Enumerable.SequenceEqual(expected, bfs));
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);

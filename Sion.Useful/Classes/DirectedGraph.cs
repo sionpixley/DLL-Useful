@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Classes {
+	[Obsolete("Please use Sion.Useful.Graphs.DirectedGraph instead. This will be removed in a future version.")]
 	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
@@ -49,6 +50,46 @@ namespace Sion.Useful.Classes {
 				result.Add(AddNode(node));
 			}
 			return result;
+		}
+
+		public IEnumerable<Node<T>> BreadthFirstSearch() {
+			if(NodeSet.Count == 0) {
+				return NodeSet;
+			}
+			else {
+				return BreadthFirstSearch(NodeSet[0]);
+			}
+		}
+
+		public IEnumerable<Node<T>> BreadthFirstSearch(Node<T> root) {
+			if(!NodeSet.Contains(root)) {
+				return new List<Node<T>>();
+			}
+
+			List<Node<T>> bfs = new();
+			Queue<Node<T>> visit = new();
+
+			Node<T> current = root;
+
+			while(true) {
+				if(current.Neighbors.All(n => n.HasBeenVisited) && visit.Count == 0 && current.HasBeenVisited) {
+					break;
+				}
+				else {
+					current.HasBeenVisited = true;
+					bfs.Add(current);
+					IEnumerable<Node<T>> unvisited = current.Neighbors.Where(n => !n.HasBeenVisited);
+					foreach(var u in unvisited) {
+						visit.Enqueue(u);
+					}
+					if(visit.Count > 0) {
+						current = visit.Dequeue();
+					}
+				}
+			}
+
+			ResetVisited();
+			return bfs;
 		}
 
 		public void Clear() {

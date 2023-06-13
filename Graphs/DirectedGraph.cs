@@ -1,21 +1,18 @@
-﻿using Sion.Useful.Interfaces;
+﻿using Sion.Useful.Graphs.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.WeightedDirectedGraph instead. This will be removed in a future version.")]
-	public class WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
-		where TValue : IEquatable<TValue>, IComparable<TValue>
-		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
-		public List<WeightedNode<TValue, TWeight>> NodeSet { get; set; }
+namespace Sion.Useful.Graphs {
+	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
+		public List<Node<T>> NodeSet { get; set; }
 
-		public WeightedDirectedGraph() {
+		public DirectedGraph() {
 			NodeSet = new();
 		}
 
-		public bool AddEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode, TWeight weight) {
+		public bool AddEdge(Node<T> fromNode, Node<T> toNode) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
 			}
@@ -23,19 +20,12 @@ namespace Sion.Useful.Classes {
 				return false;
 			}
 			else {
-				int i = 0;
-				for(; i < fromNode.Weights.Count; i += 1) {
-					if(weight.CompareTo(fromNode.Weights[0]) < 0) {
-						break;
-					}
-				}
-				fromNode.Neighbors.Insert(i, toNode);
-				fromNode.Weights.Insert(i, weight);
+				fromNode.Neighbors.Add(toNode);
 				return true;
 			}
 		}
 
-		public bool AddNode(WeightedNode<TValue, TWeight> node) {
+		public bool AddNode(Node<T> node) {
 			if(NodeSet.Contains(node)) {
 				return false;
 			}
@@ -45,7 +35,7 @@ namespace Sion.Useful.Classes {
 			}
 		}
 
-		public IEnumerable<bool> AddNodes(params WeightedNode<TValue, TWeight>[] nodes) {
+		public IEnumerable<bool> AddNodes(params Node<T>[] nodes) {
 			List<bool> result = new();
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
@@ -53,7 +43,7 @@ namespace Sion.Useful.Classes {
 			return result;
 		}
 
-		public IEnumerable<bool> AddNodes(IEnumerable<WeightedNode<TValue, TWeight>> nodes) {
+		public IEnumerable<bool> AddNodes(IEnumerable<Node<T>> nodes) {
 			List<bool> result = new();
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
@@ -61,7 +51,7 @@ namespace Sion.Useful.Classes {
 			return result;
 		}
 
-		public IEnumerable<WeightedNode<TValue, TWeight>> BreadthFirstSearch() {
+		public IEnumerable<Node<T>> BreadthFirstSearch() {
 			if(NodeSet.Count == 0) {
 				return NodeSet;
 			}
@@ -70,15 +60,15 @@ namespace Sion.Useful.Classes {
 			}
 		}
 
-		public IEnumerable<WeightedNode<TValue, TWeight>> BreadthFirstSearch(WeightedNode<TValue, TWeight> root) {
+		public IEnumerable<Node<T>> BreadthFirstSearch(Node<T> root) {
 			if(!NodeSet.Contains(root)) {
-				return new List<WeightedNode<TValue, TWeight>>();
+				return new List<Node<T>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> bfs = new();
-			Queue<WeightedNode<TValue, TWeight>> visit = new();
+			List<Node<T>> bfs = new();
+			Queue<Node<T>> visit = new();
 
-			WeightedNode<TValue, TWeight> current = root;
+			Node<T> current = root;
 
 			while(true) {
 				if(current.Neighbors.All(n => n.HasBeenVisited) && visit.Count == 0 && current.HasBeenVisited) {
@@ -87,7 +77,7 @@ namespace Sion.Useful.Classes {
 				else {
 					current.HasBeenVisited = true;
 					bfs.Add(current);
-					IEnumerable<WeightedNode<TValue, TWeight>> unvisited = current.Neighbors.Where(n => !n.HasBeenVisited);
+					IEnumerable<Node<T>> unvisited = current.Neighbors.Where(n => !n.HasBeenVisited);
 					foreach(var u in unvisited) {
 						visit.Enqueue(u);
 					}
@@ -105,24 +95,24 @@ namespace Sion.Useful.Classes {
 			NodeSet.Clear();
 		}
 
-		public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch() {
+		public IEnumerable<Node<T>> DepthFirstSearch() {
 			if(NodeSet.Count == 0) {
-				return new List<WeightedNode<TValue, TWeight>>();
+				return new List<Node<T>>();
 			}
 			else {
 				return DepthFirstSearch(NodeSet[0]);
 			}
 		}
 
-		public IEnumerable<WeightedNode<TValue, TWeight>> DepthFirstSearch(WeightedNode<TValue, TWeight> root) {
+		public IEnumerable<Node<T>> DepthFirstSearch(Node<T> root) {
 			if(!NodeSet.Contains(root)) {
-				return new List<WeightedNode<TValue, TWeight>>();
+				return new List<Node<T>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> dfs = new();
-			Stack<WeightedNode<TValue, TWeight>> visit = new();
+			List<Node<T>> dfs = new();
+			Stack<Node<T>> visit = new();
 
-			WeightedNode<TValue, TWeight> current = root;
+			Node<T> current = root;
 			current.HasBeenVisited = true;
 			dfs.Add(current);
 
@@ -145,28 +135,25 @@ namespace Sion.Useful.Classes {
 			return dfs;
 		}
 
-		public bool RemoveEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode) {
-			int toNodeIndex = fromNode.Neighbors.IndexOf(toNode);
-
+		public bool RemoveEdge(Node<T> fromNode, Node<T> toNode) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
 			}
-			else if(toNodeIndex == -1) {
+			else if(!fromNode.Neighbors.Contains(toNode)) {
 				return false;
 			}
 			else {
 				fromNode.Neighbors.Remove(toNode);
-				fromNode.Weights = fromNode.Weights.Take(toNodeIndex).Skip(1).TakeWhile(w => true).ToList();
 				return true;
 			}
 		}
 
-		public bool RemoveNode(WeightedNode<TValue, TWeight> node) {
+		public bool RemoveNode(Node<T> node) {
 			if(!NodeSet.Contains(node)) {
 				return false;
 			}
 			else {
-				IEnumerable<WeightedNode<TValue, TWeight>> referencingNodes = NodeSet.Where(n => n.Neighbors.Contains(node));
+				IEnumerable<Node<T>> referencingNodes = NodeSet.Where(n => n.Neighbors.Contains(node));
 				foreach(var referencingNode in referencingNodes) {
 					RemoveEdge(referencingNode, node);
 				}
@@ -182,7 +169,7 @@ namespace Sion.Useful.Classes {
 			}
 		}
 
-		public override string ToString() {
+		public override string? ToString() {
 			StringBuilder sb = new();
 			foreach(var node in NodeSet) {
 				sb.Append($"[{node.ToString()}],");

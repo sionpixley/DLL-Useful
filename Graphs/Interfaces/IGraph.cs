@@ -1,9 +1,7 @@
-﻿using Sion.Useful.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Sion.Useful.Interfaces {
-	[Obsolete("Please use Sion.Useful.Graphs.Interfaces.IGraph instead. This will be removed in a future version.")]
+namespace Sion.Useful.Graphs.Interfaces {
 	public interface IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 

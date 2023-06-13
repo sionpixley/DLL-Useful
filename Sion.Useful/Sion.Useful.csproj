@@ -10,18 +10,19 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageReleaseNotes>Fixing some holes in the DFS algo.</PackageReleaseNotes>
-    <Description>NuGet package of useful methods.</Description>
-    <Version>2.2.1</Version>
+    <PackageReleaseNotes>Changing the project structure.</PackageReleaseNotes>
+    <Description>NuGet package that contains some useful base methods.</Description>
+    <Version>2.2.2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyName>Sion.Useful</AssemblyName>
     <RootNamespace>Sion.Useful</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>sion;useful;string methods;datetime methods;decimal methods;graph;directed graph;weighted graph;directed weighted graph</PackageTags>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
