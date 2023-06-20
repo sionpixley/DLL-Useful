@@ -14,22 +14,17 @@ namespace Sion.Useful {
 		}
 
 		public static string CamelCaseToSnakeCase(string camelCase) {
-			List<string> builder = new();
-			List<char> chars = new();
+			List<char> builder = new();
 			foreach(var c in camelCase) {
 				if(Char.IsUpper(c)) {
-					builder.Add(String.Concat(chars));
-					chars.Clear();
-					chars.Add(Char.ToLower(c));
+					builder.Add('_');
+					builder.Add(Char.ToLower(c));
 				}
 				else {
-					chars.Add(c);
+					builder.Add(c);
 				}
 			}
-			if(chars.Count > 0) {
-				builder.Add(String.Concat(chars));
-			}
-			return String.Join("_", builder);
+			return String.Concat(builder);
 		}
 
 		public static string PascalCaseToCamelCase(string pascalCase) {
@@ -37,83 +32,56 @@ namespace Sion.Useful {
 		}
 
 		public static string PascalCaseToSnakeCase(string pascalCase) {
-			List<string> builder = new();
-			List<char> chars = new();
+			List<char> builder = new();
 			bool firstChar = true;
 			foreach(var c in pascalCase) {
 				if(firstChar) {
-					chars.Add(Char.ToLower(c));
+					builder.Add(Char.ToLower(c));
 					firstChar = false;
 				}
 				else if(Char.IsUpper(c)) {
-					builder.Add(String.Concat(chars));
-					chars.Clear();
-					chars.Add(Char.ToLower(c));
+					builder.Add('_');
+					builder.Add(Char.ToLower(c));
 				}
 				else {
-					chars.Add(c);
+					builder.Add(c);
 				}
 			}
-			if(chars.Count > 0) {
-				builder.Add(String.Concat(chars));
-			}
-			return String.Join("_", builder);
+			return String.Concat(builder);
 		}
 
 		public static string SnakeCaseToCamelCase(string snakeCase) {
-			List<string> builder = new();
-			List<char> chars = new();
-			bool firstChar = true;
+			List<char> builder = new();
 			bool newWord = false;
 			foreach(var c in snakeCase) {
 				if(c == '_') {
 					newWord = true;
 				}
-				else if(firstChar) {
-					chars.Add(Char.ToLower(c));
-					firstChar = false;
-				}
 				else if(newWord) {
-					builder.Add(String.Concat(chars));
-					chars.Clear();
-					chars.Add(Char.ToUpper(c));
+					builder.Add(Char.ToUpper(c));
 					newWord = false;
 				}
 				else {
-					chars.Add(Char.ToLower(c));
+					builder.Add(Char.ToLower(c));
 				}
-			}
-			if(chars.Count > 0) {
-				builder.Add(String.Concat(chars));
 			}
 			return String.Concat(builder);
 		}
 
 		public static string SnakeCaseToPascalCase(string snakeCase) {
-			List<string> builder = new();
-			List<char> chars = new();
-			bool firstChar = true;
-			bool newWord = false;
+			List<char> builder = new();
+			bool newWord = true;
 			foreach(var c in snakeCase) {
 				if(c == '_') {
 					newWord = true;
 				}
-				else if(firstChar) {
-					chars.Add(Char.ToUpper(c));
-					firstChar = false;
-				}
 				else if(newWord) {
-					builder.Add(String.Concat(chars));
-					chars.Clear();
-					chars.Add(Char.ToUpper(c));
+					builder.Add(Char.ToUpper(c));
 					newWord = false;
 				}
 				else {
-					chars.Add(Char.ToLower(c));
+					builder.Add(Char.ToLower(c));
 				}
-			}
-			if(chars.Count > 0) {
-				builder.Add(String.Concat(chars));
 			}
 			return String.Concat(builder);
 		}
