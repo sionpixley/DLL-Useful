@@ -173,7 +173,7 @@ namespace Sion.Useful {
 					builder.Append(Char.ToLower(c));
 				}
 			}
-			return String.Concat(builder);
+			return builder.ToString();
 		}
 	}
 }
