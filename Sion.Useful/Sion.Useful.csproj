@@ -17,7 +17,7 @@
     <AssemblyName>Sion.Useful</AssemblyName>
     <RootNamespace>Sion.Useful</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>sion;useful;string methods;datetime methods;decimal methods;graph;directed graph;weighted graph;directed weighted graph</PackageTags>
+    <PackageTags>sion;useful;string-methods;datetime-methods</PackageTags>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

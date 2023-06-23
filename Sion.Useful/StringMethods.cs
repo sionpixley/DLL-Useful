@@ -111,8 +111,7 @@ namespace Sion.Useful {
 			StringBuilder builder = new();
 			foreach(var c in camelCase) {
 				if(Char.IsUpper(c)) {
-					builder.Append('_');
-					builder.Append(Char.ToLower(c));
+					builder.Append($"_{Char.ToLower(c)}");
 				}
 				else {
 					builder.Append(c);
@@ -130,8 +129,7 @@ namespace Sion.Useful {
 					firstChar = false;
 				}
 				else if(Char.IsUpper(c)) {
-					builder.Append('_');
-					builder.Append(Char.ToLower(c));
+					builder.Append($"_{Char.ToLower(c)}");
 				}
 				else {
 					builder.Append(c);
