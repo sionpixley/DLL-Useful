@@ -17,7 +17,7 @@
     <AssemblyName>Sion.Useful</AssemblyName>
     <RootNamespace>Sion.Useful</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>sion;useful;string-methods;datetime-methods;base64;utf8;base64toutf8;base64-to-utf8</PackageTags>
+    <PackageTags>sion;useful;string-methods;datetime-methods;base64;utf8;utf-8;base64-to-utf8;utf8-to-base64</PackageTags>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
