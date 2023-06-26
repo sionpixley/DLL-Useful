@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReleaseNotes>Some extension methods.</PackageReleaseNotes>
-    <Description>NuGet package that contains some useful base methods.</Description>
+    <Description>NuGet package that provides static and extension methods to DateTime and string.</Description>
     <Version>2.3.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyName>Sion.Useful</AssemblyName>
