@@ -20,11 +20,11 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Truncate_Double() {
+		public void Truncate_Decimal() {
 			try {
-				double d = 62.5601248;
-				double expected = 62.56012;
-				double actual = d.Truncate(5);
+				decimal d = 1324.67m;
+				decimal expected = 1324m;
+				decimal actual = d.Truncate(0);
 
 				Assert.AreEqual(expected, actual);
 			}
@@ -34,11 +34,11 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void Truncate_Decimal() {
+		public void Truncate_Double() {
 			try {
-				decimal d = 1324.67m;
-				decimal expected = 1324m;
-				decimal actual = d.Truncate(0);
+				double d = 62.5601248;
+				double expected = 62.56012;
+				double actual = d.Truncate(5);
 
 				Assert.AreEqual(expected, actual);
 			}
