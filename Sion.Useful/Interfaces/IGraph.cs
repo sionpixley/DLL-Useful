@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Sion.Useful.Interfaces {
-	[Obsolete("Please use Sion.Useful.Graphs.Interfaces.IGraph instead. This will be removed in a future version.")]
+	[Obsolete("Please use Sion.Useful.Graphs.Interfaces.IGraph instead. This will be removed in version 3.")]
 	public interface IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 

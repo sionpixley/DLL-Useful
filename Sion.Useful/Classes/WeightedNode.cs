@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.WeightedNode instead. This will be removed in a future version.")]
+	[Obsolete("Please use Sion.Useful.Graphs.WeightedNode instead. This will be removed in version 3.")]
 	public class WeightedNode<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {

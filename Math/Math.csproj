@@ -14,7 +14,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>sion;useful;math;truncate;float methods;double methods;decimal methods;number manipulation</PackageTags>
+    <PackageTags>sion;useful;math;truncate;float-methods;double-methods;decimal-methods;number-manipulation</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>

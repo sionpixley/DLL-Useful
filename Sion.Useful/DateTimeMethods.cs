@@ -19,5 +19,13 @@ namespace Sion.Useful {
 		public static long GetUnixSecondsNow() {
 			return ConvertToUnixSeconds(DateTime.Now);
 		}
+
+		public static long ToUnixMilliseconds(this DateTime date) {
+			return ConvertToUnixMilliseconds(date);
+		}
+
+		public static long ToUnixSeconds(this DateTime date) {
+			return ConvertToUnixSeconds(date);
+		}
 	}
 }
