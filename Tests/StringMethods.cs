@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sion.Useful;
 using System;
 
 namespace Tests {
@@ -10,7 +11,7 @@ namespace Tests {
 				string expected = StringNormalizationExtensions.Normalize("👻");
 				string base64 = "8J+Ruw==";
 
-				string result = Sion.Useful.StringMethods.Base64ToUtf8(base64);
+				string result = base64.Base64ToUtf8();
 
 				Assert.AreEqual(expected, result);
 			}
@@ -265,7 +266,7 @@ namespace Tests {
 				string expected = "8J+Ruw==";
 				string utf8 = StringNormalizationExtensions.Normalize("👻");
 
-				string result = Sion.Useful.StringMethods.Utf8ToBase64(utf8);
+				string result = utf8.Utf8ToBase64();
 
 				Assert.AreEqual(expected, result);
 			}

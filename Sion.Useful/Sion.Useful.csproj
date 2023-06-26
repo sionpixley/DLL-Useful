@@ -10,9 +10,9 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageReleaseNotes>Changing the project structure.</PackageReleaseNotes>
+    <PackageReleaseNotes>Some extension methods.</PackageReleaseNotes>
     <Description>NuGet package that contains some useful base methods.</Description>
-    <Version>2.2.2</Version>
+    <Version>2.3.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyName>Sion.Useful</AssemblyName>
     <RootNamespace>Sion.Useful</RootNamespace>

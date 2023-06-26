@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Sion.Useful.Interfaces {
-	[Obsolete("Please use Sion.Useful.Graphs.Interfaces.IWeightedGraph instead. This will be removed in a future version.")]
+	[Obsolete("Please use Sion.Useful.Graphs.Interfaces.IWeightedGraph instead. This will be removed in version 4.")]
 	public interface IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {

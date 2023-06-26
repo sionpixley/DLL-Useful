@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Sion.Useful.Classes {
-	[Obsolete("Please use Sion.Useful.Graphs.Node instead. This will be removed in a future version.")]
+	[Obsolete("Please use Sion.Useful.Graphs.Node instead. This will be removed in version 3.")]
 	public class Node<T> where T : IEquatable<T>, IComparable<T> {
 		public T Value { get; set; }
 		public bool HasBeenVisited { get; set; }
