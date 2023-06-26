@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Sion.Useful.Math {
 	public static class NumberManipulation {
-		public static float Truncate(float f, int precision) {
+		public static float Truncate(this float f, int precision) {
 			string strF = f.ToString(CultureInfo.InvariantCulture);
 			int index = strF.IndexOf('.');
 
@@ -18,7 +18,7 @@ namespace Sion.Useful.Math {
 			}
 		}
 
-		public static double Truncate(double d, int precision) {
+		public static double Truncate(this double d, int precision) {
 			string strD = d.ToString(CultureInfo.InvariantCulture);
 			int index = strD.IndexOf('.');
 
@@ -33,7 +33,7 @@ namespace Sion.Useful.Math {
 			}
 		}
 
-		public static decimal Truncate(decimal d, int precision) {
+		public static decimal Truncate(this decimal d, int precision) {
 			string strD = d.ToString(CultureInfo.InvariantCulture);
 			int index = strD.IndexOf('.');
 
