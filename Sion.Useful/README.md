@@ -1,6 +1,6 @@
 # Sion.Useful
 
-NuGet package that provides static and extension methods to the DateTime and string.
+NuGet package that provides static and extension methods to DateTime and string.
 
 ## Sion.Useful.DateTimeMethods
 
