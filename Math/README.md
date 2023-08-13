@@ -10,7 +10,7 @@ public static double Truncate(this double d, int precision)
 public static decimal Truncate(this decimal d, int precision)
 ```
 
-## How to Use:
+## How to use
 
 First, download the Sion.Useful.Math NuGet package, then include this using statement at the top of the file:
 

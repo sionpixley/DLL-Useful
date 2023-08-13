@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Sion.Useful.Math;
+using System;
 
 namespace Tests {
 	[TestClass]
