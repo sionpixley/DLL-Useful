@@ -13,7 +13,7 @@ public abstract class CsvObject
 ```
 public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false)
 public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : class
-public static IEnumerable<RowType> ReadWithCustomMapping(string path, string delimiter = ",", bool hasHeader = false) where RowType : CsvObject
+public static IEnumerable<RowType> ReadWithCustomMapping<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : CsvObject
 ```
 
 ## How to use:
