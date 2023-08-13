@@ -121,7 +121,7 @@ namespace Sion.Useful.Files {
 			return lines;
 		}
 
-		public static IEnumerable<RowType> ReadWithCustomMapping<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : CsvObject {
+		public static IEnumerable<RowType> ReadWithCustomMapping<RowType>(string path, Func<string[], RowType> customMapping, string delimiter = ",", bool hasHeader = false) {
 			List<RowType> lines = new();
 
 			using TextFieldParser parser = new(path) {
@@ -137,9 +137,7 @@ namespace Sion.Useful.Files {
 				else {
 					string[]? row = parser.ReadFields();
 					if(row != null) {
-						if(Activator.CreateInstance(typeof(RowType), new object[] { row! }) as RowType is RowType obj) {
-							lines.Add(obj);
-						}
+						lines.Add(customMapping(row!));
 					}
 				}
 			}
