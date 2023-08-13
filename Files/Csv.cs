@@ -138,7 +138,7 @@ namespace Sion.Useful.Files {
 					string[]? row = parser.ReadFields();
 					if(row != null) {
 						if(Activator.CreateInstance(typeof(RowType), new object[] { row! }) as RowType is RowType obj) {
-							lines.Add(obj!);
+							lines.Add(obj);
 						}
 					}
 				}

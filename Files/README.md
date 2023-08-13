@@ -2,12 +2,10 @@
 
 NuGet package that provides useful file methods. Specifically, CSV file reading.
 
-## Sion.Useful.Files.Classes.CsvObject 
+## Sion.Useful.Files.Classes
 
 ```
-public abstract class CsvObject {
-	public CsvObject(string[] row) { }
-}
+public abstract class CsvObject 
 ```
 
 ## Sion.Useful.Files.Csv
@@ -28,15 +26,15 @@ using Sion.Useful.Files;
 
 ### Csv
 
-#### Reading a CSV file and mapping it to a custom class
+#### Reading a CSV file and mapping it to a custom class (automatically)
 
 Things to note: 
 
 - The delimiter defaults to a comma, but can be customized
 - The hasHeader defaults to false
-- The mapping currently only supports classes that use built-in property types
-- The mapping works best if there's a header row on the CSV file with column names that match the property names for the custom class (casing does matter)
-- Data needs to be properly formed if doing custom mapping, aka no empty column values
+- The automatic mapping currently only supports classes that use built-in property types
+- The automatic mapping works best if there's a header row on the CSV file with column names that match the property names for the custom class (casing does matter)
+- Data needs to be properly formed if doing automatic mapping, aka no empty column values
 - Empty column values are probably best as null values, please make this change before trying to read the CSV (I'll be making a method to automatically do this later)
 - If using null, please mark which properties are nullable in the class definition
 
