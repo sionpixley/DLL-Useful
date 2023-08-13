@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using Sion.Useful.Files.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,6 +114,32 @@ namespace Sion.Useful.Files {
 							}
 						}
 						lines.Add(obj!);
+					}
+				}
+			}
+
+			return lines;
+		}
+
+		public static IEnumerable<RowType> ReadWithCustomMapping<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : CsvObject {
+			List<RowType> lines = new();
+
+			using TextFieldParser parser = new(path) {
+				TextFieldType = FieldType.Delimited,
+				Delimiters = new string[] { delimiter }
+			};
+
+			while(!parser.EndOfData) {
+				if(hasHeader) {
+					parser.ReadFields();
+					hasHeader = false;
+				}
+				else {
+					string[]? row = parser.ReadFields();
+					if(row != null) {
+						if(Activator.CreateInstance(typeof(RowType), new object[] { row! }) as RowType is RowType obj) {
+							lines.Add(obj!);
+						}
 					}
 				}
 			}
