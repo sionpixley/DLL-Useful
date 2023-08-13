@@ -71,7 +71,7 @@ IEnumerable<Student> students = Csv.Read<Student>("students.csv", hasHeader: tru
 
 If you find that the default automatic mapping is just not cutting it, there is a way to define a custom mapping for your object:
 
-1. Create your object similarly as the previous example, except your class must now inherit from the CsvObject class located in the Sion.Useful.Files.Csv.Classes namespace
+1. Create your object similarly as the previous example, except your class must now inherit from the CsvObject class located in the Sion.Useful.Files.Classes namespace
 2. Create an explicit constructor that takes in a string array representing a row in the CSV file (this is where you'll do custom mapping)
 
 Your class definition should look something like this now:
