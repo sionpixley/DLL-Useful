@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Sion.Useful.Files</AssemblyName>
+    <RootNamespace>Sion.Useful.Files</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <Authors>Sion Pixley</Authors>
+    <Company>PTC</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>sion;useful;csv;csv-parser;csv-reader</PackageTags>
+    <Description>NuGet package that provides useful file methods. Specifically, CSV file reading.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
