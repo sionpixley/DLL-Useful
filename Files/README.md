@@ -73,7 +73,7 @@ IEnumerable<Student> students = Csv.ReadWithCustomMapping<Student>(
 		return new Student() {
 			Id = Convert.ToInt64(row[0]),
 			FirstName = row[1],
-			MiddleName = row[2] == "null" ? null : row[2],
+			MiddleName = row[2] == "null" || String.IsNullOrWhiteSpace(row[2]) ? null : row[2],
 			LastName = row[3],
 			IsGraduateStudent = Convert.ToBoolean(row[4])
 		};
