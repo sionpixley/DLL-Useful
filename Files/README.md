@@ -7,7 +7,7 @@ NuGet package that provides useful file methods. Specifically, CSV file reading.
 ```
 public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false)
 public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : class
-public static IEnumerable<RowType> ReadWithCustomMapping<RowType>(string path, Func<string[], RowType> customMapping, string delimiter = ",", bool hasHeader = false)
+public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false)
 ```
 
 ## How to use:
@@ -63,11 +63,13 @@ IEnumerable<Student> students = Csv.Read<Student>("students.csv", hasHeader: tru
 
 #### Reading a CSV file and mapping it to a custom class with custom mapping
 
-If you find that the default automatic mapping is just not cutting it, there is a way to define a custom mapping for your object:
+If you find that the default automatic mapping is just not cutting it, there is a way to define a custom mapping for your object. The Read method is overloaded to take in a Func parameter. This Func is where you'll do your custom mapping.
+
+This Func has one parameter, a string array representing a row in the CSV file. It must return your custom class.
 
 ```
 // Reading the CSV with your custom mapping
-IEnumerable<Student> students = Csv.ReadWithCustomMapping<Student>(
+IEnumerable<Student> students = Csv.Read(
 	"students.csv",
 	(string[] row) => {
 		return new Student() {
@@ -83,6 +85,8 @@ IEnumerable<Student> students = Csv.ReadWithCustomMapping<Student>(
 ```
 
 #### Reading a CSV file and receiving raw string data
+
+Note: Empty column values will return as an empty string ""
 
 ```
 IEnumerable<string[]> rows = Csv.Read("students.csv", hasHeader: true);

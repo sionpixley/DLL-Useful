@@ -120,7 +120,7 @@ namespace Sion.Useful.Files {
 			return lines;
 		}
 
-		public static IEnumerable<RowType> ReadWithCustomMapping<RowType>(string path, Func<string[], RowType> customMapping, string delimiter = ",", bool hasHeader = false) {
+		public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false) {
 			List<RowType> lines = new();
 
 			using TextFieldParser parser = new(path) {
@@ -136,7 +136,7 @@ namespace Sion.Useful.Files {
 				else {
 					string[]? row = parser.ReadFields();
 					if(row != null) {
-						lines.Add(customMapping(row!));
+						lines.Add(customMappingFunc(row!));
 					}
 				}
 			}
