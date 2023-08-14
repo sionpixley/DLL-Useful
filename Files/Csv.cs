@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualBasic.FileIO;
-using Sion.Useful.Files.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +54,7 @@ namespace Sion.Useful.Files {
 							PropertyInfo? property = objType!.GetProperty(fields![i]);
 							TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
 
-							if(row![i] == "null") {
+							if(row![i] == "null" || String.IsNullOrWhiteSpace(row![i])) {
 								property?.SetValue(obj!, null, null);
 							}
 							else {
