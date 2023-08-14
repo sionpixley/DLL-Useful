@@ -7,7 +7,7 @@
     <AssemblyName>Sion.Useful.Files</AssemblyName>
     <RootNamespace>Sion.Useful.Files</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -17,6 +17,7 @@
     <PackageTags>sion;useful;csv;csv-parser;csv-reader</PackageTags>
     <Description>NuGet package that provides useful file methods. Specifically, CSV file reading.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>Adding a new Read method that lets users provide their own mapping logic.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

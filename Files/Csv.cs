@@ -54,7 +54,7 @@ namespace Sion.Useful.Files {
 							PropertyInfo? property = objType!.GetProperty(fields![i]);
 							TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
 
-							if(row![i] == "null") {
+							if(row![i] == "null" || String.IsNullOrWhiteSpace(row![i])) {
 								property?.SetValue(obj!, null, null);
 							}
 							else {
@@ -113,6 +113,30 @@ namespace Sion.Useful.Files {
 							}
 						}
 						lines.Add(obj!);
+					}
+				}
+			}
+
+			return lines;
+		}
+
+		public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false) {
+			List<RowType> lines = new();
+
+			using TextFieldParser parser = new(path) {
+				TextFieldType = FieldType.Delimited,
+				Delimiters = new string[] { delimiter }
+			};
+
+			while(!parser.EndOfData) {
+				if(hasHeader) {
+					parser.ReadFields();
+					hasHeader = false;
+				}
+				else {
+					string[]? row = parser.ReadFields();
+					if(row != null) {
+						lines.Add(customMappingFunc(row!));
 					}
 				}
 			}

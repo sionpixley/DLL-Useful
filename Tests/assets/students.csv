@@ -1,0 +1,9 @@
+Id,FirstName,MiddleName,LastName,IsGraduateStudent
+1,Landon,Jameson,Smith,false
+2,Avery,Elizabeth,Davis,true
+3,Ethan,null,Johnson,false
+4,Mia,Grace,Rodriguez,false
+5,Oliver,William,Brown,true
+6,Aria,Rose,Hernandez,false
+7,Caleb,Alexander,Lee,true
+8,Lila,Madison,Turner,false

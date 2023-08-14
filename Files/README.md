@@ -7,6 +7,7 @@ NuGet package that provides useful file methods. Specifically, CSV file reading.
 ```
 public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false)
 public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : class
+public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false)
 ```
 
 ## How to use:
@@ -19,16 +20,16 @@ using Sion.Useful.Files;
 
 ### Csv
 
-#### Reading a CSV file and mapping it to a custom class
+#### Reading a CSV file and mapping it to a custom class (automatically)
 
 Things to note: 
 
 - The delimiter defaults to a comma, but can be customized
 - The hasHeader defaults to false
-- The mapping currently only supports classes that use built-in property types
-- The mapping works best if there's a header row on the CSV file with column names that match the property names for the custom class (casing does matter)
-- Data needs to be properly formed if doing custom mapping, aka no empty column values
-- Empty column values are probably best as null values, please make this change before trying to read the CSV (I'll be making a method to automatically do this later)
+- The automatic mapping currently only supports classes that use built-in property types
+- The automatic mapping works best if there's a header row on the CSV file with column names that match the property names for the custom class (casing does matter)
+- Empty column values are treated as null
+- Column values null and "null" are also treated as null
 - If using null, please mark which properties are nullable in the class definition
 
 ```
@@ -60,7 +61,32 @@ Id,FirstName,MiddleName,LastName,IsGraduateStudent
 IEnumerable<Student> students = Csv.Read<Student>("students.csv", hasHeader: true);
 ```
 
+#### Reading a CSV file and mapping it to a custom class with custom mapping
+
+If you find that the default automatic mapping is just not cutting it, there is a way to define a custom mapping for your object. The Read method is overloaded to take in a Func parameter. This Func is where you'll do your custom mapping.
+
+This Func has one parameter, a string array representing a row in the CSV file. It must return your custom class.
+
+```
+// Reading the CSV with your custom mapping
+IEnumerable<Student> students = Csv.Read(
+	"students.csv",
+	(string[] row) => {
+		return new Student() {
+			Id = Convert.ToInt64(row[0]),
+			FirstName = row[1],
+			MiddleName = row[2] == "null" || String.IsNullOrWhiteSpace(row[2]) ? null : row[2],
+			LastName = row[3],
+			IsGraduateStudent = Convert.ToBoolean(row[4])
+		};
+	},
+	hasHeader = true
+);
+```
+
 #### Reading a CSV file and receiving raw string data
+
+Note: Empty column values will return as an empty string ""
 
 ```
 IEnumerable<string[]> rows = Csv.Read("students.csv", hasHeader: true);
