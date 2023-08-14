@@ -28,8 +28,8 @@ Things to note:
 - The hasHeader defaults to false
 - The automatic mapping currently only supports classes that use built-in property types
 - The automatic mapping works best if there's a header row on the CSV file with column names that match the property names for the custom class (casing does matter)
-- Data needs to be properly formed if doing automatic mapping, aka no empty column values
-- Empty column values are probably best as null values, please make this change before trying to read the CSV (I'll be making a method to automatically do this later)
+- Empty column values are treated as null
+- Column values null and "null" are also treated as null
 - If using null, please mark which properties are nullable in the class definition
 
 ```
