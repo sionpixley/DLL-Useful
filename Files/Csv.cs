@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Sion.Useful.Files {
 	public static class Csv {
-		public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false) {
+		public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
+			encoding ??= Encoding.UTF8;
 			List<string[]> lines = new();
 
-			using TextFieldParser parser = new(path) {
+			using TextFieldParser parser = new(path, encoding!) {
 				TextFieldType = FieldType.Delimited,
 				Delimiters = new string[] { delimiter }
 			};
@@ -30,11 +32,12 @@ namespace Sion.Useful.Files {
 			return lines;
 		}
 
-		public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : class {
+		public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
+			encoding ??= Encoding.UTF8;
 			List<RowType> lines = new();
 			string[]? fields = null;
 
-			using TextFieldParser parser = new(path) {
+			using TextFieldParser parser = new(path, encoding!) {
 				TextFieldType = FieldType.Delimited,
 				Delimiters = new string[] { delimiter }
 			};
@@ -120,10 +123,11 @@ namespace Sion.Useful.Files {
 			return lines;
 		}
 
-		public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false) {
+		public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
+			encoding ??= Encoding.UTF8;
 			List<RowType> lines = new();
 
-			using TextFieldParser parser = new(path) {
+			using TextFieldParser parser = new(path, encoding!) {
 				TextFieldType = FieldType.Delimited,
 				Delimiters = new string[] { delimiter }
 			};
