@@ -2,6 +2,7 @@
 using Sion.Useful.Files;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Tests.Classes;
 
@@ -185,6 +186,18 @@ namespace Tests {
 				);
 
 				Assert.IsTrue(expected.SequenceEqual(actual));
+			}
+			catch(Exception e) {
+				Assert.Fail(e.Message);
+			}
+		}
+
+		[TestMethod]
+		public void Csv_Write() {
+			try {
+				IEnumerable<Student> students = Csv.Read<Student>(@".\assets\students.csv", hasHeader: true);
+				Csv.Write(students, @".\assets\students2.csv", hasHeader: true);
+				Assert.IsTrue(File.Exists(@".\assets\students2.csv"));
 			}
 			catch(Exception e) {
 				Assert.Fail(e.Message);
