@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sion.Useful.Files {
@@ -172,16 +171,16 @@ namespace Sion.Useful.Files {
 			File.WriteAllText(path, csv, encoding!);
 		}
 
-		public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
+		public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
 			string csv = "";
 
 			if(Activator.CreateInstance(typeof(RowType)) as RowType is RowType obj) {
 				Type objType = obj.GetType();
 				PropertyInfo[] fields = objType.GetProperties();
 				foreach(var row in rows) {
-					if(hasHeader) {
+					if(writeHeader) {
 						csv += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-						hasHeader = false;
+						writeHeader = false;
 					}
 
 					foreach(var field in fields!) {
@@ -263,16 +262,16 @@ namespace Sion.Useful.Files {
 			await File.WriteAllTextAsync(path, csv, encoding!);
 		}
 
-		public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
+		public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
 			string csv = "";
 
 			if(Activator.CreateInstance(typeof(RowType)) as RowType is RowType obj) {
 				Type objType = obj.GetType();
 				PropertyInfo[] fields = objType.GetProperties();
 				foreach(var row in rows) {
-					if(hasHeader) {
+					if(writeHeader) {
 						csv += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-						hasHeader = false;
+						writeHeader = false;
 					}
 
 					foreach(var field in fields!) {

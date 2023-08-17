@@ -1,6 +1,6 @@
 # Sion.Useful.Files
 
-NuGet package that provides useful file methods. Specifically, CSV file reading.
+NuGet package that provides useful file methods. Specifically, CSV file reading and writing.
 
 ## Sion.Useful.Files.Csv
 
@@ -10,9 +10,9 @@ public static IEnumerable<RowType> Read<RowType>(string path, string delimiter =
 public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
 
 public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
-public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class
+public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class
 public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
-public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class
+public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class
 ```
 
 ## How to use:
@@ -108,7 +108,7 @@ Things to note:
 
 ```
 Student[] data = SomeDataSource();
-Csv.Write(data, "students2.csv");
+Csv.Write(data, "students2.csv", writeHeader: true);
 ```
 
 #### Writing raw string data to a CSV file
