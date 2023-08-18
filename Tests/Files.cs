@@ -196,7 +196,7 @@ namespace Tests {
 		public void Csv_Write() {
 			try {
 				IEnumerable<Student> students = Csv.Read<Student>(@".\assets\students.csv", hasHeader: true);
-				Csv.Write(students, @".\assets\students2.csv", hasHeader: true);
+				Csv.Write(students, @".\assets\students2.csv", writeHeader: true);
 				Assert.IsTrue(File.Exists(@".\assets\students2.csv"));
 			}
 			catch(Exception e) {

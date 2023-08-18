@@ -155,31 +155,46 @@ namespace Sion.Useful.Files {
 		}
 
 		public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
-			string csv = "";
+			encoding ??= Encoding.UTF8;
+
+			if(File.Exists(path)) {
+				File.Delete(path);
+			}
+
+			using FileStream fin = File.Create(path);
 			foreach(var row in rows) {
+				string line = "";
 				foreach(var column in row) {
 					if(column.Contains(delimiter)) {
-						csv += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
+						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
 					}
 					else {
-						csv += $"{column.Replace("\"", "\"\"")}{delimiter}";
+						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
 					}
 				}
-				csv = $"{csv[..^delimiter.Length]}{Environment.NewLine}";
+				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+				byte[] data = encoding!.GetBytes(line);
+				fin.Write(data, 0, data.Length);
 			}
-			encoding ??= Encoding.UTF8;
-			File.WriteAllText(path, csv, encoding!);
 		}
 
 		public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
-			string csv = "";
+			encoding ??= Encoding.UTF8;
 
 			if(Activator.CreateInstance(typeof(RowType)) as RowType is RowType obj) {
 				Type objType = obj.GetType();
 				PropertyInfo[] fields = objType.GetProperties();
+
+				if(File.Exists(path)) {
+					File.Delete(path);
+				}
+
+				using FileStream fin = File.Create(path);
 				foreach(var row in rows) {
+					string line = "";
+
 					if(writeHeader) {
-						csv += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
+						line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
 						writeHeader = false;
 					}
 
@@ -196,53 +211,52 @@ namespace Sion.Useful.Files {
 							case TypeCode.UInt64:
 							case TypeCode.Boolean:
 							case TypeCode.DateTime:
-								csv += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
 								break;
 							case TypeCode.Single:
-								csv += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
 								break;
 							case TypeCode.Double:
-								csv += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
 								break;
 							case TypeCode.Decimal:
-								csv += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
 								break;
 							case TypeCode.Char:
 								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
 								if(c == '"') {
-									csv += $"\"\"{delimiter}";
+									line += $"\"\"{delimiter}";
 								}
 								else if(c.ToString() == delimiter) {
-									csv += $"\"{c}\"{delimiter}";
+									line += $"\"{c}\"{delimiter}";
 								}
 								else {
-									csv += $"{c}{delimiter}";
+									line += $"{c}{delimiter}";
 								}
 								break;
 							case TypeCode.String:
 								string? s = field.GetValue(row)?.ToString();
 								if(s?.Contains(delimiter) ?? false) {
-									csv += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
+									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
 								}
 								else {
-									csv += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
+									line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
 								}
 								break;
 							case TypeCode.Empty:
-								csv += $"null{delimiter}";
+								line += $"null{delimiter}";
 								break;
 							default:
-								csv += $"null{delimiter}";
+								line += $"null{delimiter}";
 								break;
 						}
 					}
 
-					csv = $"{csv[..^delimiter.Length]}{Environment.NewLine}";
+					line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+					byte[] data = encoding!.GetBytes(line);
+					fin.Write(data, 0, data.Length);
 				}
 			}
-
-			encoding ??= Encoding.UTF8;
-			File.WriteAllText(path, csv, encoding!);
 		}
 
 		public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
