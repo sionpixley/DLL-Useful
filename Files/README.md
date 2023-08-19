@@ -5,9 +5,9 @@ NuGet package that provides useful file methods. Specifically, CSV file reading.
 ## Sion.Useful.Files.Csv
 
 ```
-public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false)
-public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false) where RowType : class
-public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false)
+public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
+public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class
+public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
 ```
 
 ## How to use:
@@ -26,7 +26,8 @@ Things to note:
 
 - The delimiter defaults to a comma, but can be customized
 - The hasHeader defaults to false
-- The automatic mapping currently only supports classes that use built-in property types
+- The encoding defaults to UTF-8
+- The automatic mapping currently only supports classes that use these property types: bool, char, string, DateTime, short, ushort, int, uint, long, ulong, float, double, decimal, sbyte, and byte
 - The automatic mapping works best if there's a header row on the CSV file with column names that match the property names for the custom class (casing does matter)
 - Empty column values are treated as null
 - Column values null and "null" are also treated as null

@@ -13,8 +13,8 @@ namespace Tests {
 			try {
 				string[][] expected = {
 					new string[] { "1", "Landon", "Jameson", "Smith", "false" },
-					new string[] { "2", "Avery", "Elizabeth", "Davis", "true" },
-					new string[] { "3", "Ethan", "null", "Johnson", "false" },
+					new string[] { "2", "Avery", "Eliza,beth", "Davis", "true" },
+					new string[] { "3", "Ethan", "", "John\"son", "false" },
 					new string[] { "4", "Mia", "Grace", "Rodriguez", "false" },
 					new string[] { "5", "Oliver", "William", "Brown", "true" },
 					new string[] { "6", "Aria", "Rose", "Hernandez", "false" },
@@ -52,7 +52,7 @@ namespace Tests {
 					new Student() {
 						Id = 2,
 						FirstName = "Avery",
-						MiddleName = "Elizabeth",
+						MiddleName = "Eliza,beth",
 						LastName = "Davis",
 						IsGraduateStudent = true
 					},
@@ -60,7 +60,7 @@ namespace Tests {
 						Id = 3,
 						FirstName = "Ethan",
 						MiddleName = null,
-						LastName = "Johnson",
+						LastName = "John\"son",
 						IsGraduateStudent = false
 					},
 					new Student() {
@@ -122,7 +122,7 @@ namespace Tests {
 					new Student() {
 						Id = 2,
 						FirstName = "Avery",
-						MiddleName = "Elizabeth",
+						MiddleName = "Eliza,beth",
 						LastName = "Davis",
 						IsGraduateStudent = true
 					},
@@ -130,7 +130,7 @@ namespace Tests {
 						Id = 3,
 						FirstName = "Ethan",
 						MiddleName = null,
-						LastName = "Johnson",
+						LastName = "John\"son",
 						IsGraduateStudent = false
 					},
 					new Student() {
@@ -190,5 +190,29 @@ namespace Tests {
 				Assert.Fail(e.Message);
 			}
 		}
+
+		//[TestMethod]
+		//public void Csv_Write() {
+		//	try {
+		//		IEnumerable<Diamond> diamonds = Csv.Read<Diamond>(@".\assets\diamonds.csv", hasHeader: true);
+		//		Csv.Write(diamonds, @".\assets\diamonds2.csv", writeHeader: true);
+		//		Assert.IsTrue(File.Exists(@".\assets\diamonds2.csv"));
+		//	}
+		//	catch(Exception e) {
+		//		Assert.Fail(e.Message);
+		//	}
+		//}
+
+		//[TestMethod]
+		//public async Task Csv_WriteAsync() {
+		//	try {
+		//		IEnumerable<Diamond> diamonds = Csv.Read<Diamond>(@".\assets\diamonds.csv", hasHeader: true);
+		//		await Csv.WriteAsync(diamonds, @".\assets\diamondsasync.csv", writeHeader: true);
+		//		Assert.IsTrue(File.Exists(@".\assets\diamondsasync.csv"));
+		//	}
+		//	catch(Exception e) {
+		//		Assert.Fail(e.Message);
+		//	}
+		//}
 	}
 }
