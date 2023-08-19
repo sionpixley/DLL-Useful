@@ -140,215 +140,215 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
-		public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
-			encoding ??= Encoding.UTF8;
+		//public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
+		//	encoding ??= Encoding.UTF8;
 
-			if(File.Exists(path)) {
-				File.Delete(path);
-			}
+		//	if(File.Exists(path)) {
+		//		File.Delete(path);
+		//	}
 
-			using FileStream fout = File.Create(path);
-			foreach(var row in rows) {
-				string line = "";
-				foreach(var column in row) {
-					if(column.Contains(delimiter)) {
-						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
-					}
-					else {
-						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
-					}
-				}
-				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-				byte[] data = encoding!.GetBytes(line);
-				fout.Write(data, 0, data.Length);
-			}
-		}
+		//	using FileStream fout = File.Create(path);
+		//	foreach(var row in rows) {
+		//		string line = "";
+		//		foreach(var column in row) {
+		//			if(column.Contains(delimiter)) {
+		//				line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
+		//			}
+		//			else {
+		//				line += $"{column.Replace("\"", "\"\"")}{delimiter}";
+		//			}
+		//		}
+		//		line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+		//		byte[] data = encoding!.GetBytes(line);
+		//		fout.Write(data, 0, data.Length);
+		//	}
+		//}
 
-		public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
-			encoding ??= Encoding.UTF8;
+		//public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
+		//	encoding ??= Encoding.UTF8;
 
-			if(Activator.CreateInstance<RowType>() is RowType obj) {
-				Type objType = obj.GetType();
-				PropertyInfo[] fields = objType.GetProperties();
+		//	if(Activator.CreateInstance<RowType>() is RowType obj) {
+		//		Type objType = obj.GetType();
+		//		PropertyInfo[] fields = objType.GetProperties();
 
-				if(File.Exists(path)) {
-					File.Delete(path);
-				}
+		//		if(File.Exists(path)) {
+		//			File.Delete(path);
+		//		}
 
-				using FileStream fout = File.Create(path);
-				foreach(var row in rows) {
-					string line = "";
+		//		using FileStream fout = File.Create(path);
+		//		foreach(var row in rows) {
+		//			string line = "";
 
-					if(writeHeader) {
-						line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-						writeHeader = false;
-					}
+		//			if(writeHeader) {
+		//				line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
+		//				writeHeader = false;
+		//			}
 
-					foreach(var field in fields!) {
-						TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
-						switch(typeCode) {
-							case TypeCode.SByte:
-							case TypeCode.Byte:
-							case TypeCode.Int16:
-							case TypeCode.UInt16:
-							case TypeCode.Int32:
-							case TypeCode.UInt32:
-							case TypeCode.Int64:
-							case TypeCode.UInt64:
-							case TypeCode.Boolean:
-							case TypeCode.DateTime:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Single:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Double:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Decimal:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Char:
-								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
-								if(c == '"') {
-									line += $"\"\"{delimiter}";
-								}
-								else if(c.ToString() == delimiter) {
-									line += $"\"{c}\"{delimiter}";
-								}
-								else {
-									line += $"{c}{delimiter}";
-								}
-								break;
-							case TypeCode.String:
-								string? s = field.GetValue(row)?.ToString();
-								if(s?.Contains(delimiter) ?? false) {
-									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
-								}
-								else {
-									line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
-								}
-								break;
-							case TypeCode.Empty:
-								line += $"null{delimiter}";
-								break;
-							default:
-								line += $"null{delimiter}";
-								break;
-						}
-					}
+		//			foreach(var field in fields!) {
+		//				TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
+		//				switch(typeCode) {
+		//					case TypeCode.SByte:
+		//					case TypeCode.Byte:
+		//					case TypeCode.Int16:
+		//					case TypeCode.UInt16:
+		//					case TypeCode.Int32:
+		//					case TypeCode.UInt32:
+		//					case TypeCode.Int64:
+		//					case TypeCode.UInt64:
+		//					case TypeCode.Boolean:
+		//					case TypeCode.DateTime:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Single:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Double:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Decimal:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Char:
+		//						char c = Convert.ToChar(field.GetValue(row) ?? ' ');
+		//						if(c == '"') {
+		//							line += $"\"\"{delimiter}";
+		//						}
+		//						else if(c.ToString() == delimiter) {
+		//							line += $"\"{c}\"{delimiter}";
+		//						}
+		//						else {
+		//							line += $"{c}{delimiter}";
+		//						}
+		//						break;
+		//					case TypeCode.String:
+		//						string? s = field.GetValue(row)?.ToString();
+		//						if(s?.Contains(delimiter) ?? false) {
+		//							line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
+		//						}
+		//						else {
+		//							line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
+		//						}
+		//						break;
+		//					case TypeCode.Empty:
+		//						line += $"null{delimiter}";
+		//						break;
+		//					default:
+		//						line += $"null{delimiter}";
+		//						break;
+		//				}
+		//			}
 
-					line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-					byte[] data = encoding!.GetBytes(line);
-					fout.Write(data, 0, data.Length);
-				}
-			}
-		}
+		//			line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+		//			byte[] data = encoding!.GetBytes(line);
+		//			fout.Write(data, 0, data.Length);
+		//		}
+		//	}
+		//}
 
-		public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
-			encoding ??= Encoding.UTF8;
+		//public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
+		//	encoding ??= Encoding.UTF8;
 
-			if(File.Exists(path)) {
-				File.Delete(path);
-			}
+		//	if(File.Exists(path)) {
+		//		File.Delete(path);
+		//	}
 
-			using FileStream fout = File.Create(path);
-			foreach(var row in rows) {
-				string line = "";
-				foreach(var column in row) {
-					if(column.Contains(delimiter)) {
-						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
-					}
-					else {
-						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
-					}
-				}
-				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-				byte[] data = encoding!.GetBytes(line);
-				await fout.WriteAsync(data.AsMemory(0, data.Length));
-			}
-		}
+		//	using FileStream fout = File.Create(path);
+		//	foreach(var row in rows) {
+		//		string line = "";
+		//		foreach(var column in row) {
+		//			if(column.Contains(delimiter)) {
+		//				line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
+		//			}
+		//			else {
+		//				line += $"{column.Replace("\"", "\"\"")}{delimiter}";
+		//			}
+		//		}
+		//		line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+		//		byte[] data = encoding!.GetBytes(line);
+		//		await fout.WriteAsync(data.AsMemory(0, data.Length));
+		//	}
+		//}
 
-		public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
-			encoding ??= Encoding.UTF8;
+		//public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
+		//	encoding ??= Encoding.UTF8;
 
-			if(Activator.CreateInstance<RowType>() is RowType obj) {
-				Type objType = obj.GetType();
-				PropertyInfo[] fields = objType.GetProperties();
+		//	if(Activator.CreateInstance<RowType>() is RowType obj) {
+		//		Type objType = obj.GetType();
+		//		PropertyInfo[] fields = objType.GetProperties();
 
-				if(File.Exists(path)) {
-					File.Delete(path);
-				}
+		//		if(File.Exists(path)) {
+		//			File.Delete(path);
+		//		}
 
-				using FileStream fout = File.Create(path);
-				foreach(var row in rows) {
-					string line = "";
+		//		using FileStream fout = File.Create(path);
+		//		foreach(var row in rows) {
+		//			string line = "";
 
-					if(writeHeader) {
-						line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-						writeHeader = false;
-					}
+		//			if(writeHeader) {
+		//				line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
+		//				writeHeader = false;
+		//			}
 
-					foreach(var field in fields!) {
-						TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
-						switch(typeCode) {
-							case TypeCode.SByte:
-							case TypeCode.Byte:
-							case TypeCode.Int16:
-							case TypeCode.UInt16:
-							case TypeCode.Int32:
-							case TypeCode.UInt32:
-							case TypeCode.Int64:
-							case TypeCode.UInt64:
-							case TypeCode.Boolean:
-							case TypeCode.DateTime:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Single:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Double:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Decimal:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.Char:
-								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
-								if(c == '"') {
-									line += $"\"\"{delimiter}";
-								}
-								else if(c.ToString() == delimiter) {
-									line += $"\"{c}\"{delimiter}";
-								}
-								else {
-									line += $"{c}{delimiter}";
-								}
-								break;
-							case TypeCode.String:
-								string? s = field.GetValue(row)?.ToString();
-								if(s?.Contains(delimiter) ?? false) {
-									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
-								}
-								else {
-									line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
-								}
-								break;
-							case TypeCode.Empty:
-								line += $"null{delimiter}";
-								break;
-							default:
-								line += $"null{delimiter}";
-								break;
-						}
-					}
+		//			foreach(var field in fields!) {
+		//				TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
+		//				switch(typeCode) {
+		//					case TypeCode.SByte:
+		//					case TypeCode.Byte:
+		//					case TypeCode.Int16:
+		//					case TypeCode.UInt16:
+		//					case TypeCode.Int32:
+		//					case TypeCode.UInt32:
+		//					case TypeCode.Int64:
+		//					case TypeCode.UInt64:
+		//					case TypeCode.Boolean:
+		//					case TypeCode.DateTime:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Single:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Double:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Decimal:
+		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+		//						break;
+		//					case TypeCode.Char:
+		//						char c = Convert.ToChar(field.GetValue(row) ?? ' ');
+		//						if(c == '"') {
+		//							line += $"\"\"{delimiter}";
+		//						}
+		//						else if(c.ToString() == delimiter) {
+		//							line += $"\"{c}\"{delimiter}";
+		//						}
+		//						else {
+		//							line += $"{c}{delimiter}";
+		//						}
+		//						break;
+		//					case TypeCode.String:
+		//						string? s = field.GetValue(row)?.ToString();
+		//						if(s?.Contains(delimiter) ?? false) {
+		//							line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
+		//						}
+		//						else {
+		//							line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
+		//						}
+		//						break;
+		//					case TypeCode.Empty:
+		//						line += $"null{delimiter}";
+		//						break;
+		//					default:
+		//						line += $"null{delimiter}";
+		//						break;
+		//				}
+		//			}
 
-					line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-					byte[] data = encoding!.GetBytes(line);
-					await fout.WriteAsync(data.AsMemory(0, data.Length));
-				}
-			}
-		}
+		//			line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+		//			byte[] data = encoding!.GetBytes(line);
+		//			await fout.WriteAsync(data.AsMemory(0, data.Length));
+		//		}
+		//	}
+		//}
 
 		private static string[] _ProcessLine(string line, string delimiter) {
 			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
