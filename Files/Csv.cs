@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,14 +22,7 @@ namespace Sion.Useful.Files {
 					hasHeader = false;
 				}
 				else {
-					string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-					string[] row = Regex.Split(line, pattern);
-					for(int i = 0; i < row.Length; i += 1) {
-						row[i] = row[i].Replace("\"\"", "\"");
-						if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
-							row[i] = row[i][1..^1];
-						}
-					}
+					string[] row = _ProcessLine(line, delimiter);
 					rows.Add(row);
 				}
 			}
@@ -45,14 +39,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-				string[] row = Regex.Split(line, pattern);
-				for(int i = 0; i < row.Length; i += 1) {
-					row[i] = row[i].Replace("\"\"", "\"");
-					if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
-						row[i] = row[i][1..^1];
-					}
-				}
+				string[] row = _ProcessLine(line, delimiter);
 
 				if(fields == null && hasHeader) {
 					fields = row;
@@ -61,15 +48,15 @@ namespace Sion.Useful.Files {
 					RowType? obj = Activator.CreateInstance<RowType>();
 					if(obj != null) {
 						Type objType = obj!.GetType();
-						fields ??= objType?.GetProperties().Select(p => p.Name).ToArray();
+						fields ??= objType.GetProperties().Select(p => p.Name).ToArray();
 						for(int i = 0; i < row.Length; i += 1) {
-							PropertyInfo? property = objType!.GetProperty(fields![i]);
-							TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
+							PropertyInfo? property = objType.GetProperty(fields![i]);
 
 							if(row[i] == "null" || String.IsNullOrWhiteSpace(row[i])) {
 								property?.SetValue(obj!, null, null);
 							}
 							else {
+								TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
 								switch(typeCode) {
 									case TypeCode.SByte:
 										property?.SetValue(obj!, Convert.ToSByte(row[i]), null);
@@ -145,14 +132,7 @@ namespace Sion.Useful.Files {
 					hasHeader = false;
 				}
 				else {
-					string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-					string[] row = Regex.Split(line, pattern);
-					for(int i = 0; i < row.Length; i += 1) {
-						row[i] = row[i].Replace("\"\"", "\"");
-						if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
-							row[i] = row[i][1..^1];
-						}
-					}
+					string[] row = _ProcessLine(line, delimiter);
 					rows.Add(customMappingFunc(row));
 				}
 			}
@@ -368,6 +348,18 @@ namespace Sion.Useful.Files {
 					await fout.WriteAsync(data.AsMemory(0, data.Length));
 				}
 			}
+		}
+
+		private static string[] _ProcessLine(string line, string delimiter) {
+			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
+			string[] row = Regex.Split(line, pattern);
+			for(int i = 0; i < row.Length; i += 1) {
+				if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
+					row[i] = row[i][1..^1];
+				}
+				row[i] = row[i].Replace("\"\"", "\"");
+			}
+			return row;
 		}
 	}
 }
