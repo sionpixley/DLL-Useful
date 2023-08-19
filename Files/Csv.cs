@@ -58,11 +58,10 @@ namespace Sion.Useful.Files {
 					fields = row;
 				}
 				else {
-					RowType? obj = Activator.CreateInstance(typeof(RowType)) as RowType;
-					Type? objType = obj?.GetType();
-					fields ??= objType?.GetProperties().Select(p => p.Name).ToArray();
-
-					if(obj != null && objType != null && fields != null) {
+					RowType? obj = Activator.CreateInstance<RowType>();
+					if(obj != null) {
+						Type objType = obj!.GetType();
+						fields ??= objType?.GetProperties().Select(p => p.Name).ToArray();
 						for(int i = 0; i < row.Length; i += 1) {
 							PropertyInfo? property = objType!.GetProperty(fields![i]);
 							TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
@@ -188,7 +187,7 @@ namespace Sion.Useful.Files {
 		public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 
-			if(Activator.CreateInstance(typeof(RowType)) as RowType is RowType obj) {
+			if(Activator.CreateInstance<RowType>() is RowType obj) {
 				Type objType = obj.GetType();
 				PropertyInfo[] fields = objType.GetProperties();
 
@@ -293,7 +292,7 @@ namespace Sion.Useful.Files {
 		public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 
-			if(Activator.CreateInstance(typeof(RowType)) as RowType is RowType obj) {
+			if(Activator.CreateInstance<RowType>() is RowType obj) {
 				Type objType = obj.GetType();
 				PropertyInfo[] fields = objType.GetProperties();
 
