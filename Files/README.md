@@ -1,6 +1,6 @@
 # Sion.Useful.Files
 
-NuGet package that provides useful file methods. Specifically, CSV file reading.
+NuGet package that provides useful file methods. Specifically, CSV file reading and writing.
 
 ## Sion.Useful.Files.Csv
 
@@ -8,6 +8,11 @@ NuGet package that provides useful file methods. Specifically, CSV file reading.
 public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
 public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class
 public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
+
+public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
+public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class
+public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
+public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class
 ```
 
 ## How to use:
@@ -91,4 +96,25 @@ Note: Empty column values will return as an empty string ""
 
 ```
 IEnumerable<string[]> rows = Csv.Read("students.csv", hasHeader: true);
+```
+
+#### Writing a collection of objects to a CSV file
+
+Things to note: 
+
+- The Write method using objects uses the built-in automatic mapping
+- The automatic mapping currently only supports classes that use these property types: bool, char, string, DateTime, short, ushort, int, uint, long, ulong, float, double, decimal, sbyte, and byte
+- There are asynchronous versions of the Write method (WriteAsync)
+
+```
+Student[] data = SomeDataSource();
+Csv.Write(data, "students2.csv", writeHeader: true);
+```
+
+#### Writing raw string data to a CSV file
+
+```
+// Doesn't have to be of type string[][], it can be almost any multidimensional collection type
+string[][] data = SomeDataSource();
+Csv.Write(data, "students2.csv");
 ```
