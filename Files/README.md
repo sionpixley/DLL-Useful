@@ -10,9 +10,9 @@ public static IEnumerable<RowType> Read<RowType>(string path, string delimiter =
 public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
 
 public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
-public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class
+public static void Write<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class
 public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
-public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class
+public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class
 ```
 
 ## How to use:
@@ -116,7 +116,7 @@ Things to note:
 
 ```
 Student[] data = SomeDataSource();
-Csv.Write(data, "students2.csv", writeHeader: true);
+Csv.Write(data, "students2.csv", true);
 ```
 
 #### Writing raw string data to a CSV file
