@@ -6,9 +6,6 @@ using System.Collections.Generic;
 
 namespace Benchmarks {
 	[MemoryDiagnoser]
-	[NativeMemoryProfiler]
-	[ThreadingDiagnoser]
-	[ExceptionDiagnoser]
 	public class Files {
 		[Benchmark]
 		public void Csv_ReadNoType() {
