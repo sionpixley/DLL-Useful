@@ -323,17 +323,18 @@ namespace Sion.Useful.Files {
 							case TypeCode.Int64:
 							case TypeCode.UInt64:
 							case TypeCode.Boolean:
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								break;
 							case TypeCode.DateTime:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
 							case TypeCode.Single:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
 							case TypeCode.Double:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
 							case TypeCode.Decimal:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								string? n = field.GetValue(row)?.ToString();
+								n ??= "null";
+								if(n!.Contains(delimiter)) {
+									n = $"\"{n!}\"";
+								}
+								line += $"{n!}{delimiter}";
 								break;
 							case TypeCode.Char:
 								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
@@ -349,11 +350,12 @@ namespace Sion.Useful.Files {
 								break;
 							case TypeCode.String:
 								string? s = field.GetValue(row)?.ToString();
-								if(s?.Contains(delimiter) ?? false) {
+								s ??= "null";
+								if(s!.Contains(delimiter)) {
 									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
 								}
 								else {
-									line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
+									line += $"{s!.Replace("\"", "\"\"")}{delimiter}";
 								}
 								break;
 							case TypeCode.Empty:
@@ -428,17 +430,18 @@ namespace Sion.Useful.Files {
 							case TypeCode.Int64:
 							case TypeCode.UInt64:
 							case TypeCode.Boolean:
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								break;
 							case TypeCode.DateTime:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
 							case TypeCode.Single:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
 							case TypeCode.Double:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
 							case TypeCode.Decimal:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								string? n = field.GetValue(row)?.ToString();
+								n ??= "null";
+								if(n!.Contains(delimiter)) {
+									n = $"\"{n!}\"";
+								}
+								line += $"{n!}{delimiter}";
 								break;
 							case TypeCode.Char:
 								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
@@ -454,11 +457,12 @@ namespace Sion.Useful.Files {
 								break;
 							case TypeCode.String:
 								string? s = field.GetValue(row)?.ToString();
-								if(s?.Contains(delimiter) ?? false) {
+								s ??= "null";
+								if(s!.Contains(delimiter)) {
 									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
 								}
 								else {
-									line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
+									line += $"{s!.Replace("\"", "\"\"")}{delimiter}";
 								}
 								break;
 							case TypeCode.Empty:

@@ -2,7 +2,7 @@ using System;
 
 namespace Benchmarks.Classes {
 	public class ItemRow {
-		public int Id { get; set; }
+		public double Id { get; set; }
 		public string Item2 { get; set; }
 		public string Item3 { get; set; }
 		public string Item4 { get; set; }
@@ -13,7 +13,7 @@ namespace Benchmarks.Classes {
 		public DateTime Item9 { get; set; }
 
 		public ItemRow() {
-			Id = 0;
+			Id = 0.0;
 			Item2 = "";
 			Item3 = "";
 			Item4 = "";
