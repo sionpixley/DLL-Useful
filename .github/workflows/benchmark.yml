@@ -1,7 +1,6 @@
 name: Benchmark
 
-on: 
-  workflow_dispatch:
+on:
   push:
     branches: [ main, files-wwrite ]
     
@@ -21,4 +20,4 @@ jobs:
     - name: Build 
       run: dotnet build --configuration=Release --no-restore 
     - name: Benchmark 
-      run: Benchmark.exe
+      run: ./Benchmarks/bin/Release/net6.0/Benchmarks.exe
