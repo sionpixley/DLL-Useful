@@ -8,6 +8,9 @@ NuGet package that provides useful file methods. Specifically, CSV file reading 
 public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
 public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class
 public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
+public static async Task<IEnumerable<string[]>> ReadAsync(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
+public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class
+public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null)
 
 public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null)
 public static void Write<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class
@@ -37,6 +40,7 @@ Things to note:
 - Empty column values are treated as null
 - Column values null and "null" are also treated as null
 - If using null, please mark which properties are nullable in the class definition
+- There are asynchronous versions of the Read method (ReadAsync)
 
 ```
 // Every row in our CSV file is a Student object
