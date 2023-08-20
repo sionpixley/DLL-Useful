@@ -162,7 +162,7 @@ namespace Sion.Useful.Files {
 			}
 		}
 
-		public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
+		public static void Write<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 
 			if(Activator.CreateInstance<RowType>() is RowType obj) {

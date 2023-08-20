@@ -122,7 +122,7 @@ Csv.Write(data, "students2.csv", writeHeader: true);
 #### Writing raw string data to a CSV file
 
 ```
-// Doesn't have to be of type string[][], it can be almost any multidimensional collection type
+// Doesn't have to be of type string[][], it can be any collection of string collections (i.e. any type that conforms to IEnumerable<IEnumerable<string>>)
 string[][] data = SomeDataSource();
 Csv.Write(data, "students2.csv");
 ```
