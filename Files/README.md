@@ -42,10 +42,18 @@ Things to note:
 // Every row in our CSV file is a Student object
 public class Student {
 	public long Id { get; set; }
-	public string FirstName { get; set; } = "";
+	public string FirstName { get; set; }
 	public string? MiddleName { get; set; }
-	public string LastName { get; set; } = "";
+	public string LastName { get; set; }
 	public bool IsGraduateStudent { get; set; }
+	
+	public Student() {
+		Id = 0;
+		FirstName = "";
+		MiddleName = null;
+		LastName = "";
+		IsGraduateStudent = false;
+	}
 }
 ```
 
