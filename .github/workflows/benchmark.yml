@@ -1,9 +1,7 @@
 name: Benchmark
 
-on:
-  workflow_dispatch
-  push:
-    branches: [ main, files-wwrite ]
+on: [workflow_dispatch, push]
+  branches: [ main ]
     
 jobs:
   build-and-benchmark:
