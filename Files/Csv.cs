@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Sion.Useful.Files.Attributes;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Sion.Useful.Files {
 	public static class Csv {
@@ -43,74 +46,117 @@ namespace Sion.Useful.Files {
 					fields = row;
 				}
 				else {
-					RowType? obj = Activator.CreateInstance<RowType>();
-					if(obj != null) {
-						Type objType = obj!.GetType();
+					if(Activator.CreateInstance<RowType>() is RowType obj) {
+						Type objType = obj.GetType();
 						fields ??= objType.GetProperties().Select(p => p.Name).ToArray();
 						for(int i = 0; i < row.Length; i += 1) {
-							PropertyInfo? property = objType.GetProperty(fields![i]);
-
-							if(row[i] == "null" || String.IsNullOrWhiteSpace(row[i])) {
-								property?.SetValue(obj!, null, null);
-							}
-							else {
-								TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
-								switch(typeCode) {
-									case TypeCode.SByte:
-										property?.SetValue(obj!, Convert.ToSByte(row[i]), null);
-										break;
-									case TypeCode.Byte:
-										property?.SetValue(obj!, Convert.ToByte(row[i]), null);
-										break;
-									case TypeCode.Int16:
-										property?.SetValue(obj!, Convert.ToInt16(row[i]), null);
-										break;
-									case TypeCode.UInt16:
-										property?.SetValue(obj!, Convert.ToUInt16(row[i]), null);
-										break;
-									case TypeCode.Int32:
-										property?.SetValue(obj!, Convert.ToInt32(row[i]), null);
-										break;
-									case TypeCode.UInt32:
-										property?.SetValue(obj!, Convert.ToUInt32(row[i]), null);
-										break;
-									case TypeCode.Int64:
-										property?.SetValue(obj!, Convert.ToInt64(row[i]), null);
-										break;
-									case TypeCode.UInt64:
-										property?.SetValue(obj!, Convert.ToUInt64(row[i]), null);
-										break;
-									case TypeCode.Single:
-										property?.SetValue(obj!, Convert.ToSingle(row[i]), null);
-										break;
-									case TypeCode.Double:
-										property?.SetValue(obj!, Convert.ToDouble(row[i]), null);
-										break;
-									case TypeCode.Decimal:
-										property?.SetValue(obj!, Convert.ToDecimal(row[i]), null);
-										break;
-									case TypeCode.Boolean:
-										property?.SetValue(obj!, Convert.ToBoolean(row[i]), null);
-										break;
-									case TypeCode.Char:
-										property?.SetValue(obj!, Convert.ToChar(row[i]), null);
-										break;
-									case TypeCode.String:
-										property?.SetValue(obj!, row[i], null);
-										break;
-									case TypeCode.DateTime:
-										property?.SetValue(obj!, Convert.ToDateTime(row[i]), null);
-										break;
-									case TypeCode.Empty:
-										property?.SetValue(obj!, null, null);
-										break;
-									default:
-										property?.SetValue(obj!, null, null);
-										break;
+							if(objType.GetProperty(fields![i]) is PropertyInfo property) {
+								if(row[i] == "null" || String.IsNullOrWhiteSpace(row[i])) {
+									property.SetValue(obj, null, null);
+								}
+								else {
+									TypeCode typeCode = Type.GetTypeCode(property.PropertyType);
+									switch(typeCode) {
+										case TypeCode.SByte:
+											property.SetValue(obj, Convert.ToSByte(row[i]), null);
+											break;
+										case TypeCode.Byte:
+											property.SetValue(obj, Convert.ToByte(row[i]), null);
+											break;
+										case TypeCode.Int16:
+											property.SetValue(obj, Convert.ToInt16(row[i]), null);
+											break;
+										case TypeCode.UInt16:
+											property.SetValue(obj, Convert.ToUInt16(row[i]), null);
+											break;
+										case TypeCode.Int32:
+											property.SetValue(obj, Convert.ToInt32(row[i]), null);
+											break;
+										case TypeCode.UInt32:
+											property.SetValue(obj, Convert.ToUInt32(row[i]), null);
+											break;
+										case TypeCode.Int64:
+											property.SetValue(obj, Convert.ToInt64(row[i]), null);
+											break;
+										case TypeCode.UInt64:
+											property.SetValue(obj, Convert.ToUInt64(row[i]), null);
+											break;
+										case TypeCode.Single:
+											property.SetValue(obj, Convert.ToSingle(row[i]), null);
+											break;
+										case TypeCode.Double:
+											property.SetValue(obj, Convert.ToDouble(row[i]), null);
+											break;
+										case TypeCode.Decimal:
+											property.SetValue(obj, Convert.ToDecimal(row[i]), null);
+											break;
+										case TypeCode.Boolean:
+											property.SetValue(obj, Convert.ToBoolean(row[i]), null);
+											break;
+										case TypeCode.Char:
+											property.SetValue(obj, Convert.ToChar(row[i]), null);
+											break;
+										case TypeCode.String:
+											property.SetValue(obj, row[i], null);
+											break;
+										case TypeCode.DateTime:
+											property.SetValue(obj, Convert.ToDateTime(row[i]), null);
+											break;
+										case TypeCode.Empty:
+											property.SetValue(obj, null, null);
+											break;
+										default:
+											if(property.PropertyType == typeof(DateTime?)) {
+												property.SetValue(obj, Convert.ToDateTime(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(int?)) {
+												property.SetValue(obj, Convert.ToInt32(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(long?)) {
+												property.SetValue(obj, Convert.ToInt64(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(double?)) {
+												property.SetValue(obj, Convert.ToDouble(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(float?)) {
+												property.SetValue(obj, Convert.ToSingle(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(decimal?)) {
+												property.SetValue(obj, Convert.ToDecimal(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(short?)) {
+												property.SetValue(obj, Convert.ToInt16(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(uint?)) {
+												property.SetValue(obj, Convert.ToUInt32(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(ulong?)) {
+												property.SetValue(obj, Convert.ToUInt64(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(ushort?)) {
+												property.SetValue(obj, Convert.ToUInt16(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(char?)) {
+												property.SetValue(obj, Convert.ToChar(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(bool?)) {
+												property.SetValue(obj, Convert.ToBoolean(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(byte?)) {
+												property.SetValue(obj, Convert.ToByte(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(sbyte?)) {
+												property.SetValue(obj, Convert.ToSByte(row[i]), null);
+											}
+											else {
+												property.SetValue(obj, null, null);
+											}
+											break;
+									}
 								}
 							}
 						}
-						rows.Add(obj!);
+						rows.Add(obj);
 					}
 				}
 			}
@@ -138,215 +184,476 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
-		//public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
-		//	encoding ??= Encoding.UTF8;
+		public static async Task<IEnumerable<string[]>> ReadAsync(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
+			encoding ??= Encoding.UTF8;
+			List<string[]> rows = new();
 
-		//	if(File.Exists(path)) {
-		//		File.Delete(path);
-		//	}
+			using FileStream fin = File.OpenRead(path);
+			using StreamReader reader = new(fin, encoding!);
 
-		//	using FileStream fout = File.Create(path);
-		//	foreach(var row in rows) {
-		//		string line = "";
-		//		foreach(var column in row) {
-		//			if(column.Contains(delimiter)) {
-		//				line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
-		//			}
-		//			else {
-		//				line += $"{column.Replace("\"", "\"\"")}{delimiter}";
-		//			}
-		//		}
-		//		line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-		//		byte[] data = encoding!.GetBytes(line);
-		//		fout.Write(data, 0, data.Length);
-		//	}
-		//}
+			while(await reader.ReadLineAsync() is string line) {
+				if(hasHeader) {
+					hasHeader = false;
+				}
+				else {
+					string[] row = _ProcessLine(line, delimiter);
+					rows.Add(row);
+				}
+			}
 
-		//public static void Write<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
-		//	encoding ??= Encoding.UTF8;
+			return rows;
+		}
 
-		//	if(Activator.CreateInstance<RowType>() is RowType obj) {
-		//		Type objType = obj.GetType();
-		//		PropertyInfo[] fields = objType.GetProperties();
+		public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
+			encoding ??= Encoding.UTF8;
+			List<RowType> rows = new();
+			string[]? fields = null;
 
-		//		if(File.Exists(path)) {
-		//			File.Delete(path);
-		//		}
+			using FileStream fin = File.OpenRead(path);
+			using StreamReader reader = new(fin, encoding!);
 
-		//		using FileStream fout = File.Create(path);
-		//		foreach(var row in rows) {
-		//			string line = "";
+			while(await reader.ReadLineAsync() is string line) {
+				string[] row = _ProcessLine(line, delimiter);
 
-		//			if(writeHeader) {
-		//				line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-		//				writeHeader = false;
-		//			}
+				if(fields == null && hasHeader) {
+					fields = row;
+				}
+				else {
+					if(Activator.CreateInstance<RowType>() is RowType obj) {
+						Type objType = obj.GetType();
+						fields ??= objType.GetProperties().Select(p => p.Name).ToArray();
+						for(int i = 0; i < row.Length; i += 1) {
+							if(objType.GetProperty(fields![i]) is PropertyInfo property) {
+								if(row[i] == "null" || String.IsNullOrWhiteSpace(row[i])) {
+									property.SetValue(obj, null, null);
+								}
+								else {
+									TypeCode typeCode = Type.GetTypeCode(property.PropertyType);
+									switch(typeCode) {
+										case TypeCode.SByte:
+											property.SetValue(obj, Convert.ToSByte(row[i]), null);
+											break;
+										case TypeCode.Byte:
+											property.SetValue(obj, Convert.ToByte(row[i]), null);
+											break;
+										case TypeCode.Int16:
+											property.SetValue(obj, Convert.ToInt16(row[i]), null);
+											break;
+										case TypeCode.UInt16:
+											property.SetValue(obj, Convert.ToUInt16(row[i]), null);
+											break;
+										case TypeCode.Int32:
+											property.SetValue(obj, Convert.ToInt32(row[i]), null);
+											break;
+										case TypeCode.UInt32:
+											property.SetValue(obj, Convert.ToUInt32(row[i]), null);
+											break;
+										case TypeCode.Int64:
+											property.SetValue(obj, Convert.ToInt64(row[i]), null);
+											break;
+										case TypeCode.UInt64:
+											property.SetValue(obj, Convert.ToUInt64(row[i]), null);
+											break;
+										case TypeCode.Single:
+											property.SetValue(obj, Convert.ToSingle(row[i]), null);
+											break;
+										case TypeCode.Double:
+											property.SetValue(obj, Convert.ToDouble(row[i]), null);
+											break;
+										case TypeCode.Decimal:
+											property.SetValue(obj, Convert.ToDecimal(row[i]), null);
+											break;
+										case TypeCode.Boolean:
+											property.SetValue(obj, Convert.ToBoolean(row[i]), null);
+											break;
+										case TypeCode.Char:
+											property.SetValue(obj, Convert.ToChar(row[i]), null);
+											break;
+										case TypeCode.String:
+											property.SetValue(obj, row[i], null);
+											break;
+										case TypeCode.DateTime:
+											property.SetValue(obj, Convert.ToDateTime(row[i]), null);
+											break;
+										case TypeCode.Empty:
+											property.SetValue(obj, null, null);
+											break;
+										default:
+											if(property.PropertyType == typeof(DateTime?)) {
+												property.SetValue(obj, Convert.ToDateTime(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(int?)) {
+												property.SetValue(obj, Convert.ToInt32(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(long?)) {
+												property.SetValue(obj, Convert.ToInt64(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(double?)) {
+												property.SetValue(obj, Convert.ToDouble(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(float?)) {
+												property.SetValue(obj, Convert.ToSingle(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(decimal?)) {
+												property.SetValue(obj, Convert.ToDecimal(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(short?)) {
+												property.SetValue(obj, Convert.ToInt16(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(uint?)) {
+												property.SetValue(obj, Convert.ToUInt32(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(ulong?)) {
+												property.SetValue(obj, Convert.ToUInt64(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(ushort?)) {
+												property.SetValue(obj, Convert.ToUInt16(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(char?)) {
+												property.SetValue(obj, Convert.ToChar(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(bool?)) {
+												property.SetValue(obj, Convert.ToBoolean(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(byte?)) {
+												property.SetValue(obj, Convert.ToByte(row[i]), null);
+											}
+											else if(property.PropertyType == typeof(sbyte?)) {
+												property.SetValue(obj, Convert.ToSByte(row[i]), null);
+											}
+											else {
+												property.SetValue(obj, null, null);
+											}
+											break;
+									}
+								}
+							}
+						}
+						rows.Add(obj);
+					}
+				}
+			}
 
-		//			foreach(var field in fields!) {
-		//				TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
-		//				switch(typeCode) {
-		//					case TypeCode.SByte:
-		//					case TypeCode.Byte:
-		//					case TypeCode.Int16:
-		//					case TypeCode.UInt16:
-		//					case TypeCode.Int32:
-		//					case TypeCode.UInt32:
-		//					case TypeCode.Int64:
-		//					case TypeCode.UInt64:
-		//					case TypeCode.Boolean:
-		//					case TypeCode.DateTime:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Single:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Double:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Decimal:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Char:
-		//						char c = Convert.ToChar(field.GetValue(row) ?? ' ');
-		//						if(c == '"') {
-		//							line += $"\"\"{delimiter}";
-		//						}
-		//						else if(c.ToString() == delimiter) {
-		//							line += $"\"{c}\"{delimiter}";
-		//						}
-		//						else {
-		//							line += $"{c}{delimiter}";
-		//						}
-		//						break;
-		//					case TypeCode.String:
-		//						string? s = field.GetValue(row)?.ToString();
-		//						if(s?.Contains(delimiter) ?? false) {
-		//							line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
-		//						}
-		//						else {
-		//							line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
-		//						}
-		//						break;
-		//					case TypeCode.Empty:
-		//						line += $"null{delimiter}";
-		//						break;
-		//					default:
-		//						line += $"null{delimiter}";
-		//						break;
-		//				}
-		//			}
+			return rows;
+		}
 
-		//			line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-		//			byte[] data = encoding!.GetBytes(line);
-		//			fout.Write(data, 0, data.Length);
-		//		}
-		//	}
-		//}
+		public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
+			encoding ??= Encoding.UTF8;
+			List<RowType> rows = new();
 
-		//public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
-		//	encoding ??= Encoding.UTF8;
+			using FileStream fin = File.OpenRead(path);
+			using StreamReader reader = new(fin, encoding!);
 
-		//	if(File.Exists(path)) {
-		//		File.Delete(path);
-		//	}
+			while(await reader.ReadLineAsync() is string line) {
+				if(hasHeader) {
+					hasHeader = false;
+				}
+				else {
+					string[] row = _ProcessLine(line, delimiter);
+					rows.Add(customMappingFunc(row));
+				}
+			}
 
-		//	using FileStream fout = File.Create(path);
-		//	foreach(var row in rows) {
-		//		string line = "";
-		//		foreach(var column in row) {
-		//			if(column.Contains(delimiter)) {
-		//				line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
-		//			}
-		//			else {
-		//				line += $"{column.Replace("\"", "\"\"")}{delimiter}";
-		//			}
-		//		}
-		//		line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-		//		byte[] data = encoding!.GetBytes(line);
-		//		await fout.WriteAsync(data.AsMemory(0, data.Length));
-		//	}
-		//}
+			return rows;
+		}
 
-		//public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, string delimiter = ",", bool writeHeader = false, Encoding? encoding = null) where RowType : class {
-		//	encoding ??= Encoding.UTF8;
+		public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
+			encoding ??= Encoding.UTF8;
 
-		//	if(Activator.CreateInstance<RowType>() is RowType obj) {
-		//		Type objType = obj.GetType();
-		//		PropertyInfo[] fields = objType.GetProperties();
+			if(File.Exists(path)) {
+				File.Delete(path);
+			}
 
-		//		if(File.Exists(path)) {
-		//			File.Delete(path);
-		//		}
+			using FileStream fout = File.Create(path);
+			foreach(var row in rows) {
+				string line = "";
+				foreach(var column in row) {
+					if(column.Contains(delimiter)) {
+						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
+					}
+					else {
+						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
+					}
+				}
+				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+				byte[] data = encoding!.GetBytes(line);
+				fout.Write(data, 0, data.Length);
+			}
+		}
 
-		//		using FileStream fout = File.Create(path);
-		//		foreach(var row in rows) {
-		//			string line = "";
+		public static void Write<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class {
+			encoding ??= Encoding.UTF8;
 
-		//			if(writeHeader) {
-		//				line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-		//				writeHeader = false;
-		//			}
+			if(Activator.CreateInstance<RowType>() is RowType obj) {
+				Type objType = obj.GetType();
+				PropertyInfo[] fields = objType.GetProperties();
 
-		//			foreach(var field in fields!) {
-		//				TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
-		//				switch(typeCode) {
-		//					case TypeCode.SByte:
-		//					case TypeCode.Byte:
-		//					case TypeCode.Int16:
-		//					case TypeCode.UInt16:
-		//					case TypeCode.Int32:
-		//					case TypeCode.UInt32:
-		//					case TypeCode.Int64:
-		//					case TypeCode.UInt64:
-		//					case TypeCode.Boolean:
-		//					case TypeCode.DateTime:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Single:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Double:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Decimal:
-		//						line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-		//						break;
-		//					case TypeCode.Char:
-		//						char c = Convert.ToChar(field.GetValue(row) ?? ' ');
-		//						if(c == '"') {
-		//							line += $"\"\"{delimiter}";
-		//						}
-		//						else if(c.ToString() == delimiter) {
-		//							line += $"\"{c}\"{delimiter}";
-		//						}
-		//						else {
-		//							line += $"{c}{delimiter}";
-		//						}
-		//						break;
-		//					case TypeCode.String:
-		//						string? s = field.GetValue(row)?.ToString();
-		//						if(s?.Contains(delimiter) ?? false) {
-		//							line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
-		//						}
-		//						else {
-		//							line += $"{s?.Replace("\"", "\"\"") ?? "null"}{delimiter}";
-		//						}
-		//						break;
-		//					case TypeCode.Empty:
-		//						line += $"null{delimiter}";
-		//						break;
-		//					default:
-		//						line += $"null{delimiter}";
-		//						break;
-		//				}
-		//			}
+				if(File.Exists(path)) {
+					File.Delete(path);
+				}
 
-		//			line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
-		//			byte[] data = encoding!.GetBytes(line);
-		//			await fout.WriteAsync(data.AsMemory(0, data.Length));
-		//		}
-		//	}
-		//}
+				using FileStream fout = File.Create(path);
+				foreach(var row in rows) {
+					string line = "";
+
+					if(writeHeader) {
+						line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
+						writeHeader = false;
+					}
+
+					foreach(var field in fields!) {
+						TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
+						switch(typeCode) {
+							case TypeCode.SByte:
+							case TypeCode.Byte:
+							case TypeCode.Int16:
+							case TypeCode.UInt16:
+							case TypeCode.Int32:
+							case TypeCode.UInt32:
+							case TypeCode.Int64:
+							case TypeCode.UInt64:
+							case TypeCode.Boolean:
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								break;
+							case TypeCode.DateTime:
+								object? d = field.GetValue(row);
+								if(d == null) {
+									line += $"null{delimiter}";
+								}
+								else {
+									DateTime date = Convert.ToDateTime(d!);
+									string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+									format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+									line += $"{date.ToString(format!)}{delimiter}";
+								}
+								break;
+							case TypeCode.Single:
+							case TypeCode.Double:
+							case TypeCode.Decimal:
+								string? n = field.GetValue(row)?.ToString();
+								n ??= "null";
+								if(n!.Contains(delimiter)) {
+									n = $"\"{n!}\"";
+								}
+								line += $"{n!}{delimiter}";
+								break;
+							case TypeCode.Char:
+								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
+								if(c == '"') {
+									line += $"\"\"{delimiter}";
+								}
+								else if(c.ToString() == delimiter) {
+									line += $"\"{c}\"{delimiter}";
+								}
+								else {
+									line += $"{c}{delimiter}";
+								}
+								break;
+							case TypeCode.String:
+								string? s = field.GetValue(row)?.ToString();
+								s ??= "null";
+								if(s!.Contains(delimiter)) {
+									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
+								}
+								else {
+									line += $"{s!.Replace("\"", "\"\"")}{delimiter}";
+								}
+								break;
+							case TypeCode.Empty:
+								line += $"null{delimiter}";
+								break;
+							default:
+								if(field.PropertyType == typeof(DateTime?)) {
+									object? dob = field.GetValue(row);
+									if(dob == null) {
+										line += $"null{delimiter}";
+									}
+									else {
+										DateTime date = Convert.ToDateTime(dob!);
+										string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+										format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+										line += $"{date.ToString(format!)}{delimiter}";
+									}
+								}
+								else if(
+									field.PropertyType == typeof(int?)
+									|| field.PropertyType == typeof(long?)
+									|| field.PropertyType == typeof(float?)
+									|| field.PropertyType == typeof(double?)
+									|| field.PropertyType == typeof(decimal?)
+									|| field.PropertyType == typeof(short?)
+									|| field.PropertyType == typeof(uint?)
+									|| field.PropertyType == typeof(ulong?)
+									|| field.PropertyType == typeof(ushort?)
+									|| field.PropertyType == typeof(char?)
+									|| field.PropertyType == typeof(byte?)
+									|| field.PropertyType == typeof(sbyte?)
+									|| field.PropertyType == typeof(bool?)
+								) {
+									line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								}
+								else {
+									line += $"null{delimiter}";
+								}
+								break;
+						}
+					}
+
+					line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+					byte[] data = encoding!.GetBytes(line);
+					fout.Write(data, 0, data.Length);
+				}
+			}
+		}
+
+		public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
+			encoding ??= Encoding.UTF8;
+
+			if(File.Exists(path)) {
+				File.Delete(path);
+			}
+
+			using FileStream fout = File.Create(path);
+			foreach(var row in rows) {
+				string line = "";
+				foreach(var column in row) {
+					if(column.Contains(delimiter)) {
+						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
+					}
+					else {
+						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
+					}
+				}
+				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+				byte[] data = encoding!.GetBytes(line);
+				await fout.WriteAsync(data.AsMemory(0, data.Length));
+			}
+		}
+
+		public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class {
+			encoding ??= Encoding.UTF8;
+
+			if(Activator.CreateInstance<RowType>() is RowType obj) {
+				Type objType = obj.GetType();
+				PropertyInfo[] fields = objType.GetProperties();
+
+				if(File.Exists(path)) {
+					File.Delete(path);
+				}
+
+				using FileStream fout = File.Create(path);
+				foreach(var row in rows) {
+					string line = "";
+
+					if(writeHeader) {
+						line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
+						writeHeader = false;
+					}
+
+					foreach(var field in fields!) {
+						TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
+						switch(typeCode) {
+							case TypeCode.SByte:
+							case TypeCode.Byte:
+							case TypeCode.Int16:
+							case TypeCode.UInt16:
+							case TypeCode.Int32:
+							case TypeCode.UInt32:
+							case TypeCode.Int64:
+							case TypeCode.UInt64:
+							case TypeCode.Boolean:
+								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								break;
+							case TypeCode.DateTime:
+								object? d = field.GetValue(row);
+								if(d == null) {
+									line += $"null{delimiter}";
+								}
+								else {
+									DateTime date = Convert.ToDateTime(d!);
+									string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+									format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+									line += $"{date.ToString(format!)}{delimiter}";
+								}
+								break;
+							case TypeCode.Single:
+							case TypeCode.Double:
+							case TypeCode.Decimal:
+								string? n = field.GetValue(row)?.ToString();
+								n ??= "null";
+								if(n!.Contains(delimiter)) {
+									n = $"\"{n!}\"";
+								}
+								line += $"{n!}{delimiter}";
+								break;
+							case TypeCode.Char:
+								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
+								if(c == '"') {
+									line += $"\"\"{delimiter}";
+								}
+								else if(c.ToString() == delimiter) {
+									line += $"\"{c}\"{delimiter}";
+								}
+								else {
+									line += $"{c}{delimiter}";
+								}
+								break;
+							case TypeCode.String:
+								string? s = field.GetValue(row)?.ToString();
+								s ??= "null";
+								if(s!.Contains(delimiter)) {
+									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
+								}
+								else {
+									line += $"{s!.Replace("\"", "\"\"")}{delimiter}";
+								}
+								break;
+							case TypeCode.Empty:
+								line += $"null{delimiter}";
+								break;
+							default:
+								if(field.PropertyType == typeof(DateTime?)) {
+									object? dob = field.GetValue(row);
+									if(dob == null) {
+										line += $"null{delimiter}";
+									}
+									else {
+										DateTime date = Convert.ToDateTime(dob!);
+										string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+										format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+										line += $"{date.ToString(format!)}{delimiter}";
+									}
+								}
+								else if(
+									field.PropertyType == typeof(int?)
+									|| field.PropertyType == typeof(long?)
+									|| field.PropertyType == typeof(float?)
+									|| field.PropertyType == typeof(double?)
+									|| field.PropertyType == typeof(decimal?)
+									|| field.PropertyType == typeof(short?)
+									|| field.PropertyType == typeof(uint?)
+									|| field.PropertyType == typeof(ulong?)
+									|| field.PropertyType == typeof(ushort?)
+									|| field.PropertyType == typeof(char?)
+									|| field.PropertyType == typeof(byte?)
+									|| field.PropertyType == typeof(sbyte?)
+									|| field.PropertyType == typeof(bool?)
+								) {
+									line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+								}
+								else {
+									line += $"null{delimiter}";
+								}
+								break;
+						}
+					}
+
+					line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+					byte[] data = encoding!.GetBytes(line);
+					await fout.WriteAsync(data.AsMemory(0, data.Length));
+				}
+			}
+		}
 
 		private static string[] _ProcessLine(string line, string delimiter) {
 			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
