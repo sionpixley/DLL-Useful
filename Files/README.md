@@ -57,6 +57,7 @@ public class Student {
 	public string LastName { get; set; }
 	public bool HasGraduated { get; set; }
 	
+	// This attribute is optional, it sets the format for the Csv.Write method for this DateTime property
 	[OutputFormat("yyyy-MM-ddTHH:mm:ss.fff")]
 	public DateTime? GraduationDate { get; set; }
 	
@@ -124,7 +125,7 @@ IEnumerable<string[]> rows = Csv.Read("students.csv", hasHeader: true);
 
 Things to note: 
 
-- The Write method using objects uses the built-in automatic mapping
+- The Write method with types uses the built-in automatic mapping
 - DateTime properties can output in custom formats using the OutputFormatAttribute in the Sion.Useful.Files.Attributes namespace
 - The automatic mapping currently only supports classes that use these property types: bool, char, string, DateTime, short, ushort, int, uint, long, ulong, float, double, decimal, sbyte, and byte
 - There are asynchronous versions of the Write method (WriteAsync)
