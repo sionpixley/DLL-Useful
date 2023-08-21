@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sion.Useful.Files.Attributes;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -57,55 +59,99 @@ namespace Sion.Useful.Files {
 								TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
 								switch(typeCode) {
 									case TypeCode.SByte:
-										property?.SetValue(obj, Convert.ToSByte(row[i]), null);
+										property!.SetValue(obj, Convert.ToSByte(row[i]), null);
 										break;
 									case TypeCode.Byte:
-										property?.SetValue(obj, Convert.ToByte(row[i]), null);
+										property!.SetValue(obj, Convert.ToByte(row[i]), null);
 										break;
 									case TypeCode.Int16:
-										property?.SetValue(obj, Convert.ToInt16(row[i]), null);
+										property!.SetValue(obj, Convert.ToInt16(row[i]), null);
 										break;
 									case TypeCode.UInt16:
-										property?.SetValue(obj, Convert.ToUInt16(row[i]), null);
+										property!.SetValue(obj, Convert.ToUInt16(row[i]), null);
 										break;
 									case TypeCode.Int32:
-										property?.SetValue(obj, Convert.ToInt32(row[i]), null);
+										property!.SetValue(obj, Convert.ToInt32(row[i]), null);
 										break;
 									case TypeCode.UInt32:
-										property?.SetValue(obj, Convert.ToUInt32(row[i]), null);
+										property!.SetValue(obj, Convert.ToUInt32(row[i]), null);
 										break;
 									case TypeCode.Int64:
-										property?.SetValue(obj, Convert.ToInt64(row[i]), null);
+										property!.SetValue(obj, Convert.ToInt64(row[i]), null);
 										break;
 									case TypeCode.UInt64:
-										property?.SetValue(obj, Convert.ToUInt64(row[i]), null);
+										property!.SetValue(obj, Convert.ToUInt64(row[i]), null);
 										break;
 									case TypeCode.Single:
-										property?.SetValue(obj, Convert.ToSingle(row[i]), null);
+										property!.SetValue(obj, Convert.ToSingle(row[i]), null);
 										break;
 									case TypeCode.Double:
-										property?.SetValue(obj, Convert.ToDouble(row[i]), null);
+										property!.SetValue(obj, Convert.ToDouble(row[i]), null);
 										break;
 									case TypeCode.Decimal:
-										property?.SetValue(obj, Convert.ToDecimal(row[i]), null);
+										property!.SetValue(obj, Convert.ToDecimal(row[i]), null);
 										break;
 									case TypeCode.Boolean:
-										property?.SetValue(obj, Convert.ToBoolean(row[i]), null);
+										property!.SetValue(obj, Convert.ToBoolean(row[i]), null);
 										break;
 									case TypeCode.Char:
-										property?.SetValue(obj, Convert.ToChar(row[i]), null);
+										property!.SetValue(obj, Convert.ToChar(row[i]), null);
 										break;
 									case TypeCode.String:
-										property?.SetValue(obj, row[i], null);
+										property!.SetValue(obj, row[i], null);
 										break;
 									case TypeCode.DateTime:
-										property?.SetValue(obj, Convert.ToDateTime(row[i]), null);
+										property!.SetValue(obj, Convert.ToDateTime(row[i]), null);
 										break;
 									case TypeCode.Empty:
 										property?.SetValue(obj, null, null);
 										break;
 									default:
-										property?.SetValue(obj, null, null);
+										if(property!.PropertyType == typeof(DateTime?)) {
+											property!.SetValue(obj, Convert.ToDateTime(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(int?)) {
+											property!.SetValue(obj, Convert.ToInt32(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(long?)) {
+											property!.SetValue(obj, Convert.ToInt64(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(double?)) {
+											property!.SetValue(obj, Convert.ToDouble(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(float?)) {
+											property!.SetValue(obj, Convert.ToSingle(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(decimal?)) {
+											property!.SetValue(obj, Convert.ToDecimal(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(short?)) {
+											property!.SetValue(obj, Convert.ToInt16(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(uint?)) {
+											property!.SetValue(obj, Convert.ToUInt32(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(ulong?)) {
+											property!.SetValue(obj, Convert.ToUInt64(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(ushort?)) {
+											property!.SetValue(obj, Convert.ToUInt16(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(char?)) {
+											property!.SetValue(obj, Convert.ToChar(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(bool?)) {
+											property!.SetValue(obj, Convert.ToBoolean(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(byte?)) {
+											property!.SetValue(obj, Convert.ToByte(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(sbyte?)) {
+											property!.SetValue(obj, Convert.ToSByte(row[i]), null);
+										}
+										else {
+											property!.SetValue(obj, null, null);
+										}
 										break;
 								}
 							}
@@ -186,55 +232,99 @@ namespace Sion.Useful.Files {
 								TypeCode typeCode = Type.GetTypeCode(property?.PropertyType);
 								switch(typeCode) {
 									case TypeCode.SByte:
-										property?.SetValue(obj, Convert.ToSByte(row[i]), null);
+										property!.SetValue(obj, Convert.ToSByte(row[i]), null);
 										break;
 									case TypeCode.Byte:
-										property?.SetValue(obj, Convert.ToByte(row[i]), null);
+										property!.SetValue(obj, Convert.ToByte(row[i]), null);
 										break;
 									case TypeCode.Int16:
-										property?.SetValue(obj, Convert.ToInt16(row[i]), null);
+										property!.SetValue(obj, Convert.ToInt16(row[i]), null);
 										break;
 									case TypeCode.UInt16:
-										property?.SetValue(obj, Convert.ToUInt16(row[i]), null);
+										property!.SetValue(obj, Convert.ToUInt16(row[i]), null);
 										break;
 									case TypeCode.Int32:
-										property?.SetValue(obj, Convert.ToInt32(row[i]), null);
+										property!.SetValue(obj, Convert.ToInt32(row[i]), null);
 										break;
 									case TypeCode.UInt32:
-										property?.SetValue(obj, Convert.ToUInt32(row[i]), null);
+										property!.SetValue(obj, Convert.ToUInt32(row[i]), null);
 										break;
 									case TypeCode.Int64:
-										property?.SetValue(obj, Convert.ToInt64(row[i]), null);
+										property!.SetValue(obj, Convert.ToInt64(row[i]), null);
 										break;
 									case TypeCode.UInt64:
-										property?.SetValue(obj, Convert.ToUInt64(row[i]), null);
+										property!.SetValue(obj, Convert.ToUInt64(row[i]), null);
 										break;
 									case TypeCode.Single:
-										property?.SetValue(obj, Convert.ToSingle(row[i]), null);
+										property!.SetValue(obj, Convert.ToSingle(row[i]), null);
 										break;
 									case TypeCode.Double:
-										property?.SetValue(obj, Convert.ToDouble(row[i]), null);
+										property!.SetValue(obj, Convert.ToDouble(row[i]), null);
 										break;
 									case TypeCode.Decimal:
-										property?.SetValue(obj, Convert.ToDecimal(row[i]), null);
+										property!.SetValue(obj, Convert.ToDecimal(row[i]), null);
 										break;
 									case TypeCode.Boolean:
-										property?.SetValue(obj, Convert.ToBoolean(row[i]), null);
+										property!.SetValue(obj, Convert.ToBoolean(row[i]), null);
 										break;
 									case TypeCode.Char:
-										property?.SetValue(obj, Convert.ToChar(row[i]), null);
+										property!.SetValue(obj, Convert.ToChar(row[i]), null);
 										break;
 									case TypeCode.String:
-										property?.SetValue(obj, row[i], null);
+										property!.SetValue(obj, row[i], null);
 										break;
 									case TypeCode.DateTime:
-										property?.SetValue(obj, Convert.ToDateTime(row[i]), null);
+										property!.SetValue(obj, Convert.ToDateTime(row[i]), null);
 										break;
 									case TypeCode.Empty:
 										property?.SetValue(obj, null, null);
 										break;
 									default:
-										property?.SetValue(obj, null, null);
+										if(property!.PropertyType == typeof(DateTime?)) {
+											property!.SetValue(obj, Convert.ToDateTime(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(int?)) {
+											property!.SetValue(obj, Convert.ToInt32(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(long?)) {
+											property!.SetValue(obj, Convert.ToInt64(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(double?)) {
+											property!.SetValue(obj, Convert.ToDouble(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(float?)) {
+											property!.SetValue(obj, Convert.ToSingle(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(decimal?)) {
+											property!.SetValue(obj, Convert.ToDecimal(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(short?)) {
+											property!.SetValue(obj, Convert.ToInt16(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(uint?)) {
+											property!.SetValue(obj, Convert.ToUInt32(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(ulong?)) {
+											property!.SetValue(obj, Convert.ToUInt64(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(ushort?)) {
+											property!.SetValue(obj, Convert.ToUInt16(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(char?)) {
+											property!.SetValue(obj, Convert.ToChar(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(bool?)) {
+											property!.SetValue(obj, Convert.ToBoolean(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(byte?)) {
+											property!.SetValue(obj, Convert.ToByte(row[i]), null);
+										}
+										else if(property!.PropertyType == typeof(sbyte?)) {
+											property!.SetValue(obj, Convert.ToSByte(row[i]), null);
+										}
+										else {
+											property!.SetValue(obj, null, null);
+										}
 										break;
 								}
 							}
@@ -326,6 +416,17 @@ namespace Sion.Useful.Files {
 								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
 								break;
 							case TypeCode.DateTime:
+								object? d = field.GetValue(row);
+								if(d == null) {
+									line += $"null{delimiter}";
+								}
+								else {
+									DateTime date = Convert.ToDateTime(d!);
+									string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+									format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+									line += $"{date.ToString(format!)}{delimiter}";
+								}
+								break;
 							case TypeCode.Single:
 							case TypeCode.Double:
 							case TypeCode.Decimal:
@@ -433,6 +534,17 @@ namespace Sion.Useful.Files {
 								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
 								break;
 							case TypeCode.DateTime:
+								object? d = field.GetValue(row);
+								if(d == null) {
+									line += $"null{delimiter}";
+								}
+								else {
+									DateTime date = Convert.ToDateTime(d!);
+									string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+									format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+									line += $"{date.ToString(format!)}{delimiter}";
+								}
+								break;
 							case TypeCode.Single:
 							case TypeCode.Double:
 							case TypeCode.Decimal:

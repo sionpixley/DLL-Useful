@@ -2,6 +2,12 @@
 
 NuGet package that provides useful file methods. Specifically, CSV file reading and writing.
 
+## Sion.Useful.Files.Attributes
+
+```
+public class OutputFormatAttribute : Attribute
+```
+
 ## Sion.Useful.Files.Csv
 
 ```
@@ -49,29 +55,33 @@ public class Student {
 	public string FirstName { get; set; }
 	public string? MiddleName { get; set; }
 	public string LastName { get; set; }
-	public bool IsGraduateStudent { get; set; }
+	public bool HasGraduated { get; set; }
+	
+	[OutputFormat("yyyy-MM-ddTHH:mm:ss.fff")]
+	public DateTime? GraduationDate { get; set; }
 	
 	public Student() {
 		Id = 0;
 		FirstName = "";
 		MiddleName = null;
 		LastName = "";
-		IsGraduateStudent = false;
+		HasGraduated = false;
+		GraduationDate = null;
 	}
 }
 ```
 
 ```
 students.csv:
-Id,FirstName,MiddleName,LastName,IsGraduateStudent
-1,Landon,Jameson,Smith,false
-2,Avery,Elizabeth,Davis,true
-3,Ethan,null,Johnson,false
-4,Mia,Grace,Rodriguez,false
-5,Oliver,William,Brown,true
-6,Aria,Rose,Hernandez,false
-7,Caleb,Alexander,Lee,true
-8,Lila,Madison,Turner,false
+Id,FirstName,MiddleName,LastName,HasGraduated,GraduationDate
+1,Landon,Jameson,Smith,false,null
+2,Avery,"Eliza,beth",Davis,true,2000-05-14T17:00:00.000
+3,Ethan,,John""son,false,
+4,Mia,Grace,Rodriguez,false,null
+5,Oliver,William,Brown,true,2002-05-23T16:00:00.000
+6,Aria,Rose,Hernandez,false,null
+7,Caleb,Alexander,Lee,true,2003-05-16T13:30:00.000
+8,Lila,Madison,Turner,false,null
 ```
 
 ```
@@ -115,6 +125,7 @@ IEnumerable<string[]> rows = Csv.Read("students.csv", hasHeader: true);
 Things to note: 
 
 - The Write method using objects uses the built-in automatic mapping
+- DateTime properties can output in custom formats using the OutputFormatAttribute in the Sion.Useful.Files.Attributes namespace
 - The automatic mapping currently only supports classes that use these property types: bool, char, string, DateTime, short, ushort, int, uint, long, ulong, float, double, decimal, sbyte, and byte
 - There are asynchronous versions of the Write method (WriteAsync)
 
