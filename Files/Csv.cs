@@ -190,112 +190,113 @@ namespace Sion.Useful.Files {
 
 				using FileStream fout = File.Create(path);
 				foreach(var row in rows) {
-					string line = "";
+					string line = row._ToCsvLine(fields, delimiter, writeHeader);
+					//string line = "";
 
-					if(writeHeader) {
-						line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
-						writeHeader = false;
-					}
+					//if(writeHeader) {
+					//	line += $"{String.Join(delimiter, fields?.Select(f => f.Name) ?? Array.Empty<string>())}{Environment.NewLine}";
+					//	writeHeader = false;
+					//}
 
-					foreach(var field in fields!) {
-						TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
-						switch(typeCode) {
-							case TypeCode.SByte:
-							case TypeCode.Byte:
-							case TypeCode.Int16:
-							case TypeCode.UInt16:
-							case TypeCode.Int32:
-							case TypeCode.UInt32:
-							case TypeCode.Int64:
-							case TypeCode.UInt64:
-							case TypeCode.Boolean:
-								line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								break;
-							case TypeCode.DateTime:
-								object? d = field.GetValue(row);
-								if(d == null) {
-									line += $"null{delimiter}";
-								}
-								else {
-									DateTime date = Convert.ToDateTime(d!);
-									string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
-									format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
-									line += $"{date.ToString(format!)}{delimiter}";
-								}
-								break;
-							case TypeCode.Single:
-							case TypeCode.Double:
-							case TypeCode.Decimal:
-								string? n = field.GetValue(row)?.ToString();
-								n ??= "null";
-								if(n!.Contains(delimiter)) {
-									n = $"\"{n!}\"";
-								}
-								line += $"{n!}{delimiter}";
-								break;
-							case TypeCode.Char:
-								char c = Convert.ToChar(field.GetValue(row) ?? ' ');
-								if(c == '"') {
-									line += $"\"\"{delimiter}";
-								}
-								else if(c.ToString() == delimiter) {
-									line += $"\"{c}\"{delimiter}";
-								}
-								else {
-									line += $"{c}{delimiter}";
-								}
-								break;
-							case TypeCode.String:
-								string? s = field.GetValue(row)?.ToString();
-								s ??= "null";
-								if(s!.Contains(delimiter)) {
-									line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
-								}
-								else {
-									line += $"{s!.Replace("\"", "\"\"")}{delimiter}";
-								}
-								break;
-							case TypeCode.Empty:
-								line += $"null{delimiter}";
-								break;
-							default:
-								if(field.PropertyType == typeof(DateTime?)) {
-									object? dob = field.GetValue(row);
-									if(dob == null) {
-										line += $"null{delimiter}";
-									}
-									else {
-										DateTime date = Convert.ToDateTime(dob!);
-										string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
-										format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
-										line += $"{date.ToString(format!)}{delimiter}";
-									}
-								}
-								else if(
-									field.PropertyType == typeof(int?)
-									|| field.PropertyType == typeof(long?)
-									|| field.PropertyType == typeof(float?)
-									|| field.PropertyType == typeof(double?)
-									|| field.PropertyType == typeof(decimal?)
-									|| field.PropertyType == typeof(short?)
-									|| field.PropertyType == typeof(uint?)
-									|| field.PropertyType == typeof(ulong?)
-									|| field.PropertyType == typeof(ushort?)
-									|| field.PropertyType == typeof(char?)
-									|| field.PropertyType == typeof(byte?)
-									|| field.PropertyType == typeof(sbyte?)
-									|| field.PropertyType == typeof(bool?)
-								) {
-									line += $"{field.GetValue(row) ?? "null"}{delimiter}";
-								}
-								else {
-									line += $"null{delimiter}";
-								}
-								break;
-						}
-					}
+					//foreach(var field in fields!) {
+					//	TypeCode typeCode = Type.GetTypeCode(field.PropertyType);
+					//	switch(typeCode) {
+					//		case TypeCode.SByte:
+					//		case TypeCode.Byte:
+					//		case TypeCode.Int16:
+					//		case TypeCode.UInt16:
+					//		case TypeCode.Int32:
+					//		case TypeCode.UInt32:
+					//		case TypeCode.Int64:
+					//		case TypeCode.UInt64:
+					//		case TypeCode.Boolean:
+					//			line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+					//			break;
+					//		case TypeCode.DateTime:
+					//			object? d = field.GetValue(row);
+					//			if(d == null) {
+					//				line += $"null{delimiter}";
+					//			}
+					//			else {
+					//				DateTime date = Convert.ToDateTime(d!);
+					//				string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+					//				format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+					//				line += $"{date.ToString(format!)}{delimiter}";
+					//			}
+					//			break;
+					//		case TypeCode.Single:
+					//		case TypeCode.Double:
+					//		case TypeCode.Decimal:
+					//			string? n = field.GetValue(row)?.ToString();
+					//			n ??= "null";
+					//			if(n!.Contains(delimiter)) {
+					//				n = $"\"{n!}\"";
+					//			}
+					//			line += $"{n!}{delimiter}";
+					//			break;
+					//		case TypeCode.Char:
+					//			char c = Convert.ToChar(field.GetValue(row) ?? ' ');
+					//			if(c == '"') {
+					//				line += $"\"\"{delimiter}";
+					//			}
+					//			else if(c.ToString() == delimiter) {
+					//				line += $"\"{c}\"{delimiter}";
+					//			}
+					//			else {
+					//				line += $"{c}{delimiter}";
+					//			}
+					//			break;
+					//		case TypeCode.String:
+					//			string? s = field.GetValue(row)?.ToString();
+					//			s ??= "null";
+					//			if(s!.Contains(delimiter)) {
+					//				line += $"\"{s!.Replace("\"", "\"\"")}\"{delimiter}";
+					//			}
+					//			else {
+					//				line += $"{s!.Replace("\"", "\"\"")}{delimiter}";
+					//			}
+					//			break;
+					//		case TypeCode.Empty:
+					//			line += $"null{delimiter}";
+					//			break;
+					//		default:
+					//			if(field.PropertyType == typeof(DateTime?)) {
+					//				object? dob = field.GetValue(row);
+					//				if(dob == null) {
+					//					line += $"null{delimiter}";
+					//				}
+					//				else {
+					//					DateTime date = Convert.ToDateTime(dob!);
+					//					string? format = field.GetCustomAttribute<OutputFormatAttribute>()?.Format;
+					//					format ??= CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+					//					line += $"{date.ToString(format!)}{delimiter}";
+					//				}
+					//			}
+					//			else if(
+					//				field.PropertyType == typeof(int?)
+					//				|| field.PropertyType == typeof(long?)
+					//				|| field.PropertyType == typeof(float?)
+					//				|| field.PropertyType == typeof(double?)
+					//				|| field.PropertyType == typeof(decimal?)
+					//				|| field.PropertyType == typeof(short?)
+					//				|| field.PropertyType == typeof(uint?)
+					//				|| field.PropertyType == typeof(ulong?)
+					//				|| field.PropertyType == typeof(ushort?)
+					//				|| field.PropertyType == typeof(char?)
+					//				|| field.PropertyType == typeof(byte?)
+					//				|| field.PropertyType == typeof(sbyte?)
+					//				|| field.PropertyType == typeof(bool?)
+					//			) {
+					//				line += $"{field.GetValue(row) ?? "null"}{delimiter}";
+					//			}
+					//			else {
+					//				line += $"null{delimiter}";
+					//			}
+					//			break;
+					//	}
+					//}
 
-					line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+					//line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
 					byte[] data = encoding!.GetBytes(line);
 					fout.Write(data, 0, data.Length);
 				}
