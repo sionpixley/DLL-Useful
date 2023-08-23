@@ -19,13 +19,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				if(hasHeader) {
-					hasHeader = false;
-				}
-				else {
-					string[] row = _ProcessLine(line, delimiter);
-					rows.Add(row);
-				}
+				line._ReadDecision(rows, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -40,23 +34,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				string[] row = _ProcessLine(line, delimiter);
-
-				if(fields == null && hasHeader) {
-					fields = row;
-				}
-				else {
-					if(Activator.CreateInstance<RowType>() is RowType obj) {
-						Type objType = obj.GetType();
-						fields ??= objType.GetProperties().Select(p => p.Name).ToArray();
-						for(int i = 0; i < row.Length; i += 1) {
-							if(objType.GetProperty(fields![i]) is PropertyInfo property) {
-								obj._Map(row[i], property);
-							}
-						}
-						rows.Add(obj);
-					}
-				}
+				line._ReadDecision(rows, ref fields, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -70,13 +48,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				if(hasHeader) {
-					hasHeader = false;
-				}
-				else {
-					string[] row = _ProcessLine(line, delimiter);
-					rows.Add(customMappingFunc(row));
-				}
+				line._ReadDecision(rows, customMappingFunc, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -90,13 +62,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(await reader.ReadLineAsync() is string line) {
-				if(hasHeader) {
-					hasHeader = false;
-				}
-				else {
-					string[] row = _ProcessLine(line, delimiter);
-					rows.Add(row);
-				}
+				line._ReadDecision(rows, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -111,23 +77,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(await reader.ReadLineAsync() is string line) {
-				string[] row = _ProcessLine(line, delimiter);
-
-				if(fields == null && hasHeader) {
-					fields = row;
-				}
-				else {
-					if(Activator.CreateInstance<RowType>() is RowType obj) {
-						Type objType = obj.GetType();
-						fields ??= objType.GetProperties().Select(p => p.Name).ToArray();
-						for(int i = 0; i < row.Length; i += 1) {
-							if(objType.GetProperty(fields![i]) is PropertyInfo property) {
-								obj._Map(row[i], property);
-							}
-						}
-						rows.Add(obj);
-					}
-				}
+				line._ReadDecision(rows, ref fields, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -141,13 +91,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(await reader.ReadLineAsync() is string line) {
-				if(hasHeader) {
-					hasHeader = false;
-				}
-				else {
-					string[] row = _ProcessLine(line, delimiter);
-					rows.Add(customMappingFunc(row));
-				}
+				line._ReadDecision(rows, customMappingFunc, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -162,16 +106,7 @@ namespace Sion.Useful.Files {
 
 			using FileStream fout = File.Create(path);
 			foreach(var row in rows) {
-				string line = "";
-				foreach(var column in row) {
-					if(column.Contains(delimiter)) {
-						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
-					}
-					else {
-						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
-					}
-				}
-				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+				string line = row._ToCsvLine(delimiter);
 				byte[] data = encoding!.GetBytes(line);
 				fout.Write(data, 0, data.Length);
 			}
@@ -206,16 +141,7 @@ namespace Sion.Useful.Files {
 
 			using FileStream fout = File.Create(path);
 			foreach(var row in rows) {
-				string line = "";
-				foreach(var column in row) {
-					if(column.Contains(delimiter)) {
-						line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
-					}
-					else {
-						line += $"{column.Replace("\"", "\"\"")}{delimiter}";
-					}
-				}
-				line = $"{line[..^delimiter.Length]}{Environment.NewLine}";
+				string line = row._ToCsvLine(delimiter);
 				byte[] data = encoding!.GetBytes(line);
 				await fout.WriteAsync(data.AsMemory(0, data.Length));
 			}
@@ -357,6 +283,59 @@ namespace Sion.Useful.Files {
 				row[i] = row[i].Replace("\"\"", "\"");
 			}
 			return row;
+		}
+
+		private static void _ReadDecision(this string line, List<string[]> rows, string delimiter, ref bool hasHeader) {
+			if(hasHeader) {
+				hasHeader = false;
+			}
+			else {
+				string[] row = _ProcessLine(line, delimiter);
+				rows.Add(row);
+			}
+		}
+
+		private static void _ReadDecision<RowType>(this string line, List<RowType> rows, ref string[]? fields, string delimiter, ref bool hasHeader) where RowType : class {
+			string[] row = _ProcessLine(line, delimiter);
+
+			if(fields == null && hasHeader) {
+				fields = row;
+			}
+			else {
+				if(Activator.CreateInstance<RowType>() is RowType obj) {
+					Type objType = obj.GetType();
+					fields ??= objType.GetProperties().Select(p => p.Name).ToArray();
+					for(int i = 0; i < row.Length; i += 1) {
+						if(objType.GetProperty(fields![i]) is PropertyInfo property) {
+							obj._Map(row[i], property);
+						}
+					}
+					rows.Add(obj);
+				}
+			}
+		}
+
+		private static void _ReadDecision<RowType>(this string line, List<RowType> rows, Func<string[], RowType> customMappingFunc, string delimiter, ref bool hasHeader) {
+			if(hasHeader) {
+				hasHeader = false;
+			}
+			else {
+				string[] row = _ProcessLine(line, delimiter);
+				rows.Add(customMappingFunc(row));
+			}
+		}
+
+		private static string _ToCsvLine(this IEnumerable<string> row, string delimiter) {
+			string line = "";
+			foreach(var column in row) {
+				if(column.Contains(delimiter)) {
+					line += $"\"{column.Replace("\"", "\"\"")}\"{delimiter}";
+				}
+				else {
+					line += $"{column.Replace("\"", "\"\"")}{delimiter}";
+				}
+			}
+			return $"{line[..^delimiter.Length]}{Environment.NewLine}";
 		}
 
 		private static string _ToCsvLine<RowType>(this RowType row, PropertyInfo[] fields, string delimiter, ref bool writeHeader) {
