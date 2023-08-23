@@ -19,7 +19,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				line._ReadDecision(rows, delimiter, ref hasHeader);
+				rows._ProcessLine(line, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -34,7 +34,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				line._ReadDecision(rows, ref fields, delimiter, ref hasHeader);
+				rows._ProcessLine(line, ref fields, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -48,7 +48,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(reader.ReadLine() is string line) {
-				line._ReadDecision(rows, customMappingFunc, delimiter, ref hasHeader);
+				rows._ProcessLine(line, customMappingFunc, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -62,7 +62,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(await reader.ReadLineAsync() is string line) {
-				line._ReadDecision(rows, delimiter, ref hasHeader);
+				rows._ProcessLine(line, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -77,7 +77,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(await reader.ReadLineAsync() is string line) {
-				line._ReadDecision(rows, ref fields, delimiter, ref hasHeader);
+				rows._ProcessLine(line, ref fields, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -91,7 +91,7 @@ namespace Sion.Useful.Files {
 			using StreamReader reader = new(fin, encoding!);
 
 			while(await reader.ReadLineAsync() is string line) {
-				line._ReadDecision(rows, customMappingFunc, delimiter, ref hasHeader);
+				rows._ProcessLine(line, customMappingFunc, delimiter, ref hasHeader);
 			}
 
 			return rows;
@@ -165,6 +165,18 @@ namespace Sion.Useful.Files {
 					await fout.WriteAsync(data.AsMemory(0, data.Length));
 				}
 			}
+		}
+
+		private static string[] _CsvSplit(this string line, string delimiter) {
+			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
+			string[] row = Regex.Split(line, pattern);
+			for(int i = 0; i < row.Length; i += 1) {
+				if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
+					row[i] = row[i][1..^1];
+				}
+				row[i] = row[i].Replace("\"\"", "\"");
+			}
+			return row;
 		}
 
 		private static void _Map<RowType>(this RowType obj, string column, PropertyInfo property) {
@@ -273,30 +285,18 @@ namespace Sion.Useful.Files {
 			}
 		}
 
-		private static string[] _ProcessLine(string line, string delimiter) {
-			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-			string[] row = Regex.Split(line, pattern);
-			for(int i = 0; i < row.Length; i += 1) {
-				if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
-					row[i] = row[i][1..^1];
-				}
-				row[i] = row[i].Replace("\"\"", "\"");
-			}
-			return row;
-		}
-
-		private static void _ReadDecision(this string line, List<string[]> rows, string delimiter, ref bool hasHeader) {
+		private static void _ProcessLine(this List<string[]> rows, string line, string delimiter, ref bool hasHeader) {
 			if(hasHeader) {
 				hasHeader = false;
 			}
 			else {
-				string[] row = _ProcessLine(line, delimiter);
+				string[] row = line._CsvSplit(delimiter);
 				rows.Add(row);
 			}
 		}
 
-		private static void _ReadDecision<RowType>(this string line, List<RowType> rows, ref string[]? fields, string delimiter, ref bool hasHeader) where RowType : class {
-			string[] row = _ProcessLine(line, delimiter);
+		private static void _ProcessLine<RowType>(this List<RowType> rows, string line, ref string[]? fields, string delimiter, ref bool hasHeader) where RowType : class {
+			string[] row = line._CsvSplit(delimiter);
 
 			if(fields == null && hasHeader) {
 				fields = row;
@@ -315,12 +315,12 @@ namespace Sion.Useful.Files {
 			}
 		}
 
-		private static void _ReadDecision<RowType>(this string line, List<RowType> rows, Func<string[], RowType> customMappingFunc, string delimiter, ref bool hasHeader) {
+		private static void _ProcessLine<RowType>(this List<RowType> rows, string line, Func<string[], RowType> customMappingFunc, string delimiter, ref bool hasHeader) {
 			if(hasHeader) {
 				hasHeader = false;
 			}
 			else {
-				string[] row = _ProcessLine(line, delimiter);
+				string[] row = line._CsvSplit(delimiter);
 				rows.Add(customMappingFunc(row));
 			}
 		}
