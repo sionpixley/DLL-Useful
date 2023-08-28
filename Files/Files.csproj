@@ -7,7 +7,7 @@
     <AssemblyName>Sion.Useful.Files</AssemblyName>
     <RootNamespace>Sion.Useful.Files</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.3.0</Version>
+    <Version>1.3.1</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -17,7 +17,7 @@
     <PackageTags>sion;useful;csv;csv-parser;csv-reader;csv-writer</PackageTags>
     <Description>NuGet package that provides useful file methods. Specifically, CSV file reading and writing.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>New: ReadAsync, Write, WriteAsync, OutputFormatAttribute, and benchmarks!</PackageReleaseNotes>
+    <PackageReleaseNotes>Adding some documentation</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

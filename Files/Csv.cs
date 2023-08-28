@@ -11,6 +11,14 @@ using System.Threading.Tasks;
 
 namespace Sion.Useful.Files {
 	public static class Csv {
+		/// <summary>
+		/// Reads a CSV file and returns raw string data for the file.
+		/// </summary>
+		/// <param name="path">Path to the CSV file. Can be absolute or relative.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">If the CSV file has a header row, hasHeader should be set to true.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>A collection of string arrays. Each array represents a row in the CSV file. Each item in the array is a single column in the CSV file.</returns>
 		public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
 			List<string[]> rows = new();
@@ -25,6 +33,15 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
+		/// <summary>
+		/// Reads a CSV file and automatically maps it to a collection of objects.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file. The object must be a class.</typeparam>
+		/// <param name="path">Path to the CSV file. Can be absolute or relative.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">If the CSV file has a header row, hasHeader should be set to true.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>A collection of custom objects.</returns>
 		public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 			List<RowType> rows = new();
@@ -40,6 +57,16 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
+		/// <summary>
+		/// Reads a CSV file and maps it to a collection of objects using a provided mapping function.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file.</typeparam>
+		/// <param name="path">Path to the CSV file. Can be absolute or relative.</param>
+		/// <param name="customMappingFunc">Custom mapping function.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">If the CSV file has a header row, hasHeader should be set to true.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>A collection of custom objects.</returns>
 		public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
 			List<RowType> rows = new();
@@ -54,6 +81,14 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
+		/// <summary>
+		/// Reads a CSV file asynchronously and returns a Task with raw string data for the file.
+		/// </summary>
+		/// <param name="path">Path to the CSV file. Can be absolute or relative.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">If the CSV file has a header row, hasHeader should be set to true.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>A Task of a collection of string arrays. Each array represents a row in the CSV file. Each item in the array is a single column in the CSV file.</returns>
 		public static async Task<IEnumerable<string[]>> ReadAsync(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
 			List<string[]> rows = new();
@@ -68,6 +103,15 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
+		/// <summary>
+		/// Reads a CSV file asynchronously and automatically maps it to a collection of objects.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file. The object must be a class.</typeparam>
+		/// <param name="path">Path to the CSV file. Can be absolute or relative.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">If the CSV file has a header row, hasHeader should be set to true.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>A Task of a collection of custom objects.</returns>
 		public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 			List<RowType> rows = new();
@@ -83,6 +127,16 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
+		/// <summary>
+		/// Reads a CSV file asynchronously and maps it to a collection of objects using a provided mapping function.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file.</typeparam>
+		/// <param name="path">Path to the CSV file. Can be absolute or relative.</param>
+		/// <param name="customMappingFunc">Custom mapping function.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">If the CSV file has a header row, hasHeader should be set to true.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>A Task of a collection of custom objects.</returns>
 		public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
 			List<RowType> rows = new();
@@ -97,6 +151,13 @@ namespace Sion.Useful.Files {
 			return rows;
 		}
 
+		/// <summary>
+		/// Writes raw string data to a CSV file. If the file exists, it will be overwritten.
+		/// </summary>
+		/// <param name="rows">The raw data to write.</param>
+		/// <param name="path">Path for the new CSV file to be created. Can be absolute or relative.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
 		public static void Write(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
 
@@ -112,6 +173,15 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Writes a collection of objects to a CSV file. If the file exists, it will be overwritten.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file. The object must be a class.</typeparam>
+		/// <param name="rows">The data to write.</param>
+		/// <param name="path">Path for the new CSV file to be created. Can be absolute or relative.</param>
+		/// <param name="writeHeader">If you want the created CSV file to have a header row based on the class property names, set writeHeader to true.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
 		public static void Write<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 
@@ -132,6 +202,14 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Writes raw string data to a CSV file asynchronously. If the file exists, it will be overwritten.
+		/// </summary>
+		/// <param name="rows">The raw data to write.</param>
+		/// <param name="path">Path for the new CSV file to be created. Can be absolute or relative.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>An empty Task.</returns>
 		public static async Task WriteAsync(IEnumerable<IEnumerable<string>> rows, string path, string delimiter = ",", Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
 
@@ -147,6 +225,16 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Writes a collection of objects to a CSV file asynchronously. If the file exists, it will be overwritten.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file. The object must be a class.</typeparam>
+		/// <param name="rows">The data to write.</param>
+		/// <param name="path">Path for the new CSV file to be created. Can be absolute or relative.</param>
+		/// <param name="writeHeader">If you want the created CSV file to have a header row based on the class property names, set writeHeader to true.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="encoding">File encoding for the CSV file.</param>
+		/// <returns>An empty Task.</returns>
 		public static async Task WriteAsync<RowType>(IEnumerable<RowType> rows, string path, bool writeHeader, string delimiter = ",", Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
 
@@ -167,6 +255,12 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Splits a string based on a given delimiter. The regex expression ensures that delimiters surrounded with quotes are not matched.
+		/// </summary>
+		/// <param name="line">Raw string data for a whole line in a CSV file.</param>
+		/// <param name="delimiter">The delimiter to match on split.</param>
+		/// <returns>A string array representing the inputed line split based on the delimiter.</returns>
 		private static string[] _CsvSplit(this string line, string delimiter) {
 			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
 			string[] row = Regex.Split(line, pattern);
@@ -179,6 +273,13 @@ namespace Sion.Useful.Files {
 			return row;
 		}
 
+		/// <summary>
+		/// Maps a value to a specific property on an object.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file.</typeparam>
+		/// <param name="obj">The object whose property is being set to a value.</param>
+		/// <param name="column">The value we're setting the property to.</param>
+		/// <param name="property">The property on the object being set.</param>
 		private static void _Map<RowType>(this RowType obj, string column, PropertyInfo property) {
 			if(column == "null" || String.IsNullOrWhiteSpace(column)) {
 				property.SetValue(obj, null, null);
@@ -285,6 +386,13 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Decision tree for raw processing of a single line from a CSV file.
+		/// </summary>
+		/// <param name="rows">The collection that the data from the file is added to.</param>
+		/// <param name="line">The line from the CSV file.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">Skips the first line if true.</param>
 		private static void _ProcessLine(this List<string[]> rows, string line, string delimiter, ref bool hasHeader) {
 			if(hasHeader) {
 				hasHeader = false;
@@ -295,6 +403,15 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Decision tree for automatic mapping processing of a single line from a CSV file.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file. The object must be a class.</typeparam>
+		/// <param name="rows">The collection that the data from the file is added to.</param>
+		/// <param name="line">The line from the CSV file.</param>
+		/// <param name="fields">The collection of property names.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">Skips the first line if true.</param>
 		private static void _ProcessLine<RowType>(this List<RowType> rows, string line, ref string[]? fields, string delimiter, ref bool hasHeader) where RowType : class {
 			string[] row = line._CsvSplit(delimiter);
 
@@ -315,6 +432,15 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Decision tree for custom mapping processing of a single line from a CSV file.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file.</typeparam>
+		/// <param name="rows">The collection that the data from the file is added to.</param>
+		/// <param name="line">The line from the CSV file.</param>
+		/// <param name="customMappingFunc">The mapping function provided by the user.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="hasHeader">Skips the first line if true.</param>
 		private static void _ProcessLine<RowType>(this List<RowType> rows, string line, Func<string[], RowType> customMappingFunc, string delimiter, ref bool hasHeader) {
 			if(hasHeader) {
 				hasHeader = false;
@@ -325,6 +451,12 @@ namespace Sion.Useful.Files {
 			}
 		}
 
+		/// <summary>
+		/// Converts raw string data to a delimited line. Takes care of quotes and nested delimiters.
+		/// </summary>
+		/// <param name="row">The data being converted.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <returns>The delimited CSV line.</returns>
 		private static string _ToCsvLine(this IEnumerable<string> row, string delimiter) {
 			string line = "";
 			foreach(var column in row) {
@@ -338,6 +470,15 @@ namespace Sion.Useful.Files {
 			return $"{line[..^delimiter.Length]}{Environment.NewLine}";
 		}
 
+		/// <summary>
+		/// Converts a collection of objects to a delimited line. Takes care of quotes and nested delimiters.
+		/// </summary>
+		/// <typeparam name="RowType">An object representing a single row in the CSV file.</typeparam>
+		/// <param name="row">The data being converted.</param>
+		/// <param name="fields">The collection of property names.</param>
+		/// <param name="delimiter">Delimiter used for the CSV file.</param>
+		/// <param name="writeHeader">Creates a line of property names to start the line if true.</param>
+		/// <returns>The delimited CSV line.</returns>
 		private static string _ToCsvLine<RowType>(this RowType row, PropertyInfo[] fields, string delimiter, ref bool writeHeader) {
 			string line = "";
 
