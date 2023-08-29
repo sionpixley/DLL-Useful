@@ -5,9 +5,16 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	/// <inheritdoc />
+	/// <summary>
+	/// Simple graph implementation.
+	/// </summary>
 	public class Graph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
+		/// <summary>
+		/// Creates a new, empty graph.
+		/// </summary>
 		public Graph() {
 			NodeSet = new();
 		}

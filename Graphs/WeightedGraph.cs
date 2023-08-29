@@ -5,11 +5,18 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	/// <inheritdoc />
+	/// <summary>
+	/// Simple weighted graph implementation.
+	/// </summary>
 	public class WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
 		public List<WeightedNode<TValue, TWeight>> NodeSet { get; set; }
 
+		/// <summary>
+		/// Creates a new, empty weighted graph.
+		/// </summary>
 		public WeightedGraph() {
 			NodeSet = new();
 		}
