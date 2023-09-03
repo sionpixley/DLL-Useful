@@ -2,6 +2,9 @@
 using System.Globalization;
 
 namespace Sion.Useful.Math {
+	/// <summary>
+	/// Static class with methods to manipulate number types.
+	/// </summary>
 	public static class NumberManipulation {
 		/// <summary>
 		/// Trims decimal places off a float value.
