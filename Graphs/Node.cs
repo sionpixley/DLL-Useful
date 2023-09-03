@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace Sion.Useful.Graphs {
+	[Serializable]
 	/// <summary>
 	/// Simple node implementation for use in a graph.
 	/// </summary>

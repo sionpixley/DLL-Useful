@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace Sion.Useful.Graphs {
+	[Serializable]
 	/// <summary>
 	/// Simple weighted node implementation for use in a weighted graph.
 	/// </summary>

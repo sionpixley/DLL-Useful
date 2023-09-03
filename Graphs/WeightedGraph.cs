@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	[Serializable]
 	/// <inheritdoc />
 	/// <summary>
 	/// Simple weighted graph implementation.
