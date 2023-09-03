@@ -10,6 +10,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Sion.Useful.Files {
+	/// <summary>
+	/// A static class that makes reading and writing CSV files easier.
+	/// </summary>
 	public static class Csv {
 		/// <summary>
 		/// Reads a CSV file and returns raw string data for the file.
