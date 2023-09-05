@@ -7,7 +7,7 @@
     <AssemblyName>Sion.Useful.Files</AssemblyName>
     <RootNamespace>Sion.Useful.Files</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.3.1</Version>
+    <Version>1.3.2</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <NeutralLanguage>en-US</NeutralLanguage>
