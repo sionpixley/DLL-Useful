@@ -7,17 +7,17 @@
     <AssemblyName>Sion.Useful.Files</AssemblyName>
     <RootNamespace>Sion.Useful.Files</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.2.0</Version>
+    <Version>1.3.2</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>sion;useful;csv;csv-parser;csv-reader</PackageTags>
-    <Description>NuGet package that provides useful file methods. Specifically, CSV file reading.</Description>
+    <PackageTags>sion;useful;csv;csv-parser;csv-reader;csv-writer</PackageTags>
+    <Description>NuGet package that provides useful file methods. Specifically, CSV file reading and writing.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Optional encoding parameter added to the Read method. The Read method is now also significantly faster.</PackageReleaseNotes>
+    <PackageReleaseNotes>Adding some documentation</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
