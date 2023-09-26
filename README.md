@@ -7,3 +7,4 @@ The NuGet packages in this repo include:
 - Sion.Useful.Files
 - Sion.Useful.Graphs
 - Sion.Useful.Math
+- Sion.Useful.Security
