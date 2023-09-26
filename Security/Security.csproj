@@ -12,7 +12,7 @@
     <Company>PTC</Company>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
-    <PackageTags>sion;useful;security;crypto;salt</PackageTags>
+    <PackageTags>sion;useful;security;crypto;salt;random</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>NuGet package that provides useful cryptographically-strong methods. Specifically, random value generation.</Description>
