@@ -22,9 +22,9 @@ namespace Sion.Useful.Security {
 		/// <param name="numOfBytes">Number of bytes you want the array to have.</param>
 		/// <returns>A cryptographically-strong random byte array.</returns>
 		public static byte[] Bytes(int numOfBytes = 16) {
-			byte[] salt = new byte[numOfBytes];
-			RandomNumberGenerator.Fill(salt);
-			return salt;
+			byte[] data = new byte[numOfBytes];
+			RandomNumberGenerator.Fill(data);
+			return data;
 		}
 
 		/// <summary>

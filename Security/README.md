@@ -1,6 +1,6 @@
 # Sion.Useful.Security
 
-NuGet package that provides useful cryptographically-strong methods. Specifically, random value generation.
+NuGet package that provides useful cryptographically-strong static methods. Specifically, random value generation.
 
 ## Sion.Useful.Security.Random
 
@@ -23,6 +23,12 @@ First, download the Sion.Useful.Security NuGet package, then include this using 
 
 ```
 using Sion.Useful.Security;
+```
+
+Alternatively, if you're having ambiguous references between Sion.Useful.Security.Random and System.Random, and you only want to use Sion.Useful.Security.Random:
+
+```
+using Random = Sion.Useful.Security.Random;
 ```
 
 ### Random

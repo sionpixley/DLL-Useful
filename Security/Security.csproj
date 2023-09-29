@@ -7,7 +7,7 @@
     <AssemblyName>Sion.Useful.Security</AssemblyName>
     <RootNamespace>Sion.Useful.Security</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <RepositoryType>git</RepositoryType>
@@ -15,8 +15,9 @@
     <PackageTags>sion;useful;security;crypto;salt;random</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>NuGet package that provides useful cryptographically-strong methods. Specifically, random value generation.</Description>
+    <Description>NuGet package that provides useful cryptographically-strong static methods. Specifically, random value generation.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Updates to documentation</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
