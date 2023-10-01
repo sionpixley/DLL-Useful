@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Files\Files.csproj" />
     <ProjectReference Include="..\Math\Math.csproj" />
+    <ProjectReference Include="..\Security\Security.csproj" />
     <ProjectReference Include="..\Sion.Useful\Sion.Useful.csproj" />
   </ItemGroup>
 
