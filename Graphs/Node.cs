@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 
 namespace Sion.Useful.Graphs {
-	[Serializable]
 	/// <summary>
 	/// Simple node implementation for use in a graph.
 	/// </summary>
 	/// <typeparam name="T">Value of the nodes. Can be any type that inherits from IEquatable&lt;T&gt; and IComparable&lt;T&gt;.</typeparam>
+	[Serializable]
 	public class Node<T> where T : IEquatable<T>, IComparable<T> {
 		/// <summary>
 		/// The value of the node.

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
-	[Serializable]
 	/// <inheritdoc />
 	/// <summary>
 	/// Simple graph implementation.
 	/// </summary>
+	[Serializable]
 	public class Graph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 

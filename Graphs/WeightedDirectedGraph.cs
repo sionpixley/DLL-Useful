@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
-	[Serializable]
 	/// <inheritdoc />
 	/// <summary>
 	/// Simple weighted directed graph implementation.
 	/// </summary>
+	[Serializable]
 	public class WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {

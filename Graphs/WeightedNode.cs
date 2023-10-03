@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 namespace Sion.Useful.Graphs {
-	[Serializable]
 	/// <summary>
 	/// Simple weighted node implementation for use in a weighted graph.
 	/// </summary>
 	/// <typeparam name="TValue">Value of the nodes. Can be any type that inherits from IEquatable&lt;TValue&gt; and IComparable&lt;TValue&gt;.</typeparam>
 	/// <typeparam name="TWeight">Value of the weights for the edges. Can be any type that inherits from IEquatable&lt;TWeight&gt; and IComparable&lt;TWeight&gt;.</typeparam>
+	[Serializable]
 	public class WeightedNode<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
