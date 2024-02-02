@@ -24,7 +24,7 @@ namespace Sion.Useful.Files {
 		/// <returns>A collection of string arrays. Each array represents a row in the CSV file. Each item in the array is a single column in the CSV file.</returns>
 		public static IEnumerable<string[]> Read(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
-			List<string[]> rows = new();
+			List<string[]> rows = [];
 
 			using FileStream fin = File.OpenRead(path);
 			using StreamReader reader = new(fin, encoding!);
@@ -47,7 +47,7 @@ namespace Sion.Useful.Files {
 		/// <returns>A collection of custom objects.</returns>
 		public static IEnumerable<RowType> Read<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
-			List<RowType> rows = new();
+			List<RowType> rows = [];
 			string[]? fields = null;
 
 			using FileStream fin = File.OpenRead(path);
@@ -72,7 +72,7 @@ namespace Sion.Useful.Files {
 		/// <returns>A collection of custom objects.</returns>
 		public static IEnumerable<RowType> Read<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
-			List<RowType> rows = new();
+			List<RowType> rows = [];
 
 			using FileStream fin = File.OpenRead(path);
 			using StreamReader reader = new(fin, encoding!);
@@ -94,7 +94,7 @@ namespace Sion.Useful.Files {
 		/// <returns>A Task of a collection of string arrays. Each array represents a row in the CSV file. Each item in the array is a single column in the CSV file.</returns>
 		public static async Task<IEnumerable<string[]>> ReadAsync(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
-			List<string[]> rows = new();
+			List<string[]> rows = [];
 
 			using FileStream fin = File.OpenRead(path);
 			using StreamReader reader = new(fin, encoding!);
@@ -117,7 +117,7 @@ namespace Sion.Useful.Files {
 		/// <returns>A Task of a collection of custom objects.</returns>
 		public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) where RowType : class {
 			encoding ??= Encoding.UTF8;
-			List<RowType> rows = new();
+			List<RowType> rows = [];
 			string[]? fields = null;
 
 			using FileStream fin = File.OpenRead(path);
@@ -142,7 +142,7 @@ namespace Sion.Useful.Files {
 		/// <returns>A Task of a collection of custom objects.</returns>
 		public static async Task<IEnumerable<RowType>> ReadAsync<RowType>(string path, Func<string[], RowType> customMappingFunc, string delimiter = ",", bool hasHeader = false, Encoding? encoding = null) {
 			encoding ??= Encoding.UTF8;
-			List<RowType> rows = new();
+			List<RowType> rows = [];
 
 			using FileStream fin = File.OpenRead(path);
 			using StreamReader reader = new(fin, encoding!);
@@ -268,7 +268,7 @@ namespace Sion.Useful.Files {
 			string pattern = $@"{delimiter}(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
 			string[] row = Regex.Split(line, pattern);
 			for(int i = 0; i < row.Length; i += 1) {
-				if(row[i].StartsWith("\"") && row[i].EndsWith("\"")) {
+				if(row[i].StartsWith('"') && row[i].EndsWith('"')) {
 					row[i] = row[i][1..^1];
 				}
 				row[i] = row[i].Replace("\"\"", "\"");

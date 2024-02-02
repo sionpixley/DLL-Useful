@@ -19,7 +19,7 @@ namespace Sion.Useful.Graphs {
 		/// Creates a new, empty weighted directed graph.
 		/// </summary>
 		public WeightedDirectedGraph() {
-			NodeSet = new();
+			NodeSet = [];
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(params WeightedNode<TValue, TWeight>[] nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -67,7 +67,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(IEnumerable<WeightedNode<TValue, TWeight>> nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -88,7 +88,7 @@ namespace Sion.Useful.Graphs {
 				return new List<WeightedNode<TValue, TWeight>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> bfs = new();
+			List<WeightedNode<TValue, TWeight>> bfs = [];
 			Queue<WeightedNode<TValue, TWeight>> visit = new();
 
 			WeightedNode<TValue, TWeight> current = root;
@@ -132,7 +132,7 @@ namespace Sion.Useful.Graphs {
 				return new List<WeightedNode<TValue, TWeight>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> dfs = new();
+			List<WeightedNode<TValue, TWeight>> dfs = [];
 			Stack<WeightedNode<TValue, TWeight>> visit = new();
 
 			WeightedNode<TValue, TWeight> current = root;

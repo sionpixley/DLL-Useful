@@ -17,7 +17,7 @@ namespace Sion.Useful.Graphs {
 		/// Creates a new, empty graph.
 		/// </summary>
 		public Graph() {
-			NodeSet = new();
+			NodeSet = [];
 		}
 
 		public bool AddEdge(Node<T> node1, Node<T> node2) {
@@ -45,7 +45,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(params Node<T>[] nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -53,7 +53,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(IEnumerable<Node<T>> nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -74,7 +74,7 @@ namespace Sion.Useful.Graphs {
 				return new List<Node<T>>();
 			}
 
-			List<Node<T>> bfs = new();
+			List<Node<T>> bfs = [];
 			Queue<Node<T>> visit = new();
 
 			Node<T> current = root;
@@ -118,7 +118,7 @@ namespace Sion.Useful.Graphs {
 				return new List<Node<T>>();
 			}
 
-			List<Node<T>> dfs = new();
+			List<Node<T>> dfs = [];
 			Stack<Node<T>> visit = new();
 
 			Node<T> current = root;

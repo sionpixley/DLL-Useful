@@ -29,7 +29,7 @@ namespace Sion.Useful.Graphs {
 		public Node() {
 			Value = default;
 			HasBeenVisited = false;
-			Neighbors = new();
+			Neighbors = [];
 		}
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace Sion.Useful.Graphs {
 		public Node(T value) {
 			Value = value;
 			HasBeenVisited = false;
-			Neighbors = new();
+			Neighbors = [];
 		}
 
 		public override string? ToString() => Value?.ToString();

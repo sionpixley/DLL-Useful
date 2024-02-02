@@ -38,8 +38,8 @@ namespace Sion.Useful.Graphs {
 		public WeightedNode() {
 			Value = default;
 			HasBeenVisited = false;
-			Neighbors = new();
-			Weights = new();
+			Neighbors = [];
+			Weights = [];
 		}
 
 		/// <summary>
@@ -49,8 +49,8 @@ namespace Sion.Useful.Graphs {
 		public WeightedNode(TValue value) {
 			Value = value;
 			HasBeenVisited = false;
-			Neighbors = new();
-			Weights = new();
+			Neighbors = [];
+			Weights = [];
 		}
 
 		public override string? ToString() => Value?.ToString();

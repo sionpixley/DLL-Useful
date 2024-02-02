@@ -9,8 +9,8 @@ namespace Tests {
 		[TestMethod]
 		public void Random_Bool() {
 			try {
-				List<bool> trueList = new();
-				List<bool> falseList = new();
+				List<bool> trueList = [];
+				List<bool> falseList = [];
 				for(int i = 0; i < 1000000; i += 1) {
 					bool result = Random.Bool();
 					if(result) {
