@@ -17,12 +17,6 @@ public static long ToUnixSeconds(this DateTime date)
 
 ```
 public static string Base64ToUtf8(this string base64)
-public static string CamelCaseToPascalCase(string camelCase)
-public static string CamelCaseToSnakeCase(string camelCase)
-public static string PascalCaseToCamelCase(string pascalCase)
-public static string PascalCaseToSnakeCase(string pascalCase)
-public static string SnakeCaseToCamelCase(string snakeCase)
-public static string SnakeCaseToPascalCase(string snakeCase)
 public static string Utf8ToBase64(this string utf8)
 ```
 
@@ -78,21 +72,4 @@ string base64 = StringMethods.Utf8ToBase64(utf8); // aGVsbG8=
 
 base64 = "Ym9uam91cg==";
 utf8 = StringMethods.Base64ToUtf8(base64); // bonjour
-```
-
-#### Converting between snake_case, camelCase, and PascalCase
-
-```
-// These are only available as static methods
-string camelCase = "testTest";
-string pascalCase = StringMethods.CamelCaseToPascalCase(camelCase); // TestTest
-string snakeCase = StringMethods.CamelCaseToSnakeCase(camelCase); // test_test
-
-pascalCase = "SecondTest";
-camelCase = StringMethods.PascalCaseToCamelCase(pascalCase); // secondTest
-snakeCase = StringMethods.PascalCaseToSnakeCase(pascalCase); // second_test
-
-snakeCase = "last_test";
-camelCase = StringMethods.SnakeCaseToCamelCase(snakeCase); // lastTest
-pascalCase = StringMethods.SnakeCaseToPascalCase(snakeCase); // LastTest
 ```

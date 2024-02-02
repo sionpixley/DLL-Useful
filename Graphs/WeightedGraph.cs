@@ -5,13 +5,21 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	/// <inheritdoc />
+	/// <summary>
+	/// Simple weighted graph implementation.
+	/// </summary>
+	[Serializable]
 	public class WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
 		public List<WeightedNode<TValue, TWeight>> NodeSet { get; set; }
 
+		/// <summary>
+		/// Creates a new, empty weighted graph.
+		/// </summary>
 		public WeightedGraph() {
-			NodeSet = new();
+			NodeSet = [];
 		}
 
 		public bool AddEdge(WeightedNode<TValue, TWeight> node1, WeightedNode<TValue, TWeight> node2, TWeight weight) {
@@ -55,7 +63,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(params WeightedNode<TValue, TWeight>[] nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -63,7 +71,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(IEnumerable<WeightedNode<TValue, TWeight>> nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -84,7 +92,7 @@ namespace Sion.Useful.Graphs {
 				return new List<WeightedNode<TValue, TWeight>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> bfs = new();
+			List<WeightedNode<TValue, TWeight>> bfs = [];
 			Queue<WeightedNode<TValue, TWeight>> visit = new();
 
 			WeightedNode<TValue, TWeight> current = root;
@@ -128,7 +136,7 @@ namespace Sion.Useful.Graphs {
 				return new List<WeightedNode<TValue, TWeight>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> dfs = new();
+			List<WeightedNode<TValue, TWeight>> dfs = [];
 			Stack<WeightedNode<TValue, TWeight>> visit = new();
 
 			WeightedNode<TValue, TWeight> current = root;
