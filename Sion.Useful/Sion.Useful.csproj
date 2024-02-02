@@ -10,9 +10,9 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageReleaseNotes>Some extension methods.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to .NET 8. Removed some functionality that is provided in other Useful packages.</PackageReleaseNotes>
     <Description>NuGet package that provides static and extension methods to DateTime and string.</Description>
-    <Version>2.3.0</Version>
+    <Version>3.0.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyName>Sion.Useful</AssemblyName>
     <RootNamespace>Sion.Useful</RootNamespace>

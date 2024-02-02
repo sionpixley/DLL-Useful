@@ -7,7 +7,7 @@
     <AssemblyName>Sion.Useful.Math</AssemblyName>
     <RootNamespace>Sion.Useful.Math</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.1.0</Version>
+    <Version>2.0.0</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <Description>NuGet package that provides static and extension methods to float, double, and decimal.</Description>
@@ -17,7 +17,7 @@
     <PackageTags>sion;useful;math;truncate;float-methods;double-methods;decimal-methods;number-manipulation</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Now setup as extension methods.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to .NET 8.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
