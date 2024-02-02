@@ -5,15 +5,29 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	/// <inheritdoc />
+	/// <summary>
+	/// Simple weighted directed graph implementation.
+	/// </summary>
+	[Serializable]
 	public class WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 		where TValue : IEquatable<TValue>, IComparable<TValue>
 		where TWeight : IEquatable<TWeight>, IComparable<TWeight> {
 		public List<WeightedNode<TValue, TWeight>> NodeSet { get; set; }
 
+		/// <summary>
+		/// Creates a new, empty weighted directed graph.
+		/// </summary>
 		public WeightedDirectedGraph() {
-			NodeSet = new();
+			NodeSet = [];
 		}
 
+		/// <summary>
+		/// Adds a weighted directed edge from one node to another node.
+		/// </summary>
+		/// <param name="fromNode">The node that the edge starts from.</param>
+		/// <param name="toNode">The node that the edge goes to.</param>
+		/// <param name="weight">The value of the weight of new edge.</param>
 		public bool AddEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode, TWeight weight) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
@@ -45,7 +59,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(params WeightedNode<TValue, TWeight>[] nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -53,7 +67,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(IEnumerable<WeightedNode<TValue, TWeight>> nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -74,7 +88,7 @@ namespace Sion.Useful.Graphs {
 				return new List<WeightedNode<TValue, TWeight>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> bfs = new();
+			List<WeightedNode<TValue, TWeight>> bfs = [];
 			Queue<WeightedNode<TValue, TWeight>> visit = new();
 
 			WeightedNode<TValue, TWeight> current = root;
@@ -118,7 +132,7 @@ namespace Sion.Useful.Graphs {
 				return new List<WeightedNode<TValue, TWeight>>();
 			}
 
-			List<WeightedNode<TValue, TWeight>> dfs = new();
+			List<WeightedNode<TValue, TWeight>> dfs = [];
 			Stack<WeightedNode<TValue, TWeight>> visit = new();
 
 			WeightedNode<TValue, TWeight> current = root;
@@ -144,6 +158,11 @@ namespace Sion.Useful.Graphs {
 			return dfs;
 		}
 
+		/// <summary>
+		/// Removes a weighted directed edge from one node to another node.
+		/// </summary>
+		/// <param name="fromNode">The node that the edge starts from.</param>
+		/// <param name="toNode">The node that the edge goes to.</param>
 		public bool RemoveEdge(WeightedNode<TValue, TWeight> fromNode, WeightedNode<TValue, TWeight> toNode) {
 			int toNodeIndex = fromNode.Neighbors.IndexOf(toNode);
 

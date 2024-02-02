@@ -5,13 +5,26 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	/// <inheritdoc />
+	/// <summary>
+	/// Simple directed graph implementation.
+	/// </summary>
+	[Serializable]
 	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
+		/// <summary>
+		/// Creates a new, empty graph.
+		/// </summary>
 		public DirectedGraph() {
-			NodeSet = new();
+			NodeSet = [];
 		}
 
+		/// <summary>
+		/// Adds a directed edge from one node to another node.
+		/// </summary>
+		/// <param name="fromNode">The node that the edge starts from.</param>
+		/// <param name="toNode">The node that the edge goes to.</param>
 		public bool AddEdge(Node<T> fromNode, Node<T> toNode) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
@@ -36,7 +49,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(params Node<T>[] nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -44,7 +57,7 @@ namespace Sion.Useful.Graphs {
 		}
 
 		public IEnumerable<bool> AddNodes(IEnumerable<Node<T>> nodes) {
-			List<bool> result = new();
+			List<bool> result = [];
 			foreach(var node in nodes) {
 				result.Add(AddNode(node));
 			}
@@ -65,7 +78,7 @@ namespace Sion.Useful.Graphs {
 				return new List<Node<T>>();
 			}
 
-			List<Node<T>> bfs = new();
+			List<Node<T>> bfs = [];
 			Queue<Node<T>> visit = new();
 
 			Node<T> current = root;
@@ -109,7 +122,7 @@ namespace Sion.Useful.Graphs {
 				return new List<Node<T>>();
 			}
 
-			List<Node<T>> dfs = new();
+			List<Node<T>> dfs = [];
 			Stack<Node<T>> visit = new();
 
 			Node<T> current = root;
@@ -135,17 +148,16 @@ namespace Sion.Useful.Graphs {
 			return dfs;
 		}
 
+		/// <summary>
+		/// Removes a directed edge from one node to another node.
+		/// </summary>
+		/// <param name="fromNode">The node that the edge starts from.</param>
+		/// <param name="toNode">The node that the edge goes to.</param>
 		public bool RemoveEdge(Node<T> fromNode, Node<T> toNode) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
 			}
-			else if(!fromNode.Neighbors.Contains(toNode)) {
-				return false;
-			}
-			else {
-				fromNode.Neighbors.Remove(toNode);
-				return true;
-			}
+			return fromNode.Neighbors.Remove(toNode);
 		}
 
 		public bool RemoveNode(Node<T> node) {

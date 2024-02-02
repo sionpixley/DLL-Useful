@@ -9,19 +9,19 @@ using Tests.Classes;
 namespace Tests {
 	[TestClass]
 	public class Files {
-		private readonly string[][] _ExpectedNoType = {
-			new string[] { "1", "Landon", "Jameson", "Smith", "false", "null" },
-			new string[] { "2", "Avery", "Eliza,beth", "Davis", "true", "2000-05-14T17:00:00.000" },
-			new string[] { "3", "Ethan", "", "John\"son", "false", "" },
-			new string[] { "4", "Mia", "Grace", "Rodriguez", "false", "null" },
-			new string[] { "5", "Oliver", "William", "Brown", "true", "2002-05-23T16:00:00.000" },
-			new string[] { "6", "Aria", "Rose", "Hernandez", "false", "null" },
-			new string[] { "7", "Caleb", "Alexander", "Lee", "true", "2003-05-16T13:30:00.000" },
-			new string[] { "8", "Lila", "Madison", "Turner", "false", "null" }
-		};
+		private readonly string[][] _ExpectedNoType = [
+			["1", "Landon", "Jameson", "Smith", "false", "null"],
+			["2", "Avery", "Eliza,beth", "Davis", "true", "2000-05-14T17:00:00.000"],
+			["3", "Ethan", "", "John\"son", "false", ""],
+			["4", "Mia", "Grace", "Rodriguez", "false", "null"],
+			["5", "Oliver", "William", "Brown", "true", "2002-05-23T16:00:00.000"],
+			["6", "Aria", "Rose", "Hernandez", "false", "null"],
+			["7", "Caleb", "Alexander", "Lee", "true", "2003-05-16T13:30:00.000"],
+			["8", "Lila", "Madison", "Turner", "false", "null"]
+		];
 
-		private readonly Student[] _ExpectedType = {
-			new Student() {
+		private readonly Student[] _ExpectedType = [
+			new() {
 				Id = 1,
 				FirstName = "Landon",
 				MiddleName = "Jameson",
@@ -29,7 +29,7 @@ namespace Tests {
 				HasGraduated = false,
 				GraduationDate = null
 			},
-			new Student() {
+			new() {
 				Id = 2,
 				FirstName = "Avery",
 				MiddleName = "Eliza,beth",
@@ -37,7 +37,7 @@ namespace Tests {
 				HasGraduated = true,
 				GraduationDate = Convert.ToDateTime("2000-05-14T17:00:00.000")
 			},
-			new Student() {
+			new() {
 				Id = 3,
 				FirstName = "Ethan",
 				MiddleName = null,
@@ -45,7 +45,7 @@ namespace Tests {
 				HasGraduated = false,
 				GraduationDate = null
 			},
-			new Student() {
+			new() {
 				 Id = 4,
 				 FirstName = "Mia",
 				 MiddleName = "Grace",
@@ -53,7 +53,7 @@ namespace Tests {
 				 HasGraduated = false,
 				GraduationDate = null
 			},
-			new Student() {
+			new() {
 				Id = 5,
 				FirstName = "Oliver",
 				MiddleName = "William",
@@ -61,7 +61,7 @@ namespace Tests {
 				HasGraduated = true,
 				GraduationDate = Convert.ToDateTime("2002-05-23T16:00:00.000")
 			},
-			new Student() {
+			new() {
 				Id = 6,
 				FirstName = "Aria",
 				MiddleName = "Rose",
@@ -69,7 +69,7 @@ namespace Tests {
 				HasGraduated = false,
 				GraduationDate = null
 			},
-			new Student() {
+			new() {
 				Id = 7,
 				FirstName = "Caleb",
 				MiddleName = "Alexander",
@@ -77,7 +77,7 @@ namespace Tests {
 				HasGraduated = true,
 				GraduationDate = Convert.ToDateTime("2003-05-16T13:30:00.000")
 			},
-			new Student() {
+			new() {
 				Id = 8,
 				FirstName = "Lila",
 				MiddleName = "Madison",
@@ -85,7 +85,7 @@ namespace Tests {
 				HasGraduated = false,
 				GraduationDate = null
 			}
-		};
+		];
 
 		[TestMethod]
 		public void Csv_Read_NoType() {

@@ -1,22 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Sion.Useful.Graphs</AssemblyName>
     <RootNamespace>Sion.Useful.Graphs</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>2.0.0</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <Description>NuGet package of useful graph classes and methods.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>sion;useful;graphs;graph</PackageTags>
+    <PackageTags>sion;useful;graphs;graph;depth-first-search;breadth-first-search</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>Update to .NET 8.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
