@@ -5,13 +5,26 @@ using System.Linq;
 using System.Text;
 
 namespace Sion.Useful.Graphs {
+	/// <inheritdoc />
+	/// <summary>
+	/// Simple directed graph implementation.
+	/// </summary>
+	[Serializable]
 	public class DirectedGraph<T> : IGraph<T> where T : IEquatable<T>, IComparable<T> {
 		public List<Node<T>> NodeSet { get; set; }
 
+		/// <summary>
+		/// Creates a new, empty graph.
+		/// </summary>
 		public DirectedGraph() {
 			NodeSet = new();
 		}
 
+		/// <summary>
+		/// Adds a directed edge from one node to another node.
+		/// </summary>
+		/// <param name="fromNode">The node that the edge starts from.</param>
+		/// <param name="toNode">The node that the edge goes to.</param>
 		public bool AddEdge(Node<T> fromNode, Node<T> toNode) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;
@@ -135,6 +148,11 @@ namespace Sion.Useful.Graphs {
 			return dfs;
 		}
 
+		/// <summary>
+		/// Removes a directed edge from one node to another node.
+		/// </summary>
+		/// <param name="fromNode">The node that the edge starts from.</param>
+		/// <param name="toNode">The node that the edge goes to.</param>
 		public bool RemoveEdge(Node<T> fromNode, Node<T> toNode) {
 			if(!NodeSet.Contains(fromNode) || !NodeSet.Contains(toNode)) {
 				return false;

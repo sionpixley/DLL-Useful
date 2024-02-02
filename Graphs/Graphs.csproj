@@ -14,7 +14,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>sion;useful;graphs;graph</PackageTags>
+    <PackageTags>sion;useful;graphs;graph;depth-first-search;breadth-first-search</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
