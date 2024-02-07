@@ -61,7 +61,7 @@ long randomLong = Random.Long(445, 732); // Value will be between 445 and 732 (e
 short randomShort = Random.Short(2, 100); // Value will be between 2 and 100 (exclusive)
 ```
 
-# Supported versions
+## Supported versions
 
 | Version | Supported          |
 | ------- | ------------------ |

@@ -19,7 +19,7 @@ WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 ```
 
-# Supported versions
+## Supported versions
 
 | Version | Supported          |
 | ------- | ------------------ |

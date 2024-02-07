@@ -74,7 +74,7 @@ base64 = "Ym9uam91cg==";
 utf8 = StringMethods.Base64ToUtf8(base64); // bonjour
 ```
 
-# Supported versions
+## Supported versions
 
 | Version | Supported          |
 | ------- | ------------------ |

@@ -143,7 +143,7 @@ string[][] data = SomeDataSource();
 Csv.Write(data, "students2.csv");
 ```
 
-# Supported versions
+## Supported versions
 
 | Version | Supported          |
 | ------- | ------------------ |

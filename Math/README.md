@@ -46,7 +46,7 @@ decimal d2 = 85.1235m;
 d2 = NumberManipulation.Truncate(d2, 3); // 85.123m
 ```
 
-# Supported versions
+## Supported versions
 
 | Version | Supported          |
 | ------- | ------------------ |
