@@ -47,7 +47,12 @@ namespace Sion.Useful.Security {
 				throw new ArgumentException("The min argument must be less than the max argument.", nameof(min));
 			}
 
-			return Double() % max + min;
+			double n = (Double() + min) % max;
+			while(n < min) {
+				n = (Double() + min) % max;
+			}
+
+			return n;
 		}
 
 		/// <summary>
@@ -71,7 +76,12 @@ namespace Sion.Useful.Security {
 				throw new ArgumentException("The min argument must be less than the max argument.", nameof(min));
 			}
 
-			return Float() % max + min;
+			float n = (Float() + min) % max;
+			while(n < min) {
+				n = (Float() + min) % max;
+			}
+
+			return n;
 		}
 
 		/// <summary>
@@ -110,7 +120,12 @@ namespace Sion.Useful.Security {
 				throw new ArgumentException("The min argument must be less than the max argument.", nameof(min));
 			}
 
-			return Convert.ToInt16(Int16() % max + min);
+			short n = Convert.ToInt16((Int16() + min) % max);
+			while(n < min) {
+				n = Convert.ToInt16((Int16() + min) % max);
+			}
+
+			return n;
 		}
 
 		/// <summary>
@@ -134,7 +149,12 @@ namespace Sion.Useful.Security {
 				throw new ArgumentException("The min argument must be less than the max argument.", nameof(min));
 			}
 
-			return Int32() % max + min;
+			int n = (Int32() + min) % max;
+			while(n < min) {
+				n = (Int32() + min) % max;
+			}
+
+			return n;
 		}
 
 		/// <summary>
@@ -158,7 +178,12 @@ namespace Sion.Useful.Security {
 				throw new ArgumentException("The min argument must be less than the max argument.", nameof(min));
 			}
 
-			return Int64() % max + min;
+			long n = (Int64() + min) % max;
+			while(n < min) {
+				n = (Int64() + min) % max;
+			}
+
+			return n;
 		}
 
 		/// <summary>

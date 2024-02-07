@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
 using Benchmarks;
 
-var summary = BenchmarkRunner.Run<Files>();
+_ = BenchmarkRunner.Run<Files>();
+_ = BenchmarkRunner.Run<Security>();
