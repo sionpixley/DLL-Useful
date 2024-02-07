@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Files\Files.csproj" />
+    <ProjectReference Include="..\Security\Security.csproj" />
   </ItemGroup>
 
   <ItemGroup>
