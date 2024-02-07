@@ -18,3 +18,10 @@ Node<T>
 WeightedDirectedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 WeightedGraph<TValue, TWeight> : IWeightedGraph<TValue, TWeight>
 ```
+
+# Supported versions
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 2.x     | :white_check_mark: |
+| 1.x     | :x:                |

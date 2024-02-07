@@ -45,3 +45,10 @@ d1 = NumberManipulation.Truncate(d1, 1); // 8.2
 decimal d2 = 85.1235m;
 d2 = NumberManipulation.Truncate(d2, 3); // 85.123m
 ```
+
+# Supported versions
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 2.x     | :white_check_mark: |
+| 1.x     | :x:                |

@@ -73,3 +73,11 @@ string base64 = StringMethods.Utf8ToBase64(utf8); // aGVsbG8=
 base64 = "Ym9uam91cg==";
 utf8 = StringMethods.Base64ToUtf8(base64); // bonjour
 ```
+
+# Supported versions
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.x     | :white_check_mark: |
+| 2.x     | :x:                |
+| 1.x     | :x:                |

@@ -60,3 +60,10 @@ int randomInt = Random.Int(-63, 300); // Value will be between -63 and 300 (excl
 long randomLong = Random.Long(445, 732); // Value will be between 445 and 732 (exclusive)
 short randomShort = Random.Short(2, 100); // Value will be between 2 and 100 (exclusive)
 ```
+
+# Supported versions
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 2.x     | :white_check_mark: |
+| 1.x     | :x:                |

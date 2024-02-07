@@ -142,3 +142,10 @@ Csv.Write(data, "students2.csv", true);
 string[][] data = SomeDataSource();
 Csv.Write(data, "students2.csv");
 ```
+
+# Supported versions
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 2.x     | :white_check_mark: |
+| 1.x     | :x:                |
