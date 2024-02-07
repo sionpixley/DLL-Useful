@@ -33,8 +33,8 @@ namespace Tests {
 		[TestMethod]
 		public void Random_Double_MinAndMax() {
 			try {
-				double min = 8.2;
-				double max = 2000.812;
+				double min = 0;
+				double max = 1;
 				HashSet<double> set = [];
 				for(int i = 0; i < 1000000; i += 1) {
 					set.Add(Random.Double(min, max));

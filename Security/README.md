@@ -55,8 +55,8 @@ short randomShort = Random.Short(); // Note: You can also use Random.Int16
 
 ```
 double randomDouble = Random.Double(0, 1); // Value will be between 0 and 1 (exclusive)
-float randomFloat = Random.Float(0, 1); // Value will be between 0 and 1 (exclusive)
-int randomInt = Random.Int(0, 5); // Value will be between 0 and 5 (exclusive)
-long randomLong = Random.Long(0, 5); // Value will be between 0 and 5 (exclusive)
-short randomShort = Random.Short(0, 5); // Value will be between 0 and 5 (exclusive)
+float randomFloat = Random.Float(67.2, 73.08); // Value will be between 67.2 and 73.08 (exclusive)
+int randomInt = Random.Int(-63, 300); // Value will be between -63 and 5 (exclusive)
+long randomLong = Random.Long(445, 732); // Value will be between 445 and 300234 (exclusive)
+short randomShort = Random.Short(2, 100); // Value will be between 2 and 100 (exclusive)
 ```
