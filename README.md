@@ -1,6 +1,6 @@
 # Sion's Useful NuGet Packages
 
-This is a collection of NuGet packages for various applications. **Over 4.7k total downloads on NuGet!** <br>
+This is a collection of NuGet packages for various applications. **Over 4.8k total downloads on NuGet!** <br>
 The NuGet packages in this repo include:
 
 - Sion.Useful
