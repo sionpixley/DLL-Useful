@@ -1,23 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Sion.Useful.Files</AssemblyName>
     <RootNamespace>Sion.Useful.Files</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
     <Authors>Sion Pixley</Authors>
     <Company>PTC</Company>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/sionpixley/DLL-Useful/tree/main</RepositoryUrl>
+    <RepositoryUrl>https://github.com/sionpixley/DLL-Useful</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>sion;useful;csv;csv-parser;csv-reader;csv-writer</PackageTags>
     <Description>NuGet package that provides useful file methods. Specifically, CSV file reading and writing.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Update to .NET 8.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to .NET 10.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
