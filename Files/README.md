@@ -51,24 +51,24 @@ Things to note:
 ```
 // Every row in our CSV file is a Student object
 public class Student {
-	public long Id { get; set; }
-	public string FirstName { get; set; }
-	public string? MiddleName { get; set; }
-	public string LastName { get; set; }
-	public bool HasGraduated { get; set; }
-	
-	// This attribute is optional, it sets the format for the Csv.Write method for this DateTime property
-	[OutputFormat("yyyy-MM-ddTHH:mm:ss.fff")]
-	public DateTime? GraduationDate { get; set; }
-	
-	public Student() {
-		Id = 0;
-		FirstName = "";
-		MiddleName = null;
-		LastName = "";
-		HasGraduated = false;
-		GraduationDate = null;
-	}
+    public long Id { get; set; }
+    public string FirstName { get; set; }
+    public string? MiddleName { get; set; }
+    public string LastName { get; set; }
+    public bool HasGraduated { get; set; }
+    
+    // This attribute is optional, it sets the format for the Csv.Write method for this DateTime property
+    [OutputFormat("yyyy-MM-ddTHH:mm:ss.fff")]
+    public DateTime? GraduationDate { get; set; }
+    
+    public Student() {
+        Id = 0;
+        FirstName = "";
+        MiddleName = null;
+        LastName = "";
+        HasGraduated = false;
+        GraduationDate = null;
+    }
 }
 ```
 
@@ -99,17 +99,17 @@ This Func has one parameter, a string array representing a row in the CSV file. 
 ```
 // Reading the CSV with your custom mapping
 IEnumerable<Student> students = Csv.Read(
-	"students.csv",
-	(string[] row) => {
-		return new Student() {
-			Id = Convert.ToInt64(row[0]),
-			FirstName = row[1],
-			MiddleName = row[2] == "null" || String.IsNullOrWhiteSpace(row[2]) ? null : row[2],
-			LastName = row[3],
-			IsGraduateStudent = Convert.ToBoolean(row[4])
-		};
-	},
-	hasHeader = true
+    "students.csv",
+    (string[] row) => {
+        return new Student() {
+            Id = Convert.ToInt64(row[0]),
+            FirstName = row[1],
+            MiddleName = row[2] == "null" || String.IsNullOrWhiteSpace(row[2]) ? null : row[2],
+            LastName = row[3],
+            IsGraduateStudent = Convert.ToBoolean(row[4])
+        };
+    },
+    hasHeader = true
 );
 ```
 
