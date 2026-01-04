@@ -65,5 +65,6 @@ short randomShort = Random.Short(2, 100); // Value will be between 2 and 100 (ex
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 2.x     | :white_check_mark: |
+| 3.x     | :white_check_mark: |
+| 2.x     | :x:                |
 | 1.x     | :x:                |
